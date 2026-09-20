@@ -1,4 +1,4 @@
-/* Copyright 2023 Cipulot
+/* Copyright 2025 Cipulot
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,5 @@
 #define DEFAULT_CALIBRATION_STARTER true
 
 #define DISCHARGE_TIME 10
-
-// #define DEBUG_MATRIX_SCAN_RATE
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define EECONFIG_KB_DATA_SIZE 201
+#define EECONFIG_KB_DATA_SIZE 221

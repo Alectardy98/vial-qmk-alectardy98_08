@@ -1,8 +1,6 @@
 
 #pragma once
                           
-#define MATRIX_ROWS       5
-#define MATRIX_COLS       31
 
 /*
  * PS/2 USART configuration for ATMega32U4

@@ -10,6 +10,7 @@
       "vid": "0x7281"
   },
   "bootloader": "caterina",
+  "matrix_size": {"cols": 16, "rows": 8},
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,

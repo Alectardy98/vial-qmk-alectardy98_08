@@ -1,6 +1,6 @@
 {
-    "manufacturer": "Cipulot",
-    "keyboard_name": "OK-1",
+    "manufacturer": "original konbini",
+    "keyboard_name": "ok-1",
     "maintainer": "Cipulot",
     "bootloader": "stm32-dfu",
     "build": {
@@ -71,7 +71,8 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "rainbow_moving_chevron"
+            "animation": "rainbow_moving_chevron",
+            "val": 230
         },
         "driver": "ws2812",
         "layout": [

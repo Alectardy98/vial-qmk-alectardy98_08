@@ -1,4 +1,4 @@
-/* Copyright 2023 Cipulot
+/* Copyright 2025 Cipulot
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,14 +43,13 @@ const uint8_t UNUSED_POSITIONS[][2] = UNUSED_POSITIONS_LIST;
 #endif
 
 #define AMUX_SEL_PINS_COUNT ARRAY_SIZE(amux_sel_pins)
-#define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT)
+#define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT))
 // Checks for the correctness of the configuration
 _Static_assert(ARRAY_SIZE(amux_en_pins) == AMUX_COUNT, "AMUX_EN_PINS doesn't have the minimum number of bits required to enable all the multiplexers available");
 // Check that number of select pins is enough to select all the channels
-_Static_assert(AMUX_SEL_PINS_COUNT == EXPECTED_AMUX_SEL_PINS_COUNT), "AMUX_SEL_PINS doesn't have the minimum number of bits required address all the channels");
+_Static_assert(AMUX_SEL_PINS_COUNT == EXPECTED_AMUX_SEL_PINS_COUNT, "AMUX_SEL_PINS doesn't have the minimum number of bits required address all the channels");
 // Check that number of elements in AMUX_COL_CHANNELS_SIZES is enough to specify the number of channels for all the multiplexers available
 _Static_assert(ARRAY_SIZE(amux_n_col_sizes) == AMUX_COUNT, "AMUX_COL_CHANNELS_SIZES doesn't have the minimum number of elements required to specify the number of channels for all the multiplexers available");
-// static ec_config_t config;
 static uint16_t sw_value[MATRIX_ROWS][MATRIX_COLS];
 
 static adc_mux adcMux;
@@ -259,9 +258,9 @@ bool ec_update_key(matrix_row_t *current_row, uint8_t row, uint8_t col, uint16_t
     if (sw_value < (ec_config.noise_floor[row][col] - NOISE_FLOOR_THRESHOLD)) {
         uprintf("Noise Floor Change: %d, %d, %d\n", row, col, sw_value);
         ec_config.noise_floor[row][col]                             = sw_value;
-        ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
-        ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
-        ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
     }
 
     // Normal board-wide APC
@@ -348,6 +347,6 @@ bool is_unused_position(uint8_t row, uint8_t col) {
 #endif
 
 // Rescale the value to a different range
-uint16_t rescale(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+uint16_t rescale(uint16_t x, uint16_t out_min, uint16_t out_max) {
+    return x * (out_max - out_min) / 1023 + out_min;
 }

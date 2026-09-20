@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Cipulot",
+    "keyboard_name": "Hybrid is0GR",
+    "maintainer": "Cipulot",
+    "bootloader": "stm32-dfu",
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "processor": "STM32F072",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6BDA",
+        "shared_endpoint": {
+            "keyboard": true
+        },
+        "vid": "0x6369"
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
+        }
+    }
+}

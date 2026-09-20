@@ -79,7 +79,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (IS_LAYER_ON(_WIN_FN)) {
                     tap_code(KC_PSCR);
                 } else if (IS_LAYER_ON(_MAC_FN)) {
-                    tap_code16(LSFT(LGUI(KC_3)));
+                    register_code(KC_LSFT);
+                    register_code(KC_LGUI);
+                    register_code(KC_3);
+                    unregister_code(KC_3);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LSFT);
                 }
             }
             return false;

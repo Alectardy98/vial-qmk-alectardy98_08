@@ -1,349 +1,348 @@
-/* matrix.c — custom 12×16 → 6×18 remapping driver
+#include "matrix.h"
+#include "ps2.h"
+#include "print.h"
+
+/*
+ * Stage 3 mapper: ordinary Set-2, E0-prefixed keys, composite green
+ * keys (F1, F3-F12, Caps), and the two unusual Shift keys.
  *
- * Copyright 2023 Purdea Andrei
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * Compact virtual matrix: 6 physical rows x 17 left-to-right positions.
+ * Only scan codes/signatures present on this keyboard are mapped.
  */
+static matrix_row_t matrix[MATRIX_ROWS];
 
-#include "quantum.h"
-#include <hardware/structs/pads_qspi.h>
+#define SPECIAL_BASE 0x200
+#define SP_F1        (SPECIAL_BASE | 1)
+#define SP_F3        (SPECIAL_BASE | 3)
+#define SP_F4        (SPECIAL_BASE | 4)
+#define SP_F5        (SPECIAL_BASE | 5)
+#define SP_F6        (SPECIAL_BASE | 6)
+#define SP_F7        (SPECIAL_BASE | 7)
+#define SP_F8        (SPECIAL_BASE | 8)
+#define SP_F9        (SPECIAL_BASE | 9)
+#define SP_F10       (SPECIAL_BASE | 10)
+#define SP_F11       (SPECIAL_BASE | 11)
+#define SP_F12       (SPECIAL_BASE | 12)
+#define SP_CAPS      (SPECIAL_BASE | 20)
+#define SP_LSHIFT    (SPECIAL_BASE | 21)
+#define SP_RSHIFT    (SPECIAL_BASE | 22)
+#define SP_PGM       (SPECIAL_BASE | 23)
+#define SP_RCD       (SPECIAL_BASE | 24)
+#define SP_FLD       (SPECIAL_BASE | 25)
+#define SP_KANA      (SPECIAL_BASE | 26)
+#define SP_NUM       (SPECIAL_BASE | 27)
+#define SP_ALPHA     (SPECIAL_BASE | 28)
+#define SP_ALPHA2    (SPECIAL_BASE | 29)
 
-#define SHIFTREG_CLK           GP26
-#define SHIFTREG_SHLD          GP27
-#define SHIFTREG_DATA          GP24
-#define SHIFTREG_DELAY_CYCLES  8   /* ~64 ns @125 MHz */
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_init_user(void) {}
+__attribute__((weak)) void matrix_scan_user(void) {}
 
+matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+void matrix_print(void) {}
 
-
-#define PHYS_ROWS   12
-#define PHYS_COLS   16
-#define LOGIC_ROWS   6
-#define LOGIC_COLS  18
-
-//==============================================================================
-// 1) PHYS→LOGIC MAP STUB
-//==============================================================================
-// phys2log[phys_row][phys_col] = { logic_row, logic_col }
-// Fill each {0xFF,0xFF} below with your desired {lr,lc} in [0..5]×[0..17].
-// 1) PHYS→LOGIC MAP: fill every occupied [r][c] → next logical (lr,lc).
-#define UNMAPPED 0xFF, 0xFF
-
-static const uint8_t phys2log[PHYS_ROWS][PHYS_COLS][2] = {
-    // phys row 0
-    {
-        /* [0][ 0] */ { 1, 0 },
-        /* [0][ 1] */ { 0, 0 },
-        /* [0][ 2] */ { 1, 5 },
-        /* [0][ 3] */ { 4,12 },
-        /* [0][ 4] */ { 0, 2 },
-        /* [0][ 5] */ { 0, 3 },
-        /* [0][ 6] */ { 0, 4 },
-        /* [0][ 7] */ { 2,10 },
-        /* [0][ 8] */ { UNMAPPED },
-        /* [0][ 9] */ { UNMAPPED },
-        /* [0][10] */ { UNMAPPED },
-        /* [0][11] */ { UNMAPPED },
-        /* [0][12] */ { 5, 2 },
-        /* [0][13] */ { 3,13 },
-        /* [0][14] */ { UNMAPPED },
-        /* [0][15] */ { UNMAPPED },
-    },
-    // phys row 1
-    {
-        /* [1][ 0] */ { 3, 0 },
-        /* [1][ 1] */ { 4, 1 },
-        /* [1][ 2] */ { 2, 1 },
-        /* [1][ 3] */ { UNMAPPED },
-        /* [1][ 4] */ { UNMAPPED },
-        /* [1][ 5] */ { UNMAPPED },
-        /* [1][ 6] */ { UNMAPPED },
-        /* [1][ 7] */ { 1, 6 },
-        /* [1][ 8] */ { 0, 5 },
-        /* [1][ 9] */ { UNMAPPED },
-        /* [1][10] */ { UNMAPPED },
-        /* [1][11] */ { UNMAPPED },
-        /* [1][12] */ { UNMAPPED },
-        /* [1][13] */ { 3,12 },
-        /* [1][14] */ { 5, 7 },
-        /* [1][15] */ { 4,13 },
-    },
-    // phys row 2
-    {
-        /* [2][ 0] */ { 3, 2 },
-        /* [2][ 1] */ { 3, 3 },
-        /* [2][ 2] */ { 0, 1 },
-        /* [2][ 3] */ { 3, 4 },
-        /* [2][ 4] */ { 3, 5 },
-        /* [2][ 5] */ { 4, 2 },
-        /* [2][ 6] */ { 4, 4 },
-        /* [2][ 7] */ { UNMAPPED },
-        /* [2][ 8] */ { 4, 3 },
-        /* [2][ 9] */ { 4, 5 },
-        /* [2][10] */ { 4, 6 },
-        /* [2][11] */ { 3, 1 },
-        /* [2][12] */ { 2, 0 },
-        /* [2][13] */ { UNMAPPED },
-        /* [2][14] */ { UNMAPPED },
-        /* [2][15] */ { UNMAPPED },
-    },
-    // phys row 3
-    {
-        /* [3][ 0] */ { UNMAPPED },
-        /* [3][ 1] */ { UNMAPPED },
-        /* [3][ 2] */ { 1, 1 },
-        /* [3][ 3] */ { UNMAPPED },
-        /* [3][ 4] */ { UNMAPPED },
-        /* [3][ 5] */ { UNMAPPED },
-        /* [3][ 6] */ { UNMAPPED },
-        /* [3][ 7] */ { 2, 6 },
-        /* [3][ 8] */ { 0, 6 },
-        /* [3][ 9] */ { UNMAPPED },
-        /* [3][10] */ { UNMAPPED },
-        /* [3][11] */ { 5, 1 },
-        /* [3][12] */ { UNMAPPED },
-        /* [3][13] */ { UNMAPPED },
-        /* [3][14] */ { UNMAPPED },
-        /* [3][15] */ { UNMAPPED },
-    },
-    // phys row 4
-    {
-        /* [4][ 0] */ { UNMAPPED },
-        /* [4][ 1] */ { UNMAPPED },
-        /* [4][ 2] */ { 1, 4 },
-        /* [4][ 3] */ { UNMAPPED },
-        /* [4][ 4] */ { UNMAPPED },
-        /* [4][ 5] */ { UNMAPPED },
-        /* [4][ 6] */ { UNMAPPED },
-        /* [4][ 7] */ { 2, 9 },
-        /* [4][ 8] */ { 0, 7 },
-        /* [4][ 9] */ { UNMAPPED },
-        /* [4][10] */ { UNMAPPED },
-        /* [4][11] */ { UNMAPPED },
-        /* [4][12] */ { UNMAPPED },
-        /* [4][13] */ { UNMAPPED },
-        /* [4][14] */ { 5, 0 },
-        /* [4][15] */ { 4, 0 },
-    },
-    // phys row 5
-    {
-        /* [5][ 0] */ { UNMAPPED },
-        /* [5][ 1] */ { UNMAPPED },
-        /* [5][ 2] */ { 2, 2 },
-        /* [5][ 3] */ { UNMAPPED },
-        /* [5][ 4] */ { UNMAPPED },
-        /* [5][ 5] */ { UNMAPPED },
-        /* [5][ 6] */ { UNMAPPED },
-        /* [5][ 7] */ { 1, 7 },
-        /* [5][ 8] */ { 0, 8 },
-        /* [5][ 9] */ { 2, 11 },
-        /* [5][10] */ { 5, 5 },
-        /* [5][11] */ { UNMAPPED },
-        /* [5][12] */ { UNMAPPED },
-        /* [5][13] */ { UNMAPPED },
-        /* [5][14] */ { UNMAPPED },
-        /* [5][15] */ { UNMAPPED },
-    },
-    // phys row 6
-    {
-        /* [6][ 0] */ { UNMAPPED },
-        /* [6][ 1] */ { UNMAPPED },
-        /* [6][ 2] */ { 1, 2 },
-        /* [6][ 3] */ { UNMAPPED },
-        /* [6][ 4] */ { UNMAPPED },
-        /* [6][ 5] */ { UNMAPPED },
-        /* [6][ 6] */ { UNMAPPED },
-        /* [6][ 7] */ { 2, 7 },
-        /* [6][ 8] */ { 0, 9 },
-        /* [6][ 9] */ { 1,12 },
-        /* [6][10] */ { 0,10 },
-        /* [6][11] */ { 0,11 },
-        /* [6][12] */ { 1,11 },
-        /* [6][13] */ { 0,13 },
-        /* [6][14] */ { UNMAPPED },
-        /* [6][15] */ { UNMAPPED },
-    },
-    // phys row 7
-    {
-        /* [7][ 0] */ { UNMAPPED },
-        /* [7][ 1] */ { UNMAPPED },
-        /* [7][ 2] */ { 1, 3 },
-        /* [7][ 3] */ { UNMAPPED },
-        /* [7][ 4] */ { UNMAPPED },
-        /* [7][ 5] */ { UNMAPPED },
-        /* [7][ 6] */ { UNMAPPED },
-        /* [7][ 7] */ { 2, 8 },
-        /* [7][ 8] */ { UNMAPPED },
-        /* [7][ 9] */ { UNMAPPED },
-        /* [7][10] */ { UNMAPPED },
-        /* [7][11] */ { 0,12 },
-        /* [7][12] */ { 1,13 },
-        /* [7][13] */ { 0,14 },
-        /* [7][14] */ { UNMAPPED },
-        /* [7][15] */ { UNMAPPED },
-    },
-    // phys row 8
-    {
-        /* [8][ 0] */ { UNMAPPED },
-        /* [8][ 1] */ { UNMAPPED },
-        /* [8][ 2] */ { 2, 5 },
-        /* [8][ 3] */ { UNMAPPED },
-        /* [8][ 4] */ { UNMAPPED },
-        /* [8][ 5] */ { UNMAPPED },
-        /* [8][ 6] */ { UNMAPPED },
-        /* [8][ 7] */ { 1,10 },
-        /* [8][ 8] */ { UNMAPPED },
-        /* [8][ 9] */ { 1, 14 },
-        /* [8][10] */ { 4,14 },
-        /* [8][11] */ { 2,15 },
-        /* [8][12] */ { 1, 15 },
-        /* [8][13] */ { UNMAPPED },
-        /* [8][14] */ { UNMAPPED },
-        /* [8][15] */ { UNMAPPED },
-    },
-    // phys row 9
-    {
-        /* [9][ 0] */ { UNMAPPED },
-        /* [9][ 1] */ { UNMAPPED },
-        /* [9][ 2] */ { 2, 4 },
-        /* [9][ 3] */ { 5, 4 },
-        /* [9][ 4] */ { 5, 8 },
-        /* [9][ 5] */ { UNMAPPED },
-        /* [9][ 6] */ { UNMAPPED },
-        /* [9][ 7] */ { 1, 9 },
-        /* [9][ 8] */ { UNMAPPED },
-        /* [9][ 9] */ { 2,13 },
-        /* [9][10] */ { UNMAPPED },
-        /* [9][11] */ { UNMAPPED },
-        /* [9][12] */ { UNMAPPED },
-        /* [9][13] */ { 1,16 },
-        /* [9][14] */ { UNMAPPED },
-        /* [9][15] */ { UNMAPPED },
-    },
-    // phys row 10
-    {
-        /* [10][ 0] */ { 5, 3 },
-        /* [10][ 1] */ { UNMAPPED },
-        /* [10][ 2] */ { 2, 3 },
-        /* [10][ 3] */ { UNMAPPED },
-        /* [10][ 4] */ { 5, 6 },
-        /* [10][ 5] */ { UNMAPPED },
-        /* [10][ 6] */ { UNMAPPED },
-        /* [10][ 7] */ { 1, 8 },
-        /* [10][ 8] */ { UNMAPPED },
-        /* [10][ 9] */ { 2,12 },
-        /* [10][10] */ { 5,10 },
-        /* [10][11] */ { 5, 9 },
-        /* [10][12] */ { 1, 17 },
-        /* [10][13] */ { 2,16 },
-        /* [10][14] */ { UNMAPPED },
-        /* [10][15] */ { UNMAPPED },
-    },
-    // phys row 11
-    {
-        /* [11][ 0] */ { 4, 8 },
-        /* [11][ 1] */ { 4, 9 },
-        /* [11][ 2] */ { UNMAPPED },
-        /* [11][ 3] */ { 4,10 },
-        /* [11][ 4] */ { 4,11 },
-        /* [11][ 5] */ { 3, 6 },
-        /* [11][ 6] */ { 3, 8 },
-        /* [11][ 7] */ { UNMAPPED },
-        /* [11][ 8] */ { 3, 7 },
-        /* [11][ 9] */ { 3, 9 },
-        /* [11][10] */ { 3,10 },
-        /* [11][11] */ { 4, 7 },
-        /* [11][12] */ { 3,11 },
-        /* [11][13] */ { 2,14 },
-        /* [11][14] */ { UNMAPPED },
-        /* [11][15] */ { 0,15 },
-    },
-};
-
-
-//==============================================================================
-// 2) DRIVER STATE
-//==============================================================================
-static matrix_row_t raw_phys[PHYS_ROWS];
-static matrix_row_t logical_matrix[LOGIC_ROWS];
-static matrix_row_t previous_matrix[LOGIC_ROWS];
-
-//==============================================================================
-// 3) PIN HELPERS & INIT (unchanged)
-//==============================================================================
-
-static inline void setPinOutput_writeLow(pin_t pin) {
-    setPinOutput(pin);
-    writePinLow(pin);
+static bool set_matrix_pos(uint8_t row, uint8_t col, bool pressed) {
+    if (row >= MATRIX_ROWS || col >= MATRIX_COLS) return false;
+    matrix_row_t mask = ((matrix_row_t)1) << col;
+    bool old_state = (matrix[row] & mask) != 0;
+    if (pressed) matrix[row] |= mask;
+    else matrix[row] &= ~mask;
+    return old_state != pressed;
 }
 
-void matrix_init_custom(void) {
-    // your original init:
-    for (int i = 0; i <= 7; i++) {
-        setPinInputHigh(i);
-    }
-    for (int i = 8; i <= 19; i++) {
-        writePinLow(i);
-        setPinInputHigh(i);
-    }
+/* Translate only scan codes/signatures that physically exist on this keyboard.
+ * Matrix rows are the six physical keyboard rows; columns run left-to-right. */
+static bool set_virtual_key(uint16_t value, bool pressed) {
+    uint8_t row, col;
+    switch (value) {
+        /* physical row 0 */
+        case 0x14: row=0; col=0; break; /* Esc */
+        case SP_F1: row=0; col=3; break;
+        case 0x09: row=0; col=4; break; /* F2 */
+        case SP_F3: row=0; col=5; break;
+        case SP_F4: row=0; col=6; break;
+        case SP_F5: row=0; col=7; break;
+        case SP_F6: row=0; col=8; break;
+        case SP_F7: row=0; col=9; break;
+        case SP_F8: row=0; col=10; break;
+        case SP_F9: row=0; col=11; break;
+        case SP_F10: row=0; col=12; break;
+        case SP_F11: row=0; col=13; break;
+        case SP_F12: row=0; col=14; break;
 
-    setPinInput(SHIFTREG_DATA);
-    writePinLow(SHIFTREG_CLK);
-    setPinOutput(SHIFTREG_CLK);
-    writePinLow(SHIFTREG_SHLD);
-    setPinOutput(SHIFTREG_SHLD);
+        /* physical row 1 */
+        case 0x06: row=1; col=0; break;  case 0x05: row=1; col=1; break;
+        case 0x16: row=1; col=2; break;  case 0x1E: row=1; col=3; break;
+        case 0x26: row=1; col=4; break;  case 0x25: row=1; col=5; break;
+        case 0x2E: row=1; col=6; break;  case 0x36: row=1; col=7; break;
+        case 0x3D: row=1; col=8; break;  case 0x3E: row=1; col=9; break;
+        case 0x46: row=1; col=10; break; case 0x45: row=1; col=11; break;
+        case 0x4E: row=1; col=12; break; case 0x55: row=1; col=13; break;
+        case 0x01: row=1; col=14; break; case 0x07: row=1; col=15; break;
+        case 0x17D: row=1; col=16; break; /* F14 */
+
+        /* physical row 2 */
+        case SP_PGM: row=2; col=0; break; case SP_KANA: row=2; col=1; break;
+        case 0x15: row=2; col=2; break; case 0x1D: row=2; col=3; break;
+        case 0x24: row=2; col=4; break; case 0x2D: row=2; col=5; break;
+        case 0x2C: row=2; col=6; break; case 0x35: row=2; col=7; break;
+        case 0x3C: row=2; col=8; break; case 0x43: row=2; col=9; break;
+        case 0x44: row=2; col=10; break; case 0x4D: row=2; col=11; break;
+        case 0x54: row=2; col=12; break; case 0x5B: row=2; col=13; break;
+        case 0x16B: row=2; col=14; break; case 0x174: row=2; col=15; break;
+        case 0x0B: row=2; col=16; break;
+
+        /* physical row 3 */
+        case SP_RCD: row=3; col=0; break; case 0x170: row=3; col=1; break;
+        case SP_CAPS: row=3; col=2; break; case 0x1C: row=3; col=3; break;
+        case 0x1B: row=3; col=4; break; case 0x23: row=3; col=5; break;
+        case 0x2B: row=3; col=6; break; case 0x34: row=3; col=7; break;
+        case 0x33: row=3; col=8; break; case 0x3B: row=3; col=9; break;
+        case 0x42: row=3; col=10; break; case 0x4B: row=3; col=11; break;
+        case 0x4C: row=3; col=12; break; case 0x52: row=3; col=13; break;
+        case 0x5D: row=3; col=14; break; case 0x78: row=3; col=15; break;
+        case 0x83: row=3; col=16; break;
+
+        /* physical row 4 */
+        case SP_FLD: row=4; col=0; break; case SP_NUM: row=4; col=1; break;
+        case 0x1A: row=4; col=2; break; case 0x22: row=4; col=3; break;
+        case 0x21: row=4; col=4; break; case 0x2A: row=4; col=5; break;
+        case 0x32: row=4; col=6; break; case 0x31: row=4; col=7; break;
+        case 0x3A: row=4; col=8; break; case 0x41: row=4; col=9; break;
+        case 0x49: row=4; col=10; break; case 0x4A: row=4; col=11; break;
+        case 0x51: row=4; col=12; break; case SP_ALPHA: row=4; col=13; break;
+        case 0x0A: row=4; col=14; break;
+
+        /* physical row 5 */
+        case SP_ALPHA2: row=5; col=0; break; case SP_LSHIFT: row=5; col=1; break;
+        case 0x5A: row=5; col=2; break; case 0x29: row=5; col=3; break;
+        case 0x0D: row=5; col=4; break; case SP_RSHIFT: row=5; col=5; break;
+        case 0x169: row=5; col=6; break; case 0x17A: row=5; col=7; break;
+        default: return false;
+    }
+    return set_matrix_pos(row, col, pressed);
 }
 
-//==============================================================================
-// 4) SCAN + REMAP
-//==============================================================================
-
-bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    // 4a) Physical scan → raw_phys[]
-    for (int pr = 0; pr < PHYS_ROWS; pr++) {
-        setPinOutput_writeLow(8 + pr);
-        matrix_output_select_delay();
-
-        writePinHigh(SHIFTREG_SHLD);
-        uint8_t high_byte = palReadPort(PAL_PORT(GP0)) & 0xFF;
-        setPinInputHigh(8 + pr);
-
-        uint8_t lo = 0;
-        for (int bit = 7; bit >= 0; bit--) {
-            lo |= (!!readPin(SHIFTREG_DATA)) << bit;
-            writePinHigh(SHIFTREG_CLK);
-            wait_cpuclock(SHIFTREG_DELAY_CYCLES);
-            writePinLow(SHIFTREG_CLK);
-            wait_cpuclock(SHIFTREG_DELAY_CYCLES);
-        }
-        writePinLow(SHIFTREG_SHLD);
-
-        raw_phys[pr] = ~(bitrev(lo) | (bitrev(high_byte) << 8));
-        matrix_output_unselect_delay(pr, raw_phys[pr] != 0);
+static uint16_t green_key(uint8_t code) {
+    switch (code) {
+        case 0x3A: return SP_F1;
+        case 0x33: return SP_F3;
+        case 0x42: return SP_F4;
+        case 0x1B: return SP_F5;
+        case 0x2C: return SP_F6;
+        case 0x22: return SP_F7;
+        case 0x4B: return SP_F8;
+        case 0x2D: return SP_F9;
+        case 0x1C: return SP_F10;
+        case 0x23: return SP_F11;
+        case 0x34: return SP_F12;
+        default:   return 0;
     }
+}
 
-    // 4b) Remap raw_phys → logical_matrix
-    for (int lr = 0; lr < LOGIC_ROWS; lr++) {
-        logical_matrix[lr] = 0;
-    }
-    for (int pr = 0; pr < PHYS_ROWS; pr++) {
-        for (int pc = 0; pc < PHYS_COLS; pc++) {
-            if (raw_phys[pr] & (1 << pc)) {
-                uint8_t lr = phys2log[pr][pc][0];
-                uint8_t lc = phys2log[pr][pc][1];
-                if (lr < LOGIC_ROWS && lc < LOGIC_COLS) {
-                    logical_matrix[lr] |= (1 << lc);
-                }
-            }
-        }
-    }
+void matrix_init(void) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) matrix[i] = 0;
+    ps2_host_init();
+    matrix_init_kb();
+}
 
-    // 4c) Change‐detect & write out
+uint8_t matrix_scan(void) {
+    enum { NORMAL, AFTER_E0, AFTER_F0, AFTER_E0_F0, AFTER_76, AFTER_F0_76,
+           AFTER_F0_76_F0, AFTER_14, CAPS_HELD, CAPS_AFTER_F0 };
+    static uint8_t state = NORMAL;
     bool changed = false;
-    for (int lr = 0; lr < LOGIC_ROWS; lr++) {
-        if (previous_matrix[lr] != logical_matrix[lr]) {
-            changed = true;
-            previous_matrix[lr] = logical_matrix[lr];
+    uint8_t code;
+    /* Mystery keys emit a complete synthetic signature immediately before
+     * the real key while held.  Decode that signature as a temporary Shift.
+     * All six positions default to KC_LSFT in the mapper keymap. */
+    enum { M_NONE, M_SIMPLE_F0, M_SIMPLE_END, M_E0_FIRST, M_E0_SECOND,
+           M_E0_F0, M_E0_END, M_14_SECOND, M_14_F0_1, M_14_14,
+           M_14_F0_2, M_14_END };
+    static uint8_t mstate = M_NONE;
+    static uint8_t mystery_code = 0;
+    static bool mystery_active = false;
+
+    while ((code = ps2_host_recv()) != 0) {
+        xprintf("%02X ", code);
+
+        /* Recognize the six keyboard-internal modifier signatures and consume
+         * them before the ordinary Set-2 parser can create phantom keys. */
+        if (mstate != M_NONE) {
+            if (mstate == M_SIMPLE_F0 && code == 0xF0) { mstate = M_SIMPLE_END; continue; }
+            if (mstate == M_SIMPLE_END && code == mystery_code) {
+                uint16_t sp = mystery_code == 0x04 ? SP_PGM : (mystery_code == 0x0C ? SP_RCD : SP_FLD);
+                changed |= set_virtual_key(sp, true); mystery_active = true; mstate = M_NONE; continue;
+            }
+            if (mstate == M_E0_FIRST && (code == 0x75 || code == 0x72)) {
+                mystery_code = code; mstate = M_E0_SECOND; continue;
+            }
+            if (mstate == M_E0_SECOND && code == 0xE0) { mstate = M_E0_F0; continue; }
+            if (mstate == M_E0_F0 && code == 0xF0) { mstate = M_E0_END; continue; }
+            if (mstate == M_E0_END && code == mystery_code) {
+                changed |= set_virtual_key(mystery_code == 0x75 ? SP_KANA : SP_ALPHA2, true);
+                mystery_active = true; mstate = M_NONE; continue;
+            }
+            if (mstate == M_14_SECOND && (code == 0x42 || code == 0x52)) {
+                mystery_code = code; mstate = M_14_F0_1; continue;
+            }
+            if (mstate == M_14_SECOND && code == 0x51) {
+                changed |= set_virtual_key(SP_CAPS, true);
+                mstate = M_NONE; state = CAPS_HELD; continue;
+            }
+            if (mstate == M_14_F0_1 && code == 0xF0) { mstate = M_14_14; continue; }
+            if (mstate == M_14_14 && code == 0x14) { mstate = M_14_F0_2; continue; }
+            if (mstate == M_14_F0_2 && code == 0xF0) { mstate = M_14_END; continue; }
+            if (mstate == M_14_END && code == mystery_code) {
+                changed |= set_virtual_key(mystery_code == 0x42 ? SP_NUM : SP_ALPHA, true);
+                mystery_active = true; mstate = M_NONE; continue;
+            }
+            /* Candidate did not complete. Preserve ordinary E0 keys. */
+            if (mstate == M_E0_FIRST) {
+                if (code == 0xF0) { state = AFTER_E0_F0; mstate = M_NONE; continue; }
+                changed |= set_virtual_key(0x100 | code, true);
+                mstate = M_NONE; continue;
+            }
+            mstate = M_NONE;
         }
-        current_matrix[lr] = logical_matrix[lr];
+
+        if (code == 0x04 || code == 0x0C || code == 0x03) {
+            mystery_code = code; mstate = M_SIMPLE_F0; continue;
+        }
+        if (code == 0xE0) {
+            mstate = M_E0_FIRST;
+            continue;
+        }
+        if (code == 0x14) {
+            mstate = M_14_SECOND;
+            continue;
+        }
+
+        switch (state) {
+            case NORMAL:
+                if (code == 0xE0) { state = AFTER_E0; break; }
+                if (code == 0xF0) { state = AFTER_F0; break; }
+                if (code == 0x76) { state = AFTER_76; break; }
+                if (code == 0x14) { state = AFTER_14; break; }
+                /* These Shift make bytes are only emitted when Shift was
+                 * already held before another key.  Convert them to dedicated
+                 * virtual Shift positions; their F0 releases are always sent. */
+                if (code == 0x12) { changed |= set_virtual_key(SP_LSHIFT, true); break; }
+                if (code == 0x59) { changed |= set_virtual_key(SP_RSHIFT, true); break; }
+                changed |= set_virtual_key(code, true);
+                break;
+
+            case AFTER_E0:
+                if (code == 0xF0) { state = AFTER_E0_F0; break; }
+                changed |= set_virtual_key(0x100 | code, true);
+                state = NORMAL;
+                break;
+
+            case AFTER_E0_F0:
+                changed |= set_virtual_key(0x100 | code, false);
+                if (mystery_active) {
+                    changed |= set_virtual_key(SP_PGM, false);
+                    changed |= set_virtual_key(SP_RCD, false);
+                    changed |= set_virtual_key(SP_FLD, false);
+                    changed |= set_virtual_key(SP_KANA, false);
+                    changed |= set_virtual_key(SP_NUM, false);
+                    changed |= set_virtual_key(SP_ALPHA, false);
+                    changed |= set_virtual_key(SP_ALPHA2, false);
+                    mystery_active = false;
+                }
+                state = NORMAL;
+                xprintf("\n");
+                break;
+
+            case AFTER_F0:
+                if (code == 0x76) { state = AFTER_F0_76; break; }
+                if (code == 0x12) changed |= set_virtual_key(SP_LSHIFT, false);
+                else if (code == 0x59) changed |= set_virtual_key(SP_RSHIFT, false);
+                else changed |= set_virtual_key(code, false);
+                if (mystery_active) {
+                    changed |= set_virtual_key(SP_PGM, false);
+                    changed |= set_virtual_key(SP_RCD, false);
+                    changed |= set_virtual_key(SP_FLD, false);
+                    changed |= set_virtual_key(SP_KANA, false);
+                    changed |= set_virtual_key(SP_NUM, false);
+                    changed |= set_virtual_key(SP_ALPHA, false);
+                    changed |= set_virtual_key(SP_ALPHA2, false);
+                    mystery_active = false;
+                }
+                state = NORMAL;
+                xprintf("\n");
+                break;
+
+            case AFTER_76: {
+                uint16_t special = green_key(code);
+                if (special) {
+                    changed |= set_virtual_key(special, true);
+                } else {
+                    /* Unexpected follower: preserve both ordinary bytes. */
+                    changed |= set_virtual_key(0x76, true);
+                    changed |= set_virtual_key(code, true);
+                }
+                state = NORMAL;
+                break;
+            }
+
+            case AFTER_F0_76:
+                if (code == 0xF0) {
+                    state = AFTER_F0_76_F0;
+                } else {
+                    changed |= set_virtual_key(0x76, false);
+                    changed |= set_virtual_key(code, true);
+                    state = NORMAL;
+                }
+                break;
+
+            case AFTER_F0_76_F0: {
+                uint16_t special = green_key(code);
+                if (special) changed |= set_virtual_key(special, false);
+                else {
+                    changed |= set_virtual_key(0x76, false);
+                    changed |= set_virtual_key(code, false);
+                }
+                state = NORMAL;
+                xprintf("\n");
+                break;
+            }
+
+            case AFTER_14:
+                if (code == 0x51) {
+                    changed |= set_virtual_key(SP_CAPS, true);
+                    state = CAPS_HELD;
+                } else if (code == 0xF0) {
+                    changed |= set_virtual_key(0x14, true);
+                    state = AFTER_F0;
+                } else {
+                    changed |= set_virtual_key(0x14, true);
+                    changed |= set_virtual_key(code, true);
+                    state = NORMAL;
+                }
+                break;
+
+            case CAPS_HELD:
+                /* Caps make finishes with F0 14; suppress that synthetic 14 break. */
+                if (code == 0xF0) state = CAPS_AFTER_F0;
+                break;
+
+            case CAPS_AFTER_F0:
+                if (code == 0x14) {
+                    state = CAPS_HELD;
+                    /* End of Caps make sequence. */
+                    xprintf("\n");
+                } else if (code == 0x51) {
+                    changed |= set_virtual_key(SP_CAPS, false);
+                    state = NORMAL;
+                    xprintf("\n");
+                } else {
+                    state = CAPS_HELD;
+                }
+                break;
+        }
     }
-    return changed;
+
+    matrix_scan_kb();
+    return changed ? 1 : 0;
 }

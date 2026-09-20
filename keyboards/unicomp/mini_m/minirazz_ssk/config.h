@@ -1,23 +1,35 @@
-/* SPDX-License-Identifier: GPL-2.0-or-later */
-
 #pragma once
 
-#define DEF_SERIAL_NUMBER "purdea.ro:minirazz"
+/*
+ * IBM Topre 029 PS/2 converter.
+ * Compact virtual matrix: 6 physical rows x 17 columns.
+ * Matrix dimensions live in keyboard.json.
+ */
 
-#ifndef SERIAL_NUMBER
-#define SERIAL_NUMBER DEF_SERIAL_NUMBER
+#ifdef PS2_DRIVER_USART
+#    error The UART is needed for the mouse; use PS2_DRIVER=interrupt.
 #endif
 
-#define SOLENOID_PIN GP25
-#define HAPTIC_ENABLE_PIN GP23
-#define SOLENOID_DEFAULT_DWELL 20
-#define SOLENOID_MIN_DWELL 4
-#define HAPTIC_OFF_IN_LOW_POWER 1
-#define NO_HAPTIC_MOD
+#ifdef PS2_DRIVER_INTERRUPT
+#    define PS2_CLOCK_PIN D1
+#    define PS2_DATA_PIN  D0
 
-#define WEAR_LEVELING_LOGICAL_SIZE 16384
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
+#    define PS2_INT_INIT() do { \
+        EICRA |= ((1 << ISC11) | (0 << ISC10)); \
+    } while (0)
+#    define PS2_INT_ON() do { EIMSK |= (1 << INT1); } while (0)
+#    define PS2_INT_OFF() do { EIMSK &= ~(1 << INT1); } while (0)
+#    define PS2_INT_VECT INT1_vect
+#endif
 
-// with eager debouncing the default is not good enough:
-#define DEBOUNCE 10
-#define DEGHOST_ADVANCED
+#ifdef PS2_DRIVER_BUSYWAIT
+#    define PS2_CLOCK_PIN D1
+#    define PS2_DATA_PIN  D0
+#endif
+
+/* Secondary IBM PS/2 channel - local mapper implementation (receive-only).
+ * Red = DATA2 -> PD2 / D2
+ * Blue = CLOCK2 -> PD3 / D3 (INT3)
+ */
+#define PS2_SECONDARY_DATA_PIN D2
+#define PS2_SECONDARY_CLOCK_PIN D3

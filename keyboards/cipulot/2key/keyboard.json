@@ -1,0 +1,44 @@
+{
+    "manufacturer": "Cipulot",
+    "keyboard_name": "2key",
+    "maintainer": "Cipulot",
+    "build": {
+        "lto": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["C6"],
+            ["B5"]
+        ]
+    },
+    "development_board": "promicro",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6BC5",
+        "shared_endpoint": {
+            "keyboard": true
+        },
+        "vid": "0x6369"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

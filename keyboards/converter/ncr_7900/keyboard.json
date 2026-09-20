@@ -10,6 +10,7 @@
     "device_version": "1.0.0"
   },
   "bootloader": "caterina",
+  "matrix_size": {"cols": 11, "rows": 11},
   "diode_direction": "COL2ROW",
   "features": {
     "extrakey": true,

@@ -3,6 +3,7 @@
   "keyboard_name": "M50",
   "maintainer": "MMcM",
   "bootloader": "caterina",
+  "matrix_size": {"cols": 31, "rows": 5},
   "features": {
     "bootmagic": false,
     "command": true,

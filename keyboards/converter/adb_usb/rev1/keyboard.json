@@ -1,4 +1,5 @@
 {
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "matrix_size": {"cols": 8, "rows": 16}
 }

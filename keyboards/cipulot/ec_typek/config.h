@@ -1,4 +1,4 @@
-/* Copyright 2023 Cipulot
+/* Copyright 2025 Cipulot
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,9 +61,7 @@
 
 #define DISCHARGE_TIME 10
 
-// #define DEBUG_MATRIX_SCAN_RATE
-
-#define EECONFIG_KB_DATA_SIZE 171
+#define EECONFIG_KB_DATA_SIZE 191
 
 // RGB & Indicators
 // PWM driver with direct memory access (DMA) support
@@ -73,7 +71,6 @@
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
-#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM1_UP
 
 #define RGBLIGHT_DEFAULT_VAL 200
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 5)

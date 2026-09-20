@@ -5,9 +5,9 @@ LTO_ENABLE = yes  #make the file smaller
 
 DYNAMIC_MACRO_ENABLE = no
 COMBO_ENABLE = yes
-TAP_DANCE_ENABLE = no
+TAP_DANCE_ENABLE = yes
 KEY_OVERRIDE_ENABLE = no
-QMK_SETTINGS = no
+QMK_SETTINGS = yes
 UNICODE_ENABLE = no
 BOOTMAGIC_ENABLE = no      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys

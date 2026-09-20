@@ -194,7 +194,7 @@ int16_t ibmpc_host_recv(void)
 #if defined(__AVR__)
     }
 #endif
-    if (ret != -1) dprintf("r%02X ", ret&0xFF);
+    if (ret != -1) xprintf("PS2:%02X ", ret & 0xFF);
     return ret;
 }
 

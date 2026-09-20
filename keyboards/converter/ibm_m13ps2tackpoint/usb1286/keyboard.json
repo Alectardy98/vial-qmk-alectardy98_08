@@ -10,6 +10,7 @@
       "vid": "0xFEED"
   },
   "bootloader": "halfkay",
+  "matrix_size": {"cols": 16, "rows": 8},
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
