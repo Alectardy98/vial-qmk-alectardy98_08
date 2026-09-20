@@ -3,6 +3,7 @@
     "keyboard_name": "Virgo EC",
     "maintainer": "Cipulot",
     "bootloader": "stm32-dfu",
+    "matrix_size": {"cols": 18, "rows": 6},
     "build": {
         "lto": true
     },
