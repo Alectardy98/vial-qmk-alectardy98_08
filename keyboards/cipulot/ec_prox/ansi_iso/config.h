@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 #define UNUSED_POSITIONS_LIST { {1, 14}, {2, 14}, {3, 12}, {4, 0}, {4, 3}, {4, 4}, {4, 5}, {4, 7}, {4, 8}, {4, 11}, {4, 12}, {4, 13}, {4, 14} }
 

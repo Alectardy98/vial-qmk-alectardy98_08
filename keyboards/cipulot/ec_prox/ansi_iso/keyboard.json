@@ -3,6 +3,7 @@
     "keyboard_name": "EC Pro X ANSI/ISO",
     "maintainer": "Cipulot",
     "bootloader": "stm32-dfu",
+    "matrix_size": {"cols": 15, "rows": 5},
     "build": {
         "lto": true
     },
