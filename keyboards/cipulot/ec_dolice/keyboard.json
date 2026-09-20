@@ -17,7 +17,8 @@
     "indicators": {
         "caps_lock": "B4",
         "num_lock": "A15",
-        "scroll_lock": "B3"
+        "scroll_lock": "B3",
+        "on_state": 0
     },
     "processor": "STM32F411",
     "qmk": {

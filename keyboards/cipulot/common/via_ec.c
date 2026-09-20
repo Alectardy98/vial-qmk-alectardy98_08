@@ -1,4 +1,4 @@
-/* Copyright 2025 Cipulot
+/* Copyright 2023 Cipulot
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,27 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "ec_switch_matrix.h"
-//#include "socd_cleaner.h"
-#include "modules/getreuer/socd_cleaner/socd_cleaner.h"
 #include "action.h"
 #include "print.h"
 #include "via.h"
 
 #ifdef SPLIT_KEYBOARD
 #    include "transactions.h"
-#    include "usb_descriptor.h"
 #endif
 
 #ifdef VIA_ENABLE
 
-void     ec_rescale_values(uint8_t item);
-void     ec_save_threshold_data(uint8_t option);
-void     ec_save_bottoming_reading(void);
-void     ec_show_calibration_data(void);
-void     ec_clear_bottoming_calibration_data(void);
-uint16_t socd_pair_handler(bool mode, uint8_t pair_idx, uint8_t field, uint16_t value);
+void ec_rescale_values(uint8_t item);
+void ec_save_threshold_data(uint8_t option);
+void ec_save_bottoming_reading(void);
+void ec_show_calibration_data(void);
+void ec_clear_bottoming_calibration_data(void);
 
 // Declaring enums for VIA config menu
 enum via_enums {
@@ -48,23 +43,7 @@ enum via_enums {
     id_bottoming_calibration = 8,
     id_noise_floor_calibration = 9,
     id_show_calibration_data = 10,
-    id_clear_bottoming_calibration_data = 11,
-    id_socd_pair_1_enabled = 12,
-    id_socd_pair_1_key_1 = 13,
-    id_socd_pair_1_key_2 = 14,
-    id_socd_pair_1_mode = 15,
-    id_socd_pair_2_enabled = 16,
-    id_socd_pair_2_key_1 = 17,
-    id_socd_pair_2_key_2 = 18,
-    id_socd_pair_2_mode = 19,
-    id_socd_pair_3_enabled = 20,
-    id_socd_pair_3_key_1 = 21,
-    id_socd_pair_3_key_2 = 22,
-    id_socd_pair_3_mode = 23,
-    id_socd_pair_4_enabled = 24,
-    id_socd_pair_4_key_1 = 25,
-    id_socd_pair_4_key_2 = 26,
-    id_socd_pair_4_mode = 27,
+    id_clear_bottoming_calibration_data = 11
     // clang-format on
 };
 
@@ -76,7 +55,7 @@ void via_config_set_value(uint8_t *data) {
 
 #    ifdef SPLIT_KEYBOARD
     if (is_keyboard_master()) {
-        transaction_rpc_send(RPC_ID_VIA_CMD, RAW_EPSIZE - 2, data);
+        transaction_rpc_send(RPC_ID_VIA_CMD, 30, data);
     }
 #    endif
 
@@ -93,8 +72,7 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("# Actuation Mode: Rapid Trigger #\n");
                 uprintf("#################################\n");
             }
-            // Update EEPROM with new actuation mode (new API)
-            eeconfig_update_kb_datablock(&eeprom_ec_config);
+            eeconfig_update_kb_datablock_field(eeprom_ec_config, actuation_mode);
             break;
         }
         case id_mode_0_actuation_threshold: {
@@ -118,7 +96,7 @@ void via_config_set_value(uint8_t *data) {
             break;
         }
         case id_mode_1_release_offset: {
-            ec_config.mode_1_release_offset = value_data[1] | (value_data[0] << 8);
+            ec_config.mode_1_release_offset = value_data[0];
             uprintf("Rapid Trigger Mode Release Offset: %d\n", ec_config.mode_1_release_offset);
             break;
         }
@@ -166,54 +144,6 @@ void via_config_set_value(uint8_t *data) {
             }
             break;
         }
-        case id_socd_pair_1_enabled:
-            socd_pair_handler(1, 0, 0, value_data[0]);
-            break;
-        case id_socd_pair_1_key_1:
-            socd_pair_handler(1, 0, 1, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_1_key_2:
-            socd_pair_handler(1, 0, 2, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_1_mode:
-            socd_pair_handler(1, 0, 3, value_data[0]);
-            break;
-        case id_socd_pair_2_enabled:
-            socd_pair_handler(1, 1, 0, value_data[0]);
-            break;
-        case id_socd_pair_2_key_1:
-            socd_pair_handler(1, 1, 1, value_data[0]);
-            break;
-        case id_socd_pair_2_key_2:
-            socd_pair_handler(1, 1, 2, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_2_mode:
-            socd_pair_handler(1, 1, 3, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_3_enabled:
-            socd_pair_handler(1, 2, 0, value_data[0]);
-            break;
-        case id_socd_pair_3_key_1:
-            socd_pair_handler(1, 2, 1, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_3_key_2:
-            socd_pair_handler(1, 2, 2, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_3_mode:
-            socd_pair_handler(1, 2, 3, value_data[0]);
-            break;
-        case id_socd_pair_4_enabled:
-            socd_pair_handler(1, 3, 0, value_data[0]);
-            break;
-        case id_socd_pair_4_key_1:
-            socd_pair_handler(1, 3, 1, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_4_key_2:
-            socd_pair_handler(1, 3, 2, value_data[1] | (value_data[0] << 8));
-            break;
-        case id_socd_pair_4_mode:
-            socd_pair_handler(1, 3, 3, value_data[0]);
-            break;
         default: {
             // Unhandled value.
             break;
@@ -226,7 +156,6 @@ void via_config_get_value(uint8_t *data) {
     // data = [ value_id, value_data ]
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
-    uint16_t socd_pair_result;
 
     switch (*value_id) {
         case id_actuation_mode: {
@@ -256,70 +185,6 @@ void via_config_get_value(uint8_t *data) {
             value_data[0] = eeprom_ec_config.mode_1_release_offset;
             break;
         }
-        case id_socd_pair_1_enabled:
-            value_data[0] = socd_pair_handler(0, 0, 0, 0);
-            break;
-        case id_socd_pair_1_key_1:
-            socd_pair_result = socd_pair_handler(0, 0, 1, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_1_key_2:
-            socd_pair_result = socd_pair_handler(0, 0, 2, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_1_mode:
-            value_data[0] = socd_pair_handler(0, 0, 3, 0);
-            break;
-        case id_socd_pair_2_enabled:
-            value_data[0] = socd_pair_handler(0, 1, 0, 0);
-            break;
-        case id_socd_pair_2_key_1:
-            socd_pair_result = socd_pair_handler(0, 1, 1, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_2_key_2:
-            socd_pair_result = socd_pair_handler(0, 1, 2, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_2_mode:
-            value_data[0] = socd_pair_handler(0, 1, 3, 0);
-            break;
-        case id_socd_pair_3_enabled:
-            value_data[0] = socd_pair_handler(0, 2, 0, 0);
-            break;
-        case id_socd_pair_3_key_1:
-            socd_pair_result = socd_pair_handler(0, 2, 1, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_3_key_2:
-            socd_pair_result = socd_pair_handler(0, 2, 2, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_3_mode:
-            value_data[0] = socd_pair_handler(0, 2, 3, 0);
-            break;
-        case id_socd_pair_4_enabled:
-            value_data[0] = socd_pair_handler(0, 3, 0, 0);
-            break;
-        case id_socd_pair_4_key_1:
-            socd_pair_result = socd_pair_handler(0, 3, 1, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_4_key_2:
-            socd_pair_result = socd_pair_handler(0, 3, 2, 0);
-            value_data[0]    = socd_pair_result >> 8;
-            value_data[1]    = socd_pair_result & 0xFF;
-            break;
-        case id_socd_pair_4_mode:
-            value_data[0] = socd_pair_handler(0, 3, 3, 0);
-            break;
         default: {
             // Unhandled value.
             break;
@@ -367,7 +232,7 @@ void ec_rescale_values(uint8_t item) {
         case 0:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                    ec_config.rescaled_mode_0_actuation_threshold[row][col] = rescale(ec_config.mode_0_actuation_threshold, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+                    ec_config.rescaled_mode_0_actuation_threshold[row][col] = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
                 }
             }
             break;
@@ -375,7 +240,7 @@ void ec_rescale_values(uint8_t item) {
         case 1:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                    ec_config.rescaled_mode_0_release_threshold[row][col] = rescale(ec_config.mode_0_release_threshold, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+                    ec_config.rescaled_mode_0_release_threshold[row][col] = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
                 }
             }
             break;
@@ -383,7 +248,7 @@ void ec_rescale_values(uint8_t item) {
         case 2:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                    ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+                    ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
                 }
             }
             break;
@@ -391,7 +256,7 @@ void ec_rescale_values(uint8_t item) {
         case 3:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                    ec_config.rescaled_mode_1_actuation_offset[row][col] = rescale(ec_config.mode_1_actuation_offset, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+                    ec_config.rescaled_mode_1_actuation_offset[row][col] = rescale(ec_config.mode_1_actuation_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
                 }
             }
             break;
@@ -399,7 +264,7 @@ void ec_rescale_values(uint8_t item) {
         case 4:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                    ec_config.rescaled_mode_1_release_offset[row][col] = rescale(ec_config.mode_1_release_offset, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+                    ec_config.rescaled_mode_1_release_offset[row][col] = rescale(ec_config.mode_1_release_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
                 }
             }
             break;
@@ -427,8 +292,7 @@ void ec_save_threshold_data(uint8_t option) {
         ec_rescale_values(3);
         ec_rescale_values(4);
     }
-    // New single-arg EEPROM update
-    eeconfig_update_kb_datablock(&eeprom_ec_config);
+    eeconfig_update_kb_datablock(&eeprom_ec_config, 0, EECONFIG_KB_DATA_SIZE);
     uprintf("####################################\n");
     uprintf("# New thresholds applied and saved #\n");
     uprintf("####################################\n");
@@ -456,8 +320,7 @@ void ec_save_bottoming_reading(void) {
     ec_rescale_values(2);
     ec_rescale_values(3);
     ec_rescale_values(4);
-    // New single-arg EEPROM update
-    eeconfig_update_kb_datablock(&eeprom_ec_config);
+    eeconfig_update_kb_datablock(&eeprom_ec_config, 0, EECONFIG_KB_DATA_SIZE);
 }
 
 // Show the calibration data
@@ -530,52 +393,9 @@ void ec_clear_bottoming_calibration_data(void) {
     uprintf("######################################\n");
 }
 
-// Handle the SOCD pairs configuration
-uint16_t socd_pair_handler(bool mode, uint8_t pair_idx, uint8_t field, uint16_t value) {
-    if (mode) { // set
-        switch (field) {
-            case 0: // enabled / resolution
-                eeprom_ec_config.socd_opposing_pairs[pair_idx].resolution = value;
-                socd_opposing_pairs[pair_idx].resolution                  = value;
-                eeconfig_update_kb_datablock(&eeprom_ec_config);
-                return 0;
-            case 1: // key 1
-                eeprom_ec_config.socd_opposing_pairs[pair_idx].keys[0] = value;
-                socd_opposing_pairs[pair_idx].keys[0]                  = value;
-                eeconfig_update_kb_datablock(&eeprom_ec_config);
-                return 0;
-            case 2: // key 2
-                eeprom_ec_config.socd_opposing_pairs[pair_idx].keys[1] = value;
-                socd_opposing_pairs[pair_idx].keys[1]                  = value;
-                eeconfig_update_kb_datablock(&eeprom_ec_config);
-                return 0;
-            case 3: // mode/resolution
-                eeprom_ec_config.socd_opposing_pairs[pair_idx].resolution = value;
-                socd_opposing_pairs[pair_idx].resolution                  = value;
-                eeconfig_update_kb_datablock(&eeprom_ec_config);
-                return 0;
-            default:
-                return 0;
-        }
-    } else { // get
-        switch (field) {
-            case 0:
-                return eeprom_ec_config.socd_opposing_pairs[pair_idx].resolution;
-            case 1:
-                return eeprom_ec_config.socd_opposing_pairs[pair_idx].keys[0];
-            case 2:
-                return eeprom_ec_config.socd_opposing_pairs[pair_idx].keys[1];
-            case 3:
-                return eeprom_ec_config.socd_opposing_pairs[pair_idx].resolution;
-            default:
-                return 0;
-        }
-    }
-}
-
 #    ifdef SPLIT_KEYBOARD
 void via_cmd_slave_handler(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
-    if (m2s_size == (RAW_EPSIZE - 2)) {
+    if (m2s_size == (RAW_EPSIZE-2)) {
         via_config_set_value((uint8_t *)m2s_buffer);
     } else {
         uprintf("Unexpected response in slave handler\n");
