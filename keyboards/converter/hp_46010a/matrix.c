@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include <LUFA/Drivers/Peripheral/SPI.h>
 
+#include "config.h"
+
+
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
 #endif
@@ -45,10 +48,20 @@ static uint8_t matrix [MATRIX_ROWS] = {0};
 #if ( DEBOUNCE > 0 )
 static uint8_t matrix_debounce_old [MATRIX_ROWS] = {0};
 static uint8_t matrix_debounce_new [MATRIX_ROWS] = {0};
-#endif 
+#endif
 
 __attribute__ ((weak))
-void matrix_init_kb(void) {    
+void matrix_init_quantum(void) {
+    matrix_init_kb();
+}
+
+__attribute__ ((weak))
+void matrix_scan_quantum(void) {
+    matrix_scan_kb();
+}
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
     matrix_init_user();
 }
 
@@ -71,36 +84,36 @@ void matrix_scan_user(void) {
 // would work normally
 //
 // the device functions, by using the clock signal to count 128 bits, the lower
-// 3 bits of this 7 bit counter are tied to a 1-of-8 multiplexer, this forms 
+// 3 bits of this 7 bit counter are tied to a 1-of-8 multiplexer, this forms
 // the columns.
-// the upper 4 bits form the rows, and are decoded using bcd to decimal 
-// decoders, so that 14 out of 16 of the outputs are wired to the rows of the 
+// the upper 4 bits form the rows, and are decoded using bcd to decimal
+// decoders, so that 14 out of 16 of the outputs are wired to the rows of the
 // matrix. each switch has a diode, such that the row signal feeds into the
-// switch, and then into the diode, then into one of the columns into the 
+// switch, and then into the diode, then into one of the columns into the
 // matrix. the reset pin can be used to reset the entire counter.
 
-#define HP_46010A_RESET_PIN B0
-#define HP_46010A_SCLK_PIN  B1
-#define HP_46010A_SDATA_PIN B3
-#define HP_46010A_LED_PIN   D6
+#define RESET _BV(PB6)
+#define SCLK  _BV(PB1)
+#define SDATA _BV(PB3)
+#define LED   _BV(PD6)
 
 inline
 static
 void SCLK_increment(void) {
-    gpio_write_pin_low(HP_46010A_SCLK_PIN);
+    PORTB &= ~SCLK ;
     _delay_us( 4 ) ; // make sure the line is stable
-    gpio_write_pin_high(HP_46010A_SCLK_PIN);
+    PORTB |= SCLK ;
     _delay_us( 4 ) ;
     
     return ;
-}    
+}
 
 inline
 static
 void Matrix_Reset(void) {
-    gpio_write_pin_high(HP_46010A_RESET_PIN);
+    PORTB |= RESET ;
     _delay_us( 4 ) ; // make sure the line is stable
-    gpio_write_pin_low(HP_46010A_RESET_PIN);
+    PORTB &= ~RESET ;
     
     return ;
 }
@@ -113,7 +126,7 @@ uint8_t Matrix_ReceiveByte (void) {
     for ( uint8_t bit = 0; bit < MATRIX_COLS; ++bit ) {
         // toggle the clock
         SCLK_increment();
-        temp      = gpio_read_pin(HP_46010A_SDATA_PIN) << 4 ;
+        temp      = (PINB & SDATA) << 4 ;
         received |= temp >> bit ;
     }
 
@@ -132,24 +145,23 @@ void Matrix_ThrowByte(void) {
     return ;
 }
 
-void matrix_init (void) {
+void matrix_init () {
     // debug_matrix = 1;
     // PB0 (SS) and PB1 (SCLK) set to outputs
-    gpio_set_pin_output(HP_46010A_RESET_PIN);
-    gpio_set_pin_output(HP_46010A_SCLK_PIN);
+    DDRB |= RESET | SCLK ;
     // PB2, is unused, and PB3 is our serial input
-    gpio_set_pin_input(HP_46010A_SDATA_PIN);
+    DDRB &= ~SDATA ;
     
     // SS is reset for this board, and is active High
     // SCLK is the serial clock and is active High
-    gpio_write_pin_low(HP_46010A_RESET_PIN);
-    gpio_write_pin_high(HP_46010A_SCLK_PIN);
+    PORTB &= ~RESET ;
+    PORTB |= SCLK   ;
 
     // led pin
-    gpio_set_pin_output(HP_46010A_LED_PIN);
-    gpio_write_pin_low(HP_46010A_LED_PIN);
+    DDRD  |= LED ;
+    PORTD &= ~LED ;
 
-    matrix_init_kb();
+    matrix_init_quantum();
 
     //toggle reset, to put the keyboard logic into a known state
     Matrix_Reset() ;
@@ -179,7 +191,7 @@ uint8_t matrix_scan(void)  {
     for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
         matrix[row] = Matrix_ReceiveByte ;
     }
-#endif 
+#endif
 
     
 #if ( DEBOUNCE > 0 )
@@ -194,7 +206,7 @@ uint8_t matrix_scan(void)  {
 #endif
     Matrix_Reset() ;
     
-    matrix_scan_kb() ;
+    matrix_scan_quantum() ;
     return 1;
 }
 
@@ -226,7 +238,7 @@ uint8_t matrix_cols(void) {
 
 // as an aside, I used the M0110 converter:
 // tmk_core/common/keyboard.c, quantum/matrix.c, and the project layout of the planck
-// the online ducmentation starting from : 
+// the online ducmentation starting from :
 // https://docs.qmk.fm/#/config_options
 // https://docs.qmk.fm/#/understanding_qmk
 // and probably a few i forgot....

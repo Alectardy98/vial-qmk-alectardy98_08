@@ -1,0 +1,407 @@
+{
+  "name": "DBOARDal",
+  "vendorId": "0x7281",
+  "productId": "0x0003",
+  "customKeycodes": [
+      {"name": "TEST",
+       "title": "TEST",
+       "shortName": "TEST"
+      },
+      {"name": "VDRT",
+       "title": "Virtual Desktop Right",
+       "shortName": "VDRT"
+      },
+      {"name": "VDLT",
+       "title": "Virtual Desktop Left",
+       "shortName": "VDLT"
+      },
+      {"name": "VDUP",
+       "title": "Virtual Desktop Up",
+       "shortName": "VDUP"
+      },
+      {"name": "VDDN",
+       "title": "Virtual Desktop Down",
+       "shortName": "VDDN"
+      },
+      {"name": "EXPL",
+       "title": "File Explorer",
+       "shortName": "EXPL"
+      },
+      {"name": "SNIP",
+       "title": "Screenshot Snip Tool",
+       "shortName": "SNIP"
+      },
+      {"name": "COPY",
+       "title": "Copy All",
+       "shortName": "COPY"
+      },
+      {"name": "CUTT",
+       "title": "Cut All",
+       "shortName": "CUTT"
+      },
+      {"name": "PAST",
+       "title": "Paste Over",
+       "shortName": "PAST"
+      },
+      {"name": "TASK",
+       "title": "Task Manager",
+       "shortName": "TASK"
+      },
+      {"name": "GOGL",
+       "title": "Opens Google Chrome",
+       "shortName": "GOGL"
+      },
+      {"name": "CMD",
+       "title": "Opens Comand Prompt",
+       "shortName": "CMD"
+      },
+      {"name": "QUIT",
+       "title": "Close App",
+       "shortName": "QUIT"
+      },
+      {"name": "THIS",
+       "title": ":this: emoji on discord",
+       "shortName": "THIS"
+      },
+      {"name": "OOF",
+       "title": ":oof: emoji on discord",
+       "shortName": "OOF"
+      },
+      {"name": "PIKA",
+       "title": ":surprised: emoji on discord",
+       "shortName": "PIKA"
+      },
+      {"name": "SCAT",
+       "title": ":smiley_cat2: emoji on discord",
+       "shortName": "SCAT"
+      },
+      {"name": "FCAT",
+       "title": ":smiley_cat1: emoji on discord",
+       "shortName": "FCAT"
+      },
+      {"name": "HART",
+       "title": ":heart: emoji on discord",
+       "shortName": "HART"
+      },
+      {"name": "DROL",
+       "title": "drooling_face: emoji on discord",
+       "shortName": "DROL"
+      },
+      {"name": "MONY",
+       "title": "smiley_take: emoji on discord",
+       "shortName": "MONY"
+      },
+      {"name": "FHAT",
+       "title": ":smiley_fedora: emoji on discord",
+       "shortName": "FHAT"
+      },
+      {"name": "SPIT",
+       "title": ":smiley_spit: emoji on discord",
+       "shortName": "SPIT"
+      },
+      {"name": "KING",
+       "title": ":pepe_king: emoji on discord",
+       "shortName": "KING"
+      },
+      {"name": "FLEX",
+       "title": ":muscle: emoji on discord",
+       "shortName": "FLEX"
+      },
+      {"name": "HAHA",
+       "title": ":smiley_kekw: emoji on discord",
+       "shortName": "HAHA"
+      },
+      {"name": "LCRY",
+       "title": ":joy: emoji on discord",
+       "shortName": "LCRY"
+      },
+      {"name": "NICE",
+       "title": ":nice~2: emoji on discord",
+       "shortName": "NICE"
+      },
+      {"name": "PPOG",
+       "title": ":pepe_pog: emoji on discord",
+       "shortName": "PPOG"
+      },
+      {"name": "PRAY",
+       "title": ":pray_tone2: emoji on discord",
+       "shortName": "PRAY"
+      },
+      {"name": "SWET",
+       "title": ":sweat_smile: emoji on discord",
+       "shortName": "SWET"
+      },
+      {"name": "COLD",
+       "title": ":cold_face: emoji on discord",
+       "shortName": "COLD"
+      },
+      {"name": "THUM",
+       "title": ":thumbsup: emoji on discord",
+       "shortName": "THUM"
+      }
+  ],
+  "lighting": "none",
+  "matrix": {
+      "rows": 8,
+      "cols": 11
+  },
+  "layouts": {
+    "labels": [
+],
+"keymap": [
+    [
+      {
+        "c": "#aaaaaa"
+      },
+      "0,0",
+      {
+        "x": 0.25
+      },
+      "0,1",
+      {
+        "x": 0.5,
+        "w": 1.25
+      },
+      "0,2",
+      {
+        "w": 1.25
+      },
+      "0,3",
+      {
+        "w": 1.25
+      },
+      "0,4",
+      {
+        "w": 1.25
+      },
+      "0,5",
+      {
+        "w": 1.25
+      },
+      "0,6",
+      {
+        "x": 0.25,
+        "w": 1.25
+      },
+      "0,7",
+      {
+        "w": 1.25
+      },
+      "0,8",
+      {
+        "w": 1.25
+      },
+      "0,9",
+      {
+        "w": 1.25
+      },
+      "0,10",
+      {
+        "w": 1.25
+      },
+      "6,6",
+      {
+        "x": 0.5
+      },
+      "6,0",
+      "7,5"
+    ],
+    [
+      {
+        "x": 16
+      },
+      "6,1",
+      "6,4"
+    ],
+    [
+      {
+        "y": -0.5,
+        "w": 1.25
+      },
+      "1,0",
+      {
+        "c": "#cccccc"
+      },
+      "1,1",
+      "2,1",
+      "1,2",
+      "1,3",
+      "1,4",
+      {
+        "c": "#777777"
+      },
+      "1,5",
+      "1,6",
+      "1,7",
+      "1,8",
+      "1,9",
+      "1,10",
+      "6,10",
+      "7,6",
+      {
+        "c": "#aaaaaa",
+        "w": 1.25
+      },
+      "7,1"
+    ],
+    [
+      {
+        "y": -0.5,
+        "x": 16
+      },
+      "6,2",
+      "6,5"
+    ],
+    [
+      {
+        "y": -0.5,
+        "w": 1.75
+      },
+      "2,0",
+      {
+        "c": "#cccccc"
+      },
+      "3,1",
+      "2,2",
+      "2,3",
+      "2,4",
+      "2,5",
+      {
+        "c": "#777777"
+      },
+      "2,6",
+      "2,7",
+      "2,8",
+      "2,9",
+      "2,10",
+      "7,7",
+      "7,2",
+      {
+        "x": 0.25,
+        "c": "#aaaaaa",
+        "w": 1.5,
+        "h": 2,
+        "h2": 1,
+        "x2": -0.25
+      },
+      "6,9"
+    ],
+    [
+      {
+        "w": 2
+      },
+      "3,0",
+      {
+        "c": "#cccccc"
+      },
+      "4,1",
+      "3,2",
+      "3,3",
+      "3,4",
+      "3,5",
+      {
+        "c": "#777777"
+      },
+      "3,6",
+      "3,7",
+      "3,8",
+      "3,9",
+      "3,10",
+      {
+        "c": "#aaaaaa"
+      },
+      "7,8",
+      "7,3",
+      {
+        "x": 2,
+        "w": 2
+      },
+      "6,8"
+    ],
+    [
+      {
+        "w": 2.5
+      },
+      "4,0",
+      {
+        "c": "#cccccc"
+      },
+      "4,2",
+      "4,3",
+      "4,4",
+      "4,5",
+      "4,6",
+      {
+        "c": "#777777"
+      },
+      "4,7",
+      "4,8",
+      "4,9",
+      "4,10",
+      "7,9",
+      "7,4",
+      {
+        "c": "#aaaaaa",
+        "w": 2
+      },
+      "6,7",
+      {
+        "x": 0.5
+      },
+      "6,3",
+      "7,0"
+    ],
+    [
+      "5,0",
+      "5,1",
+      {
+        "w": 1.25
+      },
+      "5,2",
+      {
+        "w": 1.5
+      },
+      "5,3",
+      {
+        "c": "#cccccc",
+        "w": 2.25
+      },
+      "5,4",
+      {
+        "c": "#777777",
+        "w": 2.25
+      },
+      "5,7",
+      {
+        "w": 3
+      },
+      "5,8",
+      {
+        "c": "#aaaaaa",
+        "w": 1.5
+      },
+      "5,9",
+      {
+        "x": 0.75
+      },
+      "5,10",
+      {
+        "x": 0.5,
+        "w": 2
+      },
+      "7,10"
+    ],
+    [
+      {
+        "x": 5.75,
+        "w": 1.25
+      },
+      "5,5",
+      {
+        "w": 1.25
+      },
+      "5,6"
+    ]
+  ]
+  }
+}

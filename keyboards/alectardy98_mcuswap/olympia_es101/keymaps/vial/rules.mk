@@ -1,0 +1,5 @@
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+VIAL_INSECURE = yes
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = solenoid

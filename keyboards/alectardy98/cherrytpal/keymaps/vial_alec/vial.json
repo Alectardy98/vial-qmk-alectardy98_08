@@ -1,0 +1,666 @@
+{
+  "name": "CherryTPal",
+  "vendorId": "0x6776",
+  "productId": "0x414E",
+  "customKeycodes": [
+      {"name": "TEST",
+       "title": "TEST",
+       "shortName": "TEST"
+      },
+      {"name": "VDRT",
+       "title": "Virtual Desktop Right",
+       "shortName": "VDRT"
+      },
+      {"name": "VDLT",
+       "title": "Virtual Desktop Left",
+       "shortName": "VDLT"
+      },
+      {"name": "VDUP",
+       "title": "Virtual Desktop Up",
+       "shortName": "VDUP"
+      },
+      {"name": "VDDN",
+       "title": "Virtual Desktop Down",
+       "shortName": "VDDN"
+      },
+      {"name": "EXPL",
+       "title": "File Explorer",
+       "shortName": "EXPL"
+      },
+      {"name": "SNIP",
+       "title": "Screenshot Snip Tool",
+       "shortName": "SNIP"
+      },
+      {"name": "COPY",
+       "title": "Copy All",
+       "shortName": "COPY"
+      },
+      {"name": "CUTT",
+       "title": "Cut All",
+       "shortName": "CUTT"
+      },
+      {"name": "PAST",
+       "title": "Paste Over",
+       "shortName": "PAST"
+      },
+      {"name": "TASK",
+       "title": "Task Manager",
+       "shortName": "TASK"
+      },
+      {"name": "GOGL",
+       "title": "Opens Google Chrome",
+       "shortName": "GOGL"
+      },
+      {"name": "CMD",
+       "title": "Opens Comand Prompt",
+       "shortName": "CMD"
+      },
+      {"name": "QUIT",
+       "title": "Close App",
+       "shortName": "QUIT"
+      },
+      {"name": "00",
+       "title": "Double Zero",
+       "shortName": "DZRO"
+      },
+      {"name": "ATAB",
+       "title": "Alt + Tab",
+       "shortName": "ATAB"
+      },
+      {"name": "(",
+       "title": "Left Parenthesis",
+       "shortName": "LPRC"
+      },
+      {"name": ")",
+       "title": "Right Parenthesis",
+       "shortName": "RPRC"
+      },
+      {"name": "NUM",
+       "title": "Custom Numlock",
+       "shortName": "NUM"
+      },
+      {"name": "THIS",
+       "title": ":this: emoji on discord",
+       "shortName": "THIS"
+      },
+      {"name": "OOF",
+       "title": ":oof: emoji on discord",
+       "shortName": "OOF"
+      },
+      {"name": "PIKA",
+       "title": ":surprised: emoji on discord",
+       "shortName": "PIKA"
+      },
+      {"name": "SCAT",
+       "title": ":smiley_cat2: emoji on discord",
+       "shortName": "SCAT"
+      },
+      {"name": "FCAT",
+       "title": ":smiley_cat1: emoji on discord",
+       "shortName": "FCAT"
+      },
+      {"name": "HART",
+       "title": ":heart: emoji on discord",
+       "shortName": "HART"
+      },
+      {"name": "DROL",
+       "title": "drooling_face: emoji on discord",
+       "shortName": "DROL"
+      },
+      {"name": "MONY",
+       "title": "smiley_take: emoji on discord",
+       "shortName": "MONY"
+      },
+      {"name": "FHAT",
+       "title": ":smiley_fedora: emoji on discord",
+       "shortName": "FHAT"
+      },
+      {"name": "SPIT",
+       "title": ":smiley_spit: emoji on discord",
+       "shortName": "SPIT"
+      },
+      {"name": "KING",
+       "title": ":pepe_king: emoji on discord",
+       "shortName": "KING"
+      },
+      {"name": "FLEX",
+       "title": ":muscle: emoji on discord",
+       "shortName": "FLEX"
+      },
+      {"name": "HAHA",
+       "title": ":smiley_kekw: emoji on discord",
+       "shortName": "HAHA"
+      },
+      {"name": "LCRY",
+       "title": ":joy: emoji on discord",
+       "shortName": "LCRY"
+      },
+      {"name": "NICE",
+       "title": ":nice~2: emoji on discord",
+       "shortName": "NICE"
+      },
+      {"name": "PPOG",
+       "title": ":pepe_pog: emoji on discord",
+       "shortName": "PPOG"
+      },
+      {"name": "PRAY",
+       "title": ":pray_tone2: emoji on discord",
+       "shortName": "PRAY"
+      },
+      {"name": "SWET",
+       "title": ":sweat_smile: emoji on discord",
+       "shortName": "SWET"
+      },
+      {"name": "COLD",
+       "title": ":cold_face: emoji on discord",
+       "shortName": "COLD"
+      },
+      {"name": "THUM",
+       "title": ":thumbsup: emoji on discord",
+       "shortName": "THUM"
+      }
+  ],
+  "lighting": "vialrgb",
+  "matrix": {
+    "rows": 7,
+    "cols": 19
+  },
+  "layouts": {
+    "labels": [
+        [
+            "F Row",
+            "Normal",
+            "Maxed"
+        ],
+        [
+            "Backspace",
+            "2u",
+            "Split"
+        ],
+        [
+            "Left Shift",
+            "Normal",
+            "Split"
+        ],
+        [
+            "Numpad Plus",
+            "Normal",
+            "Split"
+        ],
+        [
+            "Numpad Enter",
+            "Normal",
+            "Split"
+        ],
+        [
+            "Numpad Zero",
+            "Normal",
+            "Split"
+        ],
+        [
+            "Bottom Row",
+            "1.5u Right",
+            "7u-1u",
+            "1.5u Left",
+            "Normal",
+            "1.5u Both"
+        ]
+  ],
+    "keymap": [
+        [
+          "0,0\n\n\n0,0",
+          {
+            "x": 1
+          },
+          "0,2\n\n\n0,0",
+          "0,3\n\n\n0,0",
+          "0,4\n\n\n0,0",
+          "0,5\n\n\n0,0",
+          "0,6\n\n\n0,0",
+          "0,7\n\n\n0,0",
+          {
+            "x": 0.5
+          },
+          "0,9\n\n\n0,0",
+          "0,10\n\n\n0,0",
+          "0,11\n\n\n0,0",
+          "0,12\n\n\n0,0",
+          {
+            "x": 0.5
+          },
+          "0,13\n\n\n0,0",
+          {
+            "x": 1.75
+          },
+          "0,15",
+          "0,16",
+          "0,17",
+          "0,18",
+          {
+            "x": 3
+          },
+          "0,0\n\n\n0,1",
+          "0,1\n\n\n0,1",
+          "0,2\n\n\n0,1",
+          "0,3\n\n\n0,1",
+          "0,4\n\n\n0,1",
+          "0,5\n\n\n0,1",
+          "0,6\n\n\n0,1",
+          "0,7\n\n\n0,1",
+          {
+            "x": 0.5
+          },
+          "0,9\n\n\n0,1",
+          "0,10\n\n\n0,1",
+          "0,11\n\n\n0,1",
+          "0,12\n\n\n0,1",
+          {
+            "x": 0.5
+          },
+          "0,13\n\n\n0,1"
+        ],
+        [
+          {
+            "x": 2
+          },
+          "1,2\n\n\n0,0",
+          "1,3\n\n\n0,0",
+          "1,4\n\n\n0,0",
+          "1,5\n\n\n0,0",
+          "1,6\n\n\n0,0",
+          "1,7\n\n\n0,0",
+          {
+            "x": 0.5
+          },
+          "1,9\n\n\n0,0",
+          "1,10\n\n\n0,0",
+          "1,11\n\n\n0,0",
+          "1,12\n\n\n0,0",
+          {
+            "x": 3.25
+          },
+          "1,15",
+          "1,16",
+          "1,17",
+          {
+            "c": "#8b8e8e",
+            "h": 2
+          },
+          "1,18\n\n\n3,0",
+          {
+            "x": 0.25,
+            "c": "#cccccc"
+          },
+          "1,18\n\n\n3,1",
+          {
+            "x": 1.75
+          },
+          "1,0\n\n\n0,1",
+          "1,1\n\n\n0,1",
+          "1,2\n\n\n0,1",
+          "1,3\n\n\n0,1",
+          "1,4\n\n\n0,1",
+          "1,5\n\n\n0,1",
+          "1,6\n\n\n0,1",
+          "1,7\n\n\n0,1",
+          {
+            "x": 0.5
+          },
+          "1,9\n\n\n0,1",
+          "1,10\n\n\n0,1",
+          "1,11\n\n\n0,1",
+          "1,12\n\n\n0,1",
+          {
+            "x": 0.5
+          },
+          "1,13\n\n\n0,1"
+        ],
+        [
+          {
+            "x": 15.75
+          },
+          "2,15",
+          "2,16",
+          "2,17",
+          {
+            "x": 1.25
+          },
+          "2,18\n\n\n3,1"
+        ],
+        [
+          "2,0",
+          "2,1",
+          "2,2",
+          "2,3",
+          "2,4",
+          "2,5",
+          "2,6",
+          "2,7",
+          "2,8",
+          "2,9",
+          "2,10",
+          "2,11",
+          "2,12",
+          {
+            "c": "#8b8e8e",
+            "w": 2
+          },
+          "2,13\n\n\n1,0",
+          {
+            "x": 0.75,
+            "c": "#cccccc"
+          },
+          "3,15",
+          "3,16",
+          "3,17",
+          {
+            "c": "#8b8e8e",
+            "h": 2
+          },
+          "3,18\n\n\n4,0",
+          {
+            "x": 0.25,
+            "c": "#cccccc"
+          },
+          "3,18\n\n\n4,1"
+        ],
+        [
+          {
+            "w": 1.5
+          },
+          "3,0",
+          "3,1",
+          "3,2",
+          "3,3",
+          "3,4",
+          "3,5",
+          "3,6",
+          "3,7",
+          "3,8",
+          "3,9",
+          "3,10",
+          "3,11",
+          "3,12",
+          {
+            "w": 1.5
+          },
+          "3,13",
+          {
+            "x": 0.75,
+            "c": "#8b8e8e",
+            "w": 2
+          },
+          "4,15\n\n\n5,0",
+          {
+            "c": "#cccccc"
+          },
+          "4,17",
+          {
+            "x": 1.25
+          },
+          "4,18\n\n\n4,1",
+          {
+            "x": 1
+          },
+          "4,15\n\n\n5,1",
+          "4,16\n\n\n5,1"
+        ],
+        [
+          {
+            "w": 1.75
+          },
+          "4,0",
+          "4,1",
+          "4,2",
+          "4,3",
+          "4,4",
+          "4,5",
+          "4,6",
+          "4,7",
+          "4,8",
+          "4,9",
+          "4,10",
+          "4,11",
+          {
+            "w": 2.25
+          },
+          "4,12"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 16.75
+          },
+          "2,13\n\n\n1,1",
+          "2,14\n\n\n1,1"
+        ],
+        [
+          {
+            "y": -0.25,
+            "c": "#8b8e8e",
+            "w": 2.25
+          },
+          "5,0\n\n\n2,0",
+          {
+            "c": "#cccccc"
+          },
+          "5,2",
+          "5,3",
+          "5,4",
+          "5,5",
+          "5,6",
+          "5,7",
+          "5,8",
+          "5,9",
+          "5,10",
+          "5,11",
+          {
+            "w": 2
+          },
+          "5,12"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 14.5
+          },
+          "5,14",
+          {
+            "x": 4.25,
+            "w": 1.25
+          },
+          "5,0\n\n\n2,1",
+          "5,1\n\n\n2,1"
+        ],
+        [
+          {
+            "y": -0.25,
+            "c": "#8b8e8e",
+            "fa": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "w": 1.25
+          },
+          "6,0\n\n\n6,0",
+          {
+            "w": 1.25
+          },
+          "6,1\n\n\n6,0",
+          {
+            "w": 1.25
+          },
+          "6,2\n\n\n6,0",
+          {
+            "w": 6.25
+          },
+          "6,5\n\n\n6,0",
+          {
+            "w": 1.5
+          },
+          "6,10\n\n\n6,0",
+          {
+            "w": 1.5
+          },
+          "6,12\n\n\n6,0"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 13.5,
+            "c": "#cccccc"
+          },
+          "6,13",
+          "6,14",
+          "6,15"
+        ],
+        [
+          {
+            "y": -0.5,
+            "x": 17,
+            "w": 1.25,
+            "h": 0.5
+          },
+          "6,16",
+          {
+            "w": 1.25,
+            "h": 0.5
+          },
+          "6,17"
+        ],
+        [
+          {
+            "y": -0.5,
+            "c": "#8b8e8e",
+            "f": 3
+          },
+          "6,0\n\n\n6,1",
+          {
+            "f": 3
+          },
+          "6,1\n\n\n6,1",
+          {
+            "f": 3
+          },
+          "6,2\n\n\n6,1",
+          {
+            "f": 3,
+            "w": 7
+          },
+          "6,5\n\n\n6,1",
+          {
+            "f": 3
+          },
+          "6,10\n\n\n6,1",
+          {
+            "f": 3
+          },
+          "6,11\n\n\n6,1",
+          {
+            "f": 3
+          },
+          "6,12\n\n\n6,1"
+        ],
+        [
+          {
+            "f": 3,
+            "w": 1.5
+          },
+          "6,0\n\n\n6,2",
+          {
+            "f": 3,
+            "w": 1.5
+          },
+          "6,1\n\n\n6,2",
+          {
+            "f": 3,
+            "w": 6.25
+          },
+          "6,5\n\n\n6,2",
+          {
+            "f": 3,
+            "w": 1.25
+          },
+          "6,9\n\n\n6,2",
+          {
+            "f": 3,
+            "w": 1.25
+          },
+          "6,11\n\n\n6,2",
+          {
+            "f": 3,
+            "w": 1.25
+          },
+          "6,12\n\n\n6,2"
+        ],
+        [
+          {
+            "c": "#cccccc",
+            "f": 3
+          },
+          "6,0\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,1\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,2\n\n\n6,3",
+          {
+            "f": 3,
+            "w": 6
+          },
+          "6,5\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,9\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,10\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,11\n\n\n6,3",
+          {
+            "f": 3
+          },
+          "6,12\n\n\n6,3"
+        ],
+        [
+          {
+            "c": "#8b8e8e",
+            "f": 3,
+            "w": 1.5
+          },
+          "6,0\n\n\n6,4",
+          {
+            "f": 3,
+            "w": 1.5
+          },
+          "6,1\n\n\n6,4",
+          {
+            "f": 3,
+            "w": 7
+          },
+          "6,5\n\n\n6,4",
+          {
+            "f": 3,
+            "w": 1.5
+          },
+          "6,10\n\n\n6,4",
+          {
+            "f": 3,
+            "w": 1.5
+          },
+          "6,12\n\n\n6,4"
+        ]
+      ]
+
+
+  }
+}

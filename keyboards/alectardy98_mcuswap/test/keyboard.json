@@ -1,0 +1,33 @@
+{
+  "keyboard_name": "onekey595",
+  "manufacturer": "Alectardy98",
+  "maintainer": "Alectardy98",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "rows": ["D0"],
+    "cols": ["D1"]
+  },
+  "diode_direction": "COL2ROW",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
+  "features": {
+    "console": true,
+    "command": true
+  },
+  "pins": {
+    "led595_data": "B2",
+    "led595_clk": "B1",
+    "led595_latch": "B3"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        { "matrix": [0, 0], "x": 0, "y": 0 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+#define VIAL_KEYBOARD_UID {0xB5, 0xBF, 0xB9, 0xC0, 0x15, 0x22, 0xA0, 0x0E}
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 4
+
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+#define VIAL_TAP_DANCE_ENTRIES 4
+#define VIAL_COMBO_ENTRIES 4
+#define VIAL_KEY_OVERRIDE_ENTRIES 4
+
+#define VIALRGB_NO_DIRECT
+#define RGB_MATRIX_SLEEP // turn off effects when suspended

@@ -1,0 +1,9 @@
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+VIAL_INSECURE = yes
+VIALRGB_ENABLE = yes
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = ws2812
+WS2812_DRIVER = bitbang
+
+SRC += ec_calibration_defaults.c

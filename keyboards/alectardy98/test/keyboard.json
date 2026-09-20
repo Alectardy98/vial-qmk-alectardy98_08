@@ -1,0 +1,39 @@
+{
+  "keyboard_name": "test",
+  "manufacturer": "Alectardy98",
+  "url": "https://keebal.com",
+  "maintainer": "Alectardy98",
+  "processor": "atmega32u4",
+  "usb": {
+    "device_version": "0.0.1",
+    "pid": "0x0002",
+    "vid": "0x7281"
+  },
+  "bootloader": "atmel-dfu",
+  "diode_direction": "COL2ROW",
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "matrix_pins": {
+      "cols": ["D7"],
+      "rows": ["B4"]
+  },
+  "layouts": {
+    "LAYOUT": {
+        "layout": [
+            {"matrix": [0,0] "x":0, "y":0, "w":2},
+        ]
+    }
+  }
+}

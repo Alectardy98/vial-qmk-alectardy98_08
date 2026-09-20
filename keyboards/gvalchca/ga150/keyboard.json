@@ -1,6 +1,7 @@
 {
-    "keyboard_name": "GA15.0",
-    "manufacturer": "Gvalchca",
+    "keyboard_name": "Hello M0110",
+    "manufacturer": "Gvalchca GA15.0 PCB",
+    "url": "",
     "maintainer": "Gvalchca",
     "usb": {
         "vid": "0x6776",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -27,7 +30,7 @@
         "esc_output": "E6"
     },
     "processor": "atmega32u4",
-    "bootloader": "qmk-dfu",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

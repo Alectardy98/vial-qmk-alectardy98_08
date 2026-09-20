@@ -1,0 +1,11 @@
+CUSTOM_MATRIX    = lite
+I2C_DRIVER_REQUIRED = yes
+
+SRC += matrix.c i2c_master.c
+
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no
+MOUSE_SHARED_EP = no
+
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = solenoid

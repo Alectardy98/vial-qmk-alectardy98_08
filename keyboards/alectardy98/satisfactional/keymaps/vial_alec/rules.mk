@@ -1,0 +1,13 @@
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+VIAL_INSECURE = yes
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+
+OLED_ENABLE = yes
+OLED_DRIVER = ssd1306
+WPM_ENABLE = yes
+
+OPT_DEFS += -DHAL_USE_I2C=TRUE
+SRC += oled/bongocat.c
+

@@ -1,0 +1,197 @@
+#include "quantum.h"
+#include "print.h"
+#include "config.h"
+#include <avr/io.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+// UART1 RX/TX setup
+static void serial_init(void) {
+    uint16_t ubrr = (F_CPU / (16UL * SERIAL_UART_BAUD)) - 1;
+    UBRR1H = (ubrr >> 8) & 0xFF;
+    UBRR1L =  ubrr        & 0xFF;
+    UCSR1B = (1 << RXEN1) | (1 << TXEN1);
+    UCSR1C = (1 << UCSZ11) | (1 << UCSZ10);
+}
+
+// Globally visible TX function
+void serial_write(uint8_t b) {
+    while (!(UCSR1A & (1 << UDRE1)));
+    UDR1 = b;
+    while (!(UCSR1A & (1 << TXC1)));
+    UCSR1A |= (1 << TXC1);
+}
+
+// Globally visible LED sender (low 2 bits only)
+void walt_send_led_mask(uint8_t mask) {
+    serial_write(mask & 0x03);
+    wait_ms(2);
+}
+
+// -----------------------------------------------------------------------------
+// Scan code → position lookup: single-byte mapping 0xFF = ignore
+// -----------------------------------------------------------------------------
+static const uint8_t sc_to_pos_full[256] = {
+    [0 ... 255] = 0xFF,
+
+    [0xB8] = 0x00,
+    [0xA6] = 0x01,
+    [0x83] = 0x11,
+    [0xB6] = 0x02,
+    [0xD0] = 0x12,
+    [0xD4] = 0x04,
+    [0xDA] = 0x14,
+    [0xEC] = 0x06,
+    [0x8D] = 0x07,
+    [0xE7] = 0x17,
+    [0xFD] = 0x08,
+    [0xF2] = 0x09,
+    [0x86] = 0x0A,
+
+    [0xE8] = 0x10,
+    [0x85] = 0x21,
+    [0xA9] = 0x18,
+    [0xAD] = 0x19,
+    [0xCD] = 0x1A,
+
+    [0xEE] = 0x20,
+    [0xA2] = 0x31,
+    [0x95] = 0x41,
+    [0xE3] = 0x51,
+    [0xF4] = 0x22,
+    [0x82] = 0x32,
+    [0x88] = 0x03,
+    [0xA4] = 0x13,
+    [0xAA] = 0x24,
+    [0xB0] = 0x34,
+    [0xAB] = 0x05,
+    [0xE4] = 0x15,
+    [0xBA] = 0x16,
+    [0x98] = 0x26,
+    [0x8E] = 0x27,
+    [0xDB] = 0x37,
+    [0xC9] = 0x28,
+    [0x91] = 0x38,
+    [0xE1] = 0x29,
+    [0xFF] = 0x2A,
+
+    [0xD6] = 0x30,
+    [0x9C] = 0x61,
+    [0x8F] = 0x71,
+    [0xDD] = 0x42,
+    [0xD7] = 0x52,
+    [0xFA] = 0x23,
+    [0x9A] = 0x33,
+    [0x8C] = 0x43,
+    [0x9F] = 0x44,
+    [0xA5] = 0x54,
+    [0x90] = 0x25,
+    [0xDE] = 0x35,
+    [0xC0] = 0x36,
+    [0xD5] = 0x46,
+    [0x93] = 0x47,
+    [0xF9] = 0x57,
+    [0xB2] = 0x48,
+    [0x92] = 0x58,
+    [0xAF] = 0x39,
+    [0xF3] = 0x3A,
+
+    [0xDC] = 0x40,
+    [0xCC] = 0x50,
+    [0x89] = 0x81,
+    [0xE9] = 0x62,
+    [0xCB] = 0x72,
+    [0xBF] = 0x53,
+    [0x94] = 0x63,
+    [0xB7] = 0x64,
+    [0x99] = 0x74,
+    [0x8A] = 0x45,
+    [0x96] = 0x55,
+    [0xEA] = 0x65,
+    [0xC6] = 0x56,
+    [0xBD] = 0x66,
+    [0x97] = 0x67,
+    [0xED] = 0x77,
+    [0xF5] = 0x68,
+    [0xA3] = 0x49,
+    [0xB5] = 0x4A,
+
+    [0x81] = 0x60,
+    [0xEF] = 0x70,
+    [0xC1] = 0x91,
+    [0xC5] = 0x82,
+    [0xB3] = 0x73,
+    [0xA1] = 0x83,
+    [0xF0] = 0x93,
+    [0xD8] = 0x84,
+    [0xD2] = 0x75,
+    [0xAE] = 0x85,
+    [0xCF] = 0x95,
+    [0xA8] = 0x76,
+    [0x84] = 0x86,
+    [0xB4] = 0x87,
+    [0xEB] = 0x78,
+    [0xF8] = 0x59,
+    [0x80] = 0x5A,
+
+    [0xF6] = 0x80,
+    [0xD1] = 0x90,
+    [0xC4] = 0x92,
+    [0xBE] = 0x94,
+    [0xAC] = 0x96,
+    [0xA0] = 0x97,
+    [0xFC] = 0x88,
+    [0x87] = 0x69,
+    [0xC2] = 0x6A,
+};
+static matrix_row_t matrix[MATRIX_ROWS];
+
+void matrix_init(void) {
+    serial_init();
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        matrix[r] = 0;
+    }
+}
+
+uint8_t matrix_scan(void) {
+    static uint8_t drop_left = 2;
+    while (UCSR1A & (1 << RXC1)) {
+        uint8_t code = UDR1;
+        xprintf("Raw byte: 0x%02X\n", code);
+        if (drop_left && code == 0x00) {
+            drop_left--;
+            continue;
+        }
+        drop_left = 0;
+
+        bool pressed = (code & 0x80);
+        uint8_t idx = pressed ? code : ((code & 0x7F) | 0x80);
+        uint8_t pos = sc_to_pos_full[idx];
+        if (pos == 0xFF) {
+            xprintf("Unmapped code: 0x%02X\n", idx);
+            continue;
+        }
+
+        uint8_t row = pos >> 4, col = pos & 0x0F;
+        matrix_row_t m = ((matrix_row_t)1 << col);
+        if (pressed) {
+            matrix[row] |= m;
+            xprintf("Make: row %u, col %u\n", row, col);
+        } else {
+            matrix[row] &= ~m;
+            xprintf("Break: row %u, col %u\n", row, col);
+        }
+    }
+    return 0;
+}
+
+matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
+
+void matrix_print(void) {
+    xprintf("--- FIFO Dump ---\n");
+    while (UCSR1A & (1 << RXC1)) {
+        xprintf("Residual: 0x%02X\n", UDR1);
+    }
+}

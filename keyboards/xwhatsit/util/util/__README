@@ -1,0 +1,29 @@
+The comand to build the util
+
+
+Linux-manjaro
+
+From inside the util/util folder
+qmake6 util.pro && make -j"$(nproc)"
+
+------------------------------------------------------------------------
+
+Windows-11
+First install QT+
+https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe?utm_source=chatgpt.com
+Select these options
+Qt 6.8.3
+└── ☑ MinGW 13.1.0 64-bit
+
+Build Tools
+└── ☑ MinGW 13.1.0 64-bit
+
+also download HIDAPI
+https://github.com/libusb/hidapi/archive/refs/heads/master.zip?utm_source=chatgpt.com
+then extract the directory to
+C:\hidapi-src
+
+From inside the util/util folder
+build_windows
+
+or just double click the .bat

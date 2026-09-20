@@ -1,0 +1,278 @@
+{
+  "name": "IBM 3276",
+  "vendorId": "0x7281",
+  "productId": "0x0112",
+  "customKeycodes": [
+      {"name": "TEST",
+       "title": "TEST",
+       "shortName": "TEST"
+      },
+      {"name": "VDRT",
+       "title": "Virtual Desktop Right",
+       "shortName": "VDRT"
+      },
+      {"name": "VDLT",
+       "title": "Virtual Desktop Left",
+       "shortName": "VDLT"
+      },
+      {"name": "VDUP",
+       "title": "Virtual Desktop Up",
+       "shortName": "VDUP"
+      },
+      {"name": "VDDN",
+       "title": "Virtual Desktop Down",
+       "shortName": "VDDN"
+      },
+      {"name": "EXPL",
+       "title": "File Explorer",
+       "shortName": "EXPL"
+      },
+      {"name": "SNIP",
+       "title": "Screenshot Snip Tool",
+       "shortName": "SNIP"
+      },
+      {"name": "COPY",
+       "title": "Copy All",
+       "shortName": "COPY"
+      },
+      {"name": "CUTT",
+       "title": "Cut All",
+       "shortName": "CUTT"
+      },
+      {"name": "PAST",
+       "title": "Paste Over",
+       "shortName": "PAST"
+      },
+      {"name": "TASK",
+       "title": "Task Manager",
+       "shortName": "TASK"
+      },
+      {"name": "QUIT",
+       "title": "Close App",
+       "shortName": "QUIT"
+      },
+      {"name": "THIS",
+       "title": ":this: emoji on discord",
+       "shortName": "THIS"
+      },
+      {"name": "OOF",
+       "title": ":oof: emoji on discord",
+       "shortName": "OOF"
+      },
+      {"name": "PIKA",
+       "title": ":surprised: emoji on discord",
+       "shortName": "PIKA"
+      },
+      {"name": "SCAT",
+       "title": ":smiley_cat2: emoji on discord",
+       "shortName": "SCAT"
+      },
+      {"name": "FCAT",
+       "title": ":smiley_cat1: emoji on discord",
+       "shortName": "FCAT"
+      },
+      {"name": "HART",
+       "title": ":heart: emoji on discord",
+       "shortName": "HART"
+      },
+      {"name": "DROL",
+       "title": "drooling_face: emoji on discord",
+       "shortName": "DROL"
+      },
+      {"name": "MONY",
+       "title": "smiley_take: emoji on discord",
+       "shortName": "MONY"
+      },
+      {"name": "FHAT",
+       "title": ":smiley_fedora: emoji on discord",
+       "shortName": "FHAT"
+      },
+      {"name": "SPIT",
+       "title": ":smiley_spit: emoji on discord",
+       "shortName": "SPIT"
+      },
+      {"name": "KING",
+       "title": ":pepe_king: emoji on discord",
+       "shortName": "KING"
+      },
+      {"name": "FLEX",
+       "title": ":muscle: emoji on discord",
+       "shortName": "FLEX"
+      },
+      {"name": "HAHA",
+       "title": ":smiley_kekw: emoji on discord",
+       "shortName": "HAHA"
+      },
+      {"name": "LCRY",
+       "title": ":joy: emoji on discord",
+       "shortName": "LCRY"
+      },
+      {"name": "NICE",
+       "title": ":nice~2: emoji on discord",
+       "shortName": "NICE"
+      },
+      {"name": "PPOG",
+       "title": ":pepe_pog: emoji on discord",
+       "shortName": "PPOG"
+      },
+      {"name": "PRAY",
+       "title": ":pray_tone2: emoji on discord",
+       "shortName": "PRAY"
+      },
+      {"name": "SWET",
+       "title": ":sweat_smile: emoji on discord",
+       "shortName": "SWET"
+      },
+      {"name": "COLD",
+       "title": ":cold_face: emoji on discord",
+       "shortName": "COLD"
+      },
+      {"name": "THUM",
+       "title": ":thumbsup: emoji on discord",
+       "shortName": "THUM"
+      }
+  ],
+  "lighting": "none",
+  "matrix": { "rows": 4, "cols": 20 },
+  "layouts": {
+    "labels": [],
+    "keymap": [
+        [
+          "0, 0",
+          "0, 1",
+          {
+            "x": 0.5
+          },
+          "0, 3",
+          "0, 4",
+          "0, 5",
+          "0, 6",
+          "0, 7",
+          "0, 8",
+          "0, 9",
+          "0, 10",
+          "0, 11",
+          "0, 12",
+          "0, 13",
+          "0, 14",
+          "0, 15",
+          {
+            "w": 1.75
+          },
+          "0, 16",
+          {
+            "x": 0.5
+          },
+          "0, 18",
+          "0, 19"
+        ],
+        [
+          "1, 0",
+          "1, 1",
+          {
+            "x": 0.5,
+            "w": 1.5
+          },
+          "1, 3",
+          "1, 4",
+          "1, 5",
+          "1, 6",
+          "1, 7",
+          "1, 8",
+          "1, 9",
+          "1, 10",
+          "1, 11",
+          "1, 12",
+          "1, 13",
+          "1, 14",
+          "1, 15",
+          {
+            "w": 1.25
+          },
+          "1, 16",
+          {
+            "x": 0.5
+          },
+          "1, 18",
+          "1, 19"
+        ],
+        [
+          "2, 0",
+          "2, 1",
+          {
+            "x": 0.5,
+            "w": 1.75
+          },
+          "1, 2",
+          "2, 4",
+          "2, 5",
+          "2, 6",
+          "2, 7",
+          "2, 8",
+          "2, 9",
+          "2, 10",
+          "2, 11",
+          "2, 12",
+          "2, 13",
+          "2, 14",
+          "2, 15",
+          {
+            "h": 2
+          },
+          "2, 16",
+          {
+            "x": 0.5
+          },
+          "2, 18",
+          "2, 19"
+        ],
+        [
+          "3, 0",
+          "3, 1",
+          {
+            "x": 0.5,
+            "w": 1.25
+          },
+          "2, 2",
+          "2, 3",
+          "3, 4",
+          "3, 5",
+          "3, 6",
+          "3, 7",
+          "3, 8",
+          "3, 9",
+          "3, 10",
+          "3, 11",
+          "3, 12",
+          "3, 13",
+          {
+            "w": 1.5
+          },
+          "2, 17",
+          {
+            "x": 1.5
+          },
+          "3, 18",
+          "3, 19"
+        ],
+        [
+          {
+            "x": 2.5,
+            "w": 2.5
+          },
+          "3, 2",
+          {
+            "w": 8.75
+          },
+          "3, 14",
+          "3, 17",
+          {
+            "w": 2.5
+          },
+          "3, 15"
+        ]
+      ]
+
+
+  }
+}

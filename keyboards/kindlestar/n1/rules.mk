@@ -1,0 +1,6 @@
+
+ MCU        = STM32F103
+ BOOTLOADER = stm32duino
+ 
+MCU_STARTUP_ADDRESS = 0x08002000
+

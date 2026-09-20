@@ -1,0 +1,403 @@
+{
+  "name": "Quantafont Quanta",
+  "vendorId": "0xFEED",
+  "productId": "0x6535",
+  "customKeycodes": [
+    {"name": "MODE",
+     "title": "Custom RGB Mode",
+     "shortName": "MODE"
+    },
+    {"name": "RSET",
+     "title": "Reset Sections + Colors",
+     "shortName": "RSET"
+    },
+    {"name": "LOGO",
+     "title": "Toggle: QB Logo",
+     "shortName": "LOGO"
+    },
+    {"name": "SCRN",
+     "title": "Toggle: Screen",
+     "shortName": "SCRN"
+    },
+    {"name": "CHNA",
+     "title": "Toggle: Channel A",
+     "shortName": "CHNA"
+    },
+    {"name": "CHNB",
+     "title": "Toggle: Channel B",
+     "shortName": "CHNB"
+    },
+    {"name": "MIXD",
+     "title": "Toggle: AB Mix",
+     "shortName": "MIXD"
+    },
+    {"name": "PRVW",
+     "title": "Toggle: AB Preview",
+     "shortName": "PRVW"
+    },
+    {"name": "CWHT",
+     "title": "Color: White (Lit Sections)",
+     "shortName": "CWHT"
+    },
+    {"name": "CGRY",
+     "title": "Color: Gray (Lit Sections)",
+     "shortName": "CGRY"
+    },
+    {"name": "CRED",
+     "title": "Color: Red (Lit Sections)",
+     "shortName": "CRED"
+    },
+    {"name": "CMAG",
+     "title": "Color: Magenta (Lit Sections)",
+     "shortName": "CMAG"
+    },
+    {"name": "CBLU",
+     "title": "Color: Blue (Lit Sections)",
+     "shortName": "CBLU"
+    },
+    {"name": "CCYN",
+     "title": "Color: Cyan (Lit Sections)",
+     "shortName": "CCYN"
+    },
+    {"name": "CGRN",
+     "title": "Color: Green (Lit Sections)",
+     "shortName": "CGRN"
+    },
+    {"name": "CYLW",
+     "title": "Color: Yellow (Lit Sections)",
+     "shortName": "CYLW"
+    },
+    {"name": "NKBD",
+     "title": "Numbers: KBD Animate Toggle",
+     "shortName": "NKBD"
+    },
+    {"name": "NCHA",
+     "title": "Numbers: Ch A Animate Toggle",
+     "shortName": "NCHA"
+    },
+    {"name": "NCHB",
+     "title": "Numbers: Ch B Animate Toggle",
+     "shortName": "NCHB"
+    },
+    {"name": "VDRT",
+     "title": "Virtual Desktop Right",
+     "shortName": "VDRT"
+    },
+    {"name": "VDLT",
+     "title": "Virtual Desktop Left",
+     "shortName": "VDLT"
+    },
+    {"name": "VDUP",
+     "title": "Virtual Desktop Up (Mission Control)",
+     "shortName": "VDUP"
+    },
+    {"name": "VDDN",
+     "title": "Virtual Desktop Down (Show Desktop)",
+     "shortName": "VDDN"
+    },
+    {"name": "EXPL",
+     "title": "Open File Explorer / Launchpad",
+     "shortName": "EXPL"
+    },
+    {"name": "SNIP",
+     "title": "Screenshot Snip Tool",
+     "shortName": "SNIP"
+    },
+    {"name": "COPY",
+     "title": "Copy All",
+     "shortName": "COPY"
+    },
+    {"name": "CUTT",
+     "title": "Cut All",
+     "shortName": "CUTT"
+    },
+    {"name": "PAST",
+     "title": "Paste Over",
+     "shortName": "PAST"
+    },
+    {"name": "TASK",
+     "title": "Task Manager / Force Quit",
+     "shortName": "TASK"
+    },
+    {"name": "QUIT",
+     "title": "Close App (Win Alt+F4 / Mac Ctrl+W)",
+     "shortName": "QUIT"
+    },
+    {"name": "THIS",
+     "title": "Discord: :this:",
+     "shortName": "THIS"
+    },
+    {"name": "OOF",
+     "title": "Discord: :oof:",
+     "shortName": "OOF"
+    },
+    {"name": "PIKA",
+     "title": "Discord: :surprised:",
+     "shortName": "PIKA"
+    },
+    {"name": "SCAT",
+     "title": "Discord: :smiley_cat2:",
+     "shortName": "SCAT"
+    },
+    {"name": "FCAT",
+     "title": "Discord: :smiley_cat1:",
+     "shortName": "FCAT"
+    },
+    {"name": "HART",
+     "title": "Discord: :heart:",
+     "shortName": "HART"
+    },
+    {"name": "DROL",
+     "title": "Discord: :drooling_face:",
+     "shortName": "DROL"
+    },
+    {"name": "MONY",
+     "title": "Discord: :smiley_take:",
+     "shortName": "MONY"
+    },
+    {"name": "FHAT",
+     "title": "Discord: :smiley_fedora:",
+     "shortName": "FHAT"
+    },
+    {"name": "SPIT",
+     "title": "Discord: :smiley_spit:",
+     "shortName": "SPIT"
+    },
+    {"name": "KING",
+     "title": "Discord: :pepe_king:",
+     "shortName": "KING"
+    },
+    {"name": "FLEX",
+     "title": "Discord: :muscle:",
+     "shortName": "FLEX"
+    },
+    {"name": "HAHA",
+     "title": "Discord: :smiley_kekw:",
+     "shortName": "HAHA"
+    },
+    {"name": "LCRY",
+     "title": "Discord: :joy:",
+     "shortName": "LCRY"
+    },
+    {"name": "NICE",
+     "title": "Discord: :nice~2:",
+     "shortName": "NICE"
+    },
+    {"name": "PPOG",
+     "title": "Discord: :pepe_pog:",
+     "shortName": "PPOG"
+    },
+    {"name": "PRAY",
+     "title": "Discord: :pray_tone2:",
+     "shortName": "PRAY"
+    },
+    {"name": "SWET",
+     "title": "Discord: :sweat_smile:",
+     "shortName": "SWET"
+    },
+    {"name": "COLD",
+     "title": "Discord: :cold_face:",
+     "shortName": "COLD"
+    },
+    {"name": "THUM",
+     "title": "Discord: :thumbsup:",
+     "shortName": "THUM"
+    }
+  ],
+
+  "lighting": "vialrgb",
+  "matrix": {
+      "rows": 8,
+      "cols": 16
+  },
+  "layouts": {
+    "labels": [
+],
+"keymap": [
+    [
+      "0, 11",
+      "0, 12",
+      "0, 13",
+      "0, 14",
+      "0, 4",
+      "0, 3",
+      "0, 2",
+      "0, 1",
+      "0, 0",
+      "0, 10",
+      "0, 9",
+      "0, 8",
+      "0, 7",
+      "0, 6",
+      "0, 5",
+      "7, 5",
+      "7, 6",
+      "7, 7",
+      {
+        "w": 1.25
+      },
+      "7, 8",
+      {
+        "x": 0.75
+      },
+      "7, 10",
+      "7, 0",
+      "7, 1",
+      "7, 2"
+    ],
+    [
+      "1, 11",
+      "1, 12",
+      "1, 13",
+      "1, 14",
+      "1, 15",
+      "1, 4",
+      "1, 3",
+      "1, 2",
+      "1, 1",
+      "1, 0",
+      "1, 10",
+      "1, 9",
+      "1, 8",
+      "1, 7",
+      "1, 6",
+      "1, 5",
+      "6, 5",
+      "0, 15",
+      {
+        "w": 1.25
+      },
+      "6, 6",
+      {
+        "x": 0.75
+      },
+      "6, 8",
+      "6, 9",
+      "6, 10",
+      "6, 0"
+    ],
+    [
+      "2, 11",
+      "2, 12",
+      "2, 13",
+      "2, 14",
+      {
+        "w": 1.5
+      },
+      "2, 4",
+      "2, 3",
+      "2, 2",
+      "2, 1",
+      "2, 0",
+      "2, 10",
+      "2, 9",
+      "2, 8",
+      "2, 7",
+      "2, 6",
+      "2, 5",
+      "5, 5",
+      "5, 6",
+      "5, 7",
+      {
+        "w": 0.75,
+        "h": 2,
+        "w2": 1.5,
+        "h2": 1,
+        "x2": -0.75,
+        "y2": 1
+      },
+      "6,4",
+      {
+        "x": 1.75
+      },
+      "5, 10"
+    ],
+    [
+      "3, 11",
+      "3, 12",
+      "3, 13",
+      "3, 14",
+      {
+        "w": 1.75
+      },
+      "3, 15",
+      "3, 3",
+      "3, 2",
+      "3, 1",
+      "3, 0",
+      "3, 10",
+      "3, 9",
+      "3, 8",
+      "3, 7",
+      "3, 6",
+      "3, 5",
+      "6, 2",
+      "6, 3",
+      {
+        "x": 2.25
+      },
+      "3, 4",
+      "5, 3",
+      "5, 2"
+    ],
+    [
+      "4, 11",
+      "4, 12",
+      "4, 13",
+      "4, 14",
+      {
+        "w": 2.25
+      },
+      "4, 15",
+      "4, 3",
+      "4, 2",
+      "4, 1",
+      "4, 0",
+      "4, 10",
+      "4, 9",
+      "4, 8",
+      "4, 7",
+      "4, 6",
+      "4, 5",
+      {
+        "w": 2
+      },
+      "7, 15",
+      "7, 4",
+      {
+        "x": 1.75
+      },
+      "7, 13"
+    ],
+    [
+      "5, 11",
+      "5, 12",
+      "5, 13",
+      "5, 14",
+      {
+        "x": 1.25,
+        "w": 1.5
+      },
+      "5, 15",
+      {
+        "w": 9
+      },
+      "5, 4",
+      {
+        "w": 1.5
+      },
+      "6, 15",
+      {
+        "x": 2.75
+      },
+      "6, 14",
+      "6, 13",
+      {
+        "w": 2
+      },
+      "6, 12"
+    ]
+  ]
+
+  }
+}

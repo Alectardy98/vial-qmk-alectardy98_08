@@ -1,4 +1,4 @@
-/*
+B/*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
-
-#define AUDIO_INIT_DELAY
 
 /*
  * Feature disable options

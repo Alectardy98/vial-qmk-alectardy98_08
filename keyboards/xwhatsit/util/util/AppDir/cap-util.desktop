@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Cap-Util
+Exec=xwhatsit-util
+Icon=cap-util
+Categories=Utility;
+Terminal=false
+StartupWMClass=xwhatsit-util

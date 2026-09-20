@@ -1,0 +1,35 @@
+#pragma once
+
+#define VIAL_KEYBOARD_UID {0x0E, 0xC1, 0x73, 0x23, 0x9F, 0x8F, 0x8F, 0x2C}
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 4
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define VIAL_TAP_DANCE_ENTRIES 4
+#define VIAL_COMBO_ENTRIES 4
+#define VIAL_KEY_OVERRIDE_ENTRIES 4
+
+#define RGB_MATRIX_DISABLE_SHARED_KEYCODES // Indapendent Control of both LED Areas
+#define RGBLIGHT_LAYERS       //  “lighting layers” support
+
+
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
+#define RGBLIGHT_SLEEP // turn off effects when suspended
+
+//Defaults for the Badge Heart
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_BREATHING + 2
+#define RGBLIGHT_DEFAULT_SPD    5
+#define RGBLIGHT_DEFAULT_HUE 200
+#define RGBLIGHT_DEFAULT_SAT UINT8_MAX
+#define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_DEFAULT_ON true
+
+
+//Defaults for Back Left Accent
+#define VIALRGB_NO_DIRECT
+#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 255
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define RGB_MATRIX_DEFAULT_HUE 225
+#define RGB_MATRIX_DEFAULT_SAT 255
+#define RGB_MATRIX_DEFAULT_VAL 30
+#define RGB_MATRIX_DEFAULT_SPD 255
+

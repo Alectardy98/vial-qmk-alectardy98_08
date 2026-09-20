@@ -1,5 +1,5 @@
 {
-  "keyboard_name": "HP 46010A to USB Keyboard Converter",
+  "keyboard_name": "HP 46010A",
   "manufacturer": "QMK",
   "url": "https://deskthority.net/wiki/HP_46010A",
   "maintainer": "listofoptions",
@@ -7,13 +7,12 @@
     "vid": "0xFEED",
     "pid": "0x6060",
     "device_version": "0.0.1",
-    "wait_for_enumeration": true
   },
   "processor": "atmega32u4",
-  "bootloader": "halfkay",
+  "bootloader": "caterina",
   "features": {
     "bootmagic": false,
-    "mousekey": true,
+    "mousekey": false,
     "extrakey": true,
     "console": true,
     "nkro": true
@@ -136,9 +135,12 @@
         {"matrix": [11, 7], "x": 21, "y": 5, "h": 2},
 
         {"matrix": [13, 5], "x": 0, "y": 6},
+        {"matrix": [9, 5], "x": 1, "y": 6},
         {"matrix": [5, 1], "x": 2.5, "y": 6},
         {"matrix": [5, 0], "x": 3.5, "y": 6, "w": 8},
         {"matrix": [5, 2], "x": 11.5, "y": 6},
+        {"matrix": [5, 3], "x": 12.5, "y": 6},
+
 
         {"matrix": [5, 4], "x": 14, "y": 6},
         {"matrix": [5, 5], "x": 15, "y": 6},
