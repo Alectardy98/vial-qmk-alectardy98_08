@@ -9,7 +9,7 @@ DYNAMIC_MACRO_ENABLE = yes
 COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = no
 KEY_OVERRIDE_ENABLE = no
-QMK_SETTINGS = yes
+QMK_SETTINGS = no
 UNICODE_ENABLE = yes
 BOOTMAGIC_ENABLE = no      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
@@ -19,3 +19,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 
 AUDIO_ENABLE = no         #unfortunatly had to disable for size limits
+
+OPT_DEFS += -include avr/io.h
+OPT_DEFS += -Wno-error=unused-but-set-variable

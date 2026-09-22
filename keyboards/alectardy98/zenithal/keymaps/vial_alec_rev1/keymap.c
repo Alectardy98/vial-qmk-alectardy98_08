@@ -15,7 +15,230 @@
  */
 #include QMK_KEYBOARD_H
 
-[{"label":"0,0", "x":0, "y":0}, {"label":"1,0", "x":1, "y":0}, {"label":"0,1", "x":2, "y":0}, {"label":"1,1", "x":3, "y":0}, {"label":"0,2", "x":4, "y":0}, {"label":"1,2", "x":5, "y":0}, {"label":"0,3", "x":6, "y":0}, {"label":"1,3", "x":7, "y":0}, {"label":"0,4", "x":8, "y":0}, {"label":"1,4", "x":9, "y":0}, {"label":"0,5", "x":10, "y":0}, {"label":"1,5", "x":11, "y":0}, {"label":"0,6", "x":12, "y":0}, {"label":"1,6", "x":13, "y":0}, {"label":"0,7", "x":14, "y":0}, {"label":"0,8", "x":15.75, "y":0}, {"label":"1,8", "x":16.75, "y":0}, {"label":"0,9", "x":17.75, "y":0}, {"label":"1,9", "x":18.75, "y":0}, {"label":"2,0", "x":0, "y":1.25}, {"label":"3,0", "x":1, "y":1.25}, {"label":"2,1", "x":2, "y":1.25}, {"label":"3,1", "x":3, "y":1.25}, {"label":"2,2", "x":4, "y":1.25}, {"label":"3,2", "x":5, "y":1.25}, {"label":"2,3", "x":6, "y":1.25}, {"label":"3,3", "x":7, "y":1.25}, {"label":"2,4", "x":8, "y":1.25}, {"label":"3,4", "x":9, "y":1.25}, {"label":"2,5", "x":10, "y":1.25}, {"label":"3,5", "x":11, "y":1.25}, {"label":"2,6", "x":12, "y":1.25}, {"label":"3,6", "x":13, "y":1.25}, {"label":"1,7", "x":14, "y":1.25, "w":1.5}, {"label":"2,8", "x":15.75, "y":1.25}, {"label":"3,8", "x":16.75, "y":1.25}, {"label":"2,9", "x":17.75, "y":1.25}, {"label":"3,9", "x":18.75, "y":1.25}, {"label":"4,0", "x":0, "y":2.25, "w":1.5}, {"label":"5,0", "x":1.5, "y":2.25}, {"label":"4,1", "x":2.5, "y":2.25}, {"label":"5,1", "x":3.5, "y":2.25}, {"label":"4,2", "x":4.5, "y":2.25}, {"label":"5,2", "x":5.5, "y":2.25}, {"label":"4,3", "x":6.5, "y":2.25}, {"label":"4,4", "x":7.5, "y":2.25}, {"label":"5,4", "x":8.5, "y":2.25}, {"label":"4,5", "x":9.5, "y":2.25}, {"label":"5,5", "x":10.5, "y":2.25}, {"label":"4,6", "x":11.5, "y":2.25}, {"label":"5,6", "x":12.5, "y":2.25}, {"label":"3,7", "x":13.5, "y":2.25}, {"label":"2,7", "x":14.5, "y":2.25}, {"label":"4,8", "x":15.75, "y":2.25}, {"label":"5,8", "x":16.75, "y":2.25}, {"label":"4,9", "x":17.75, "y":2.25}, {"label":"5,9", "x":18.75, "y":2.25}, {"label":"6,0", "x":0, "y":3.25, "w":1.75}, {"label":"7,0", "x":1.75, "y":3.25}, {"label":"6,1", "x":2.75, "y":3.25}, {"label":"6,2", "x":3.75, "y":3.25}, {"label":"7,2", "x":4.75, "y":3.25}, {"label":"5,3", "x":5.75, "y":3.25}, {"label":"6,3", "x":6.75, "y":3.25}, {"label":"6,4", "x":7.75, "y":3.25}, {"label":"7,4", "x":8.75, "y":3.25}, {"label":"6,5", "x":9.75, "y":3.25}, {"label":"7,5", "x":10.75, "y":3.25}, {"label":"6,6", "x":11.75, "y":3.25}, {"label":"5,7", "x":12.75, "y":3.25, "w":1.75}, {"label":"4,7", "x":14.5, "y":3.25}, {"label":"6,8", "x":15.75, "y":3.25}, {"label":"7,8", "x":16.75, "y":3.25}, {"label":"6,9", "x":17.75, "y":3.25}, {"label":"7,9", "x":18.75, "y":3.25}, {"label":"8,0", "x":0, "y":4.25, "w":1.25}, {"label":"9,0", "x":1.25, "y":4.25}, {"label":"7,1", "x":2.25, "y":4.25}, {"label":"8,1", "x":3.25, "y":4.25}, {"label":"8,2", "x":4.25, "y":4.25}, {"label":"9,2", "x":5.25, "y":4.25}, {"label":"7,3", "x":6.25, "y":4.25}, {"label":"8,3", "x":7.25, "y":4.25}, {"label":"8,4", "x":8.25, "y":4.25}, {"label":"9,4", "x":9.25, "y":4.25}, {"label":"8,5", "x":10.25, "y":4.25}, {"label":"9,5", "x":11.25, "y":4.25}, {"label":"7,6", "x":12.25, "y":4.25}, {"label":"7,7", "x":13.25, "y":4.25}, {"label":"6,7", "x":14.25, "y":4.25}, {"label":"8,7", "x":15.75, "y":4.25}, {"label":"8,8", "x":16.75, "y":4.25}, {"label":"9,8", "x":17.75, "y":4.25}, {"label":"8,9", "x":18.75, "y":4.25}, {"label":"9,1", "x":2.25, "y":5.25}, {"label":"9,3", "x":3.25, "y":5.25, "w":8}, {"label":"9,6", "x":11.25, "y":5.25}, {"label":"10,6", "x":12.25, "y":5.25}, {"label":"10,8", "x":15.75, "y":5.25}, {"label":"9,7", "x":16.75, "y":5.25}, {"label":"9,9", "x":17.75, "y":5.25}, {"label":"10,9", "x":18.75, "y":5.25}]
+bool beep_enabled = true;  // Beep mode starts enabled
+
+void matrix_init_user(void) {
+    beep_enabled = true;  // Ensure beep is enabled on startup
+}
+
+enum layer_names {
+    _BASE,
+    _NUM,
+    _FN
+};
+
+
+bool led_update_kb(led_t led_state) {
+    if (layer_state_is(_FN)) {               // Force Scroll Lock LED On when in FN layer
+        writePin(C6, true);
+    } else {
+        writePin(C6, false);
+    }
+
+    if (layer_state_is(_NUM)) {              // Force Num Lock LED On when in NUM layer
+        writePin(C7, true);
+    } else {
+        writePin(C7, false);
+    }
+
+    // Caps Lock LED based on USB LED state
+    writePin(F0, led_state.caps_lock);
+
+    return true;
+}
+
+
+enum blender_keycode {
+    BEEP = QK_KB_0,
+    VDRT,                   //Desktop Right "set to move right a space on mac"
+    VDLT,                   //Desktop Left "set to move left a space on mac"
+    VDUP,                   //V-Desktop Up "set to mission controll on mac"
+    VDDN,                   //Min All "set to show desktop on mac"
+    EXPL,                   //New Explorer On Windows "set to show launchpad on mac"
+    SNIP,                   //Snip Tool Windows "set to save picture of selected area on mac"
+    COPY,                   //Copy All
+    CUTT,                   //Cut All
+    PAST,                   //Paste Over
+    TASK,                   //Task Manager
+    GOGL,                   //Opens Google Chrome, Set in automator on mac to Controll + Alt + G
+    CMD,                    //Opens Comand Prompt, Set In automator on mac to Controll + Alt + T
+    QUIT,                   //Close App
+    DZRO,                   //Double Zero
+    ATAB,                   //Alt + Tab "brew install alt-tab on mac"
+    LPRC,                   //The "(" Key
+    RPRC,                   //The ")" Key
+    NUM,                    //Num Lock for both mac and windows
+    //Discord Section
+    THIS,                   //Macro for ":this:" emoji on discord
+    OOF,                    //Macro for ":oof:" emoji on discord
+    PIKA,                   //Macro for ":surprised:" emoji on discord
+    SCAT,                   //Macro for ":smiley_cat2:" emoji on discord
+    FCAT,                   //Macro for ":smiley_cat1:" emoji on discord
+    HART,                   //Macro for ":heart:" emoji on discord
+    DROL,                   //Macro for ":drooling_face:" emoji on discord
+    MONY,                   //Macro for ":smiley_take:" emoji on discord
+    FHAT,                   //Macro for ":smiley_fedora:" emoji on discord
+    SPIT,                   //Macro for ":smiley_spit:" emoji on discord
+    KING,                   //Macro for ":pepe_king:" emoji on discord
+    FLEX,                   //Macro for ":muscle:" emoji on discord
+    HAHA,                   //Macro for ":smiley_kekw:" emoji on discord
+    LCRY,                   //Macro for ":joy:" emoji on discord
+    NICE,                   //Macro for ":nice~2:" emoji on discord
+    PPOG,                   //Macro for ":pepe_pog:" emoji on discord
+    PRAY,                   //Macro for ":pray_tone2:" emoji on discord
+    SWET,                   //Macro for ":sweat_smile:" emoji on discord
+    COLD,                   //Macro for ":cold_face:" emoji on discord
+    THUM,                   //Macro for ":thumbsup:" emoji on discord
+};
+    
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    bool num_lock = host_keyboard_led_state().num_lock;  // Puts the keyboard into Num Lock state if host OS initializes in Num Lock state
+    if (num_lock) {
+        if (IS_LAYER_OFF(_NUM)) {
+            layer_on(_NUM);
+        }
+    }
+    if (record->event.pressed) {  // Code for macros
+        switch (keycode) {
+            case BEEP:  // Toggle beeper mode
+                beep_enabled = !beep_enabled;
+                return false;  // Skip default key processing
+            case VDRT:
+                SEND_STRING(SS_LGUI(SS_DOWN(X_LCTL) SS_TAP(X_RIGHT) SS_UP(X_LCTL)));
+                break;
+            case VDLT:
+                SEND_STRING(SS_LGUI(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTL)));
+                break;
+            case VDUP:
+                SEND_STRING(SS_LGUI(SS_TAP(X_TAB) SS_TAP(X_T)));
+                break;
+            case VDDN:
+                SEND_STRING(SS_LGUI("d"));
+                break;
+            case EXPL:
+                SEND_STRING(SS_LGUI("e"));
+                break;
+            case SNIP:
+                SEND_STRING(SS_LGUI(SS_LSFT("s")));
+                break;
+            case COPY:
+                SEND_STRING(SS_TAP(X_F2) SS_LCTL(SS_TAP(X_A) SS_TAP(X_C)));
+                break;
+            case CUTT:
+                SEND_STRING(SS_TAP(X_F2) SS_LCTL(SS_TAP(X_A) SS_TAP(X_X)));
+                break;
+            case PAST:
+                SEND_STRING(SS_TAP(X_F2) SS_LCTL(SS_TAP(X_V)));
+                break;
+            case TASK:
+                SEND_STRING(SS_LCTL(SS_DOWN(X_RSFT) SS_TAP(X_ESCAPE) SS_UP(X_RSFT)));  // Windows
+                SEND_STRING(SS_LCTL(SS_DOWN(X_LALT) SS_TAP(X_ESCAPE) SS_UP(X_LALT)));    // Mac
+                break;
+            case GOGL:
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_G))));
+                break;
+            case CMD:
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_T))));
+                break;
+            case QUIT:
+                SEND_STRING(SS_LALT(SS_TAP(X_F4)));     // Windows
+                SEND_STRING(SS_LCTL(SS_TAP(X_W)));      // Mac
+                break;
+            case DZRO:
+                SEND_STRING("00");
+                break;
+            case ATAB:
+                SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+                break;
+            case LPRC:
+                SEND_STRING("(");
+                break;
+            case RPRC:
+                SEND_STRING(")");
+                break;
+            case NUM:
+                SEND_STRING(SS_TAP(X_NUM));         // Toggles layer change and presses the num lock button, to allow for Num lock toggle to occur for both Mac OS and Windows
+                return true;
+                break;
+            // Discord Section
+            case THIS:
+                SEND_STRING(":this:" SS_TAP(X_ENTER));
+                break;
+            case OOF:
+                SEND_STRING(":oof:" SS_TAP(X_ENTER));
+                break;
+            case PIKA:
+                SEND_STRING(":surprised:" SS_TAP(X_ENTER));
+                break;
+            case SCAT:
+                SEND_STRING(":smiley_cat2:" SS_TAP(X_ENTER));
+                break;
+            case FCAT:
+                SEND_STRING(":smiley_cat1:" SS_TAP(X_ENTER));
+                break;
+            case HART:
+                SEND_STRING(":heart:" SS_TAP(X_ENTER));
+                break;
+            case DROL:
+                SEND_STRING(":drooling_face:" SS_TAP(X_ENTER));
+                break;
+            case MONY:
+                SEND_STRING(":smiley_take:" SS_TAP(X_ENTER));
+                break;
+            case FHAT:
+                SEND_STRING(":smiley_fedora:" SS_TAP(X_ENTER));
+                break;
+            case SPIT:
+                SEND_STRING(":smiley_spit:" SS_TAP(X_ENTER));
+                break;
+            case KING:
+                SEND_STRING(":pepe_king:" SS_TAP(X_ENTER));
+                break;
+            case FLEX:
+                SEND_STRING(":muscle:" SS_TAP(X_ENTER));
+                break;
+            case HAHA:
+                SEND_STRING(":smiley_kekw:" SS_TAP(X_ENTER));
+                break;
+            case LCRY:
+                SEND_STRING(":joy:" SS_TAP(X_ENTER));
+                break;
+            case NICE:
+                SEND_STRING(":nice~2:" SS_TAP(X_ENTER));
+                break;
+            case PPOG:
+                SEND_STRING(":pepe_pog:" SS_TAP(X_ENTER));
+                break;
+            case PRAY:
+                SEND_STRING(":pray_tone2:" SS_TAP(X_ENTER));
+                break;
+            case SWET:
+                SEND_STRING(":sweat_smile:" SS_TAP(X_ENTER));
+                break;
+            case COLD:
+                SEND_STRING(":cold_face:" SS_TAP(X_ENTER));
+                break;
+            case THUM:
+                SEND_STRING(":thumbsup:" SS_TAP(X_ENTER));
+                break;
+        }
+        // Beep on keypress if enabled
+        if (beep_enabled) {
+            writePinHigh(B5);
+            wait_ms(2);  // Delay in milliseconds
+            writePinLow(B5);
+        }
+    }
+#ifdef CONSOLE_ENABLE // Console Debug
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %1u, time: %u, interrupt: %1u, count: %u\n",
+             keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time,
+             record->tap.interrupted, record->tap.count);
+#endif
+
+    return true;
+}
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(

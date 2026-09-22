@@ -19,4 +19,10 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 
 AUDIO_ENABLE = yes         #unfortunatly had to disable for size limits
+CAPS_WORD_ENABLE = no
+LAYER_LOCK_ENABLE = no
+REPEAT_KEY_ENABLE = no
 
+
+OPT_DEFS += -include avr/io.h
+OPT_DEFS += -Wno-error=unused-but-set-variable

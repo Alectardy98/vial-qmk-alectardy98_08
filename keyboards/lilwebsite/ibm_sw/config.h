@@ -1,8 +1,6 @@
 #pragma once
 
 /* Matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* Debounce: keep taps snappy but filter chatter */
 #define DEBOUNCE 5

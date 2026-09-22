@@ -230,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______,    _______, _______, _______, _______, \
         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_DEL,  DM_REC1, DM_REC2,    _______, _______, _______, _______, \
-           SNIP,    THIS,     OOF,    PIKA,    SCAT,    FCAT,    HART,    DROL,    MONY,    FHAT,    SPIT, _______, _______, _______, _______, _______,    _______,    0 bnv89  564v5c6fttvcb   gf, _______, _______, \
+           SNIP,    THIS,     OOF,    PIKA,    SCAT,    FCAT,    HART,    DROL,    MONY,    FHAT,    SPIT, _______, _______, _______, _______, _______,    _______,    VDUP, _______, _______, \
         _______, KC_LCTL, C(KC_A), C(KC_S), C(KC_D), C(KC_F), _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, _______, _______, _______,       VDLT,    QUIT,    VDRT, _______, \
         _______, _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), _______, _______, _______, KC_MPRV, KC_MNXT, KC_MPLY, _______, KC_VOLD,    VDUP, KC_VOLU,    _______,    VDDN, _______, _______, \
         KC_LGUI, _______, _______,                                     _______,                            _______, _______,    VDLT,    VDDN,    VDRT,             _______, _______           \

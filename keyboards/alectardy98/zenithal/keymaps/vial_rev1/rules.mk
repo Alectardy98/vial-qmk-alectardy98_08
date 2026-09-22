@@ -18,3 +18,5 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no           #disbaled for space
 
+OPT_DEFS += -include avr/io.h
+OPT_DEFS += -Wno-error=unused-but-set-variable

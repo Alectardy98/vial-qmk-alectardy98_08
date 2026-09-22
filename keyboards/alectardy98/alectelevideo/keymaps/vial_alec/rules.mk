@@ -17,3 +17,5 @@ CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = yes         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
+
+OPT_DEFS += -Wno-error=unused-but-set-variable

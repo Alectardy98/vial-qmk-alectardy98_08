@@ -19,13 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-/* Use 1000hz polling */
-#define USB_POLLING_INTERVAL_MS 1
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 15
 
-#define FORCE_NKRO
 
 
 #define SOLENOID_PIN D5
