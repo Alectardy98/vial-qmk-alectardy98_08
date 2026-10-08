@@ -7,7 +7,7 @@
 static const pin_t row_pins[] = {GP15, GP8, GP0, GP17, GP11, GP12, GP13, GP14, GP16, GP18};
 static const pin_t col_pins[] = {GP23, GP22, GP21, GP29, GP28, GP27, GP26, GP25};
 // Five original direct keys, EC11 push, and Power, per the uploaded PCB mapping.
-static const pin_t direct_pins[] = {GP20, GP7, GP9, GP10, GP4, GP19};
+static const pin_t direct_pins[] = {GP20, GP7, GP9, GP10, GP6, GP19};
 static matrix_row_t raw_matrix[MATRIX_ROWS];
 
 void matrix_init_custom(void) {

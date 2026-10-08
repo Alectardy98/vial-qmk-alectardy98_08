@@ -799,8 +799,8 @@
   "encoder": {
     "rotary": [
       {
-        "pin_a": "GP6",
-        "pin_b": "GP5",
+        "pin_a": "GP5",
+        "pin_b": "GP4",
         "resolution": 4
       }
     ]
