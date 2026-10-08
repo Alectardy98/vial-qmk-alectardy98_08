@@ -1,0 +1,6 @@
+# QMK/Vial keymap options
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+VIAL_INSECURE = yes
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
