@@ -1,0 +1,73 @@
+ D keyboards/alectardy98_ec/AUDIT.md
+ M keyboards/alectardy98_ec/README.md
+ M keyboards/alectardy98_ec/TESTING.md
+ M keyboards/alectardy98_ec/THIRD_PARTY_NOTICES.md
+ M keyboards/alectardy98_ec/class0413_ec/class0413_ec.c
+ D keyboards/alectardy98_ec/class0413_ec/modules/music_compact.c
+ D keyboards/alectardy98_ec/class0413_ec/modules/native_music.c
+ M keyboards/alectardy98_ec/class0413_ec/post_rules.mk
+ M keyboards/alectardy98_ec/class0413_ec/tests/verify_size_changes.py
+ M keyboards/alectardy98_ec/common/engine/actuation_control.inc
+ M keyboards/alectardy98_ec/common/engine/calibration.c
+ M keyboards/alectardy98_ec/common/engine/calibration.h
+ M keyboards/alectardy98_ec/common/engine/ec_diagnostic.c
+ M keyboards/alectardy98_ec/common/engine/ec_diagnostic.h
+ M keyboards/alectardy98_ec/common/engine/ec_switch_matrix.h
+ M keyboards/alectardy98_ec/common/engine/record_storage.inc
+ D keyboards/alectardy98_ec/common/interfaces/ec_hardware.h
+ M keyboards/alectardy98_ec/common/runtime/decision.c
+ M keyboards/alectardy98_ec/common/runtime/ec_board.c
+ M keyboards/alectardy98_ec/common/runtime/integration.c
+ M keyboards/alectardy98_ec/util/.gitignore
+ M keyboards/alectardy98_ec/util/README.md
+ D keyboards/alectardy98_ec/util/docs/CALIBRATION_VALIDATION.json
+ M keyboards/alectardy98_ec/util/docs/EC42.md
+ M keyboards/alectardy98_ec/util/docs/IMPORT.md
+ D keyboards/alectardy98_ec/util/docs/RT_DIAGNOSTICS.md
+ D keyboards/alectardy98_ec/util/docs/VALIDATION.json
+ M keyboards/alectardy98_ec/util/src/boardprofile.h
+ M keyboards/alectardy98_ec/util/src/device.cpp
+ M keyboards/alectardy98_ec/util/src/livepanel.cpp
+ M keyboards/alectardy98_ec/util/src/mainwindow.cpp
+ M keyboards/alectardy98_ec/util/src/mainwindow.h
+ M keyboards/alectardy98_ec/util/src/protocol.cpp
+ M keyboards/alectardy98_ec/util/src/protocol.h
+ M keyboards/alectardy98_ec/util/src/settings.cpp
+ M keyboards/alectardy98_ec/util/src/settings.h
+ D keyboards/alectardy98_ec/util/tests/firmware_harness.py
+ D keyboards/alectardy98_ec/util/tests/fixtures/legacy_v28_harness.c
+ D keyboards/alectardy98_ec/util/tests/fixtures/scanner_harness_templates.json
+ D keyboards/alectardy98_ec/util/tests/fixtures/scanner_harness_templates.json.license
+ D keyboards/alectardy98_ec/util/tests/packed_record.py
+ M keyboards/alectardy98_ec/util/tests/test_boards.cpp
+ D keyboards/alectardy98_ec/util/tests/test_explicit_calibration.py
+ M keyboards/alectardy98_ec/util/tests/test_live.cpp
+ M keyboards/alectardy98_ec/util/tests/test_settings.cpp
+ D keyboards/alectardy98_ec/util/tests/test_variable_actuation.py
+?? development/alectardy98_ec/architecture_review/CHANGED_FILES.txt
+?? development/alectardy98_ec/architecture_review/CLEANUP_REPORT.md
+?? development/alectardy98_ec/architecture_review/HISTORICAL_GUI_CALIBRATION_VALIDATION.json
+?? development/alectardy98_ec/architecture_review/HISTORICAL_GUI_VALIDATION.json
+?? development/alectardy98_ec/architecture_review/HISTORICAL_RT_DIAGNOSTICS.md
+?? development/alectardy98_ec/architecture_review/HISTORICAL_SOURCE_AUDIT.md
+?? development/alectardy98_ec/architecture_review/REPORT.md
+?? development/alectardy98_ec/architecture_review/SHA256SUMS
+?? development/alectardy98_ec/architecture_review/TRACKED_SOURCE_DIFF.patch
+?? development/alectardy98_ec/architecture_review/sizes.json
+?? development/alectardy98_ec/build-baselines.sh
+?? development/alectardy98_ec/port-harness.py
+?? development/alectardy98_ec/test.sh
+?? development/alectardy98_ec/tests/class0413_ec-mocks.json
+?? development/alectardy98_ec/tests/ec_prox-mocks.json
+?? development/alectardy98_ec/tests/flash_hal.h
+?? development/alectardy98_ec/tests/me_ec_uf2-mocks.json
+?? development/alectardy98_ec/tests/test_0413_storage.py
+?? development/alectardy98_ec/tests/test_acquisition.py
+?? development/alectardy98_ec/tests/test_astro_bootloader.py
+?? development/alectardy98_ec/tests/test_matrix_vial_id.py
+?? development/alectardy98_ec/tests/test_port_storage.py
+?? development/alectardy98_ec/tests/test_ports.py
+?? development/alectardy98_ec/tests/test_prox_lighting.py
+?? development/alectardy98_ec/tests/test_record_io.py
+?? development/alectardy98_ec/verify-builds.py
+?? keyboards/alectardy98_ec/util/CMakeLists.txt

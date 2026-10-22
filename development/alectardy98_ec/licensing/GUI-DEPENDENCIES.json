@@ -1,0 +1,472 @@
+[
+  {
+    "library": "/usr/lib/liblzma.so.5",
+    "package": "xz",
+    "package_metadata": {
+      "Version": "5.8.3-1",
+      "Licenses": "GPL-2.0-or-later AND 0BSD AND LicenseRef-Public-Domain AND LGPL-2.1-or-later",
+      "URL": "https://tukaani.org/xz/"
+    },
+    "sha256": "34d6782a6a5ef49f300eeaa740d11cb5900fced2557f0398dbd58699abb73bb3"
+  },
+  {
+    "library": "/usr/lib/libQt6Widgets.so.6",
+    "package": "qt6-base",
+    "package_metadata": {
+      "Version": "6.11.2-3",
+      "Licenses": "GPL-3.0-only  LGPL-3.0-only  LicenseRef-Qt-Commercial  Qt-GPL-exception-1.0",
+      "URL": "https://www.qt.io"
+    },
+    "sha256": "fe40d11c9b7a4daaa0f4c9c4ba5973b9bacb61ff534bbe6405e9466288a591c9"
+  },
+  {
+    "library": "/usr/lib/libQt6Gui.so.6",
+    "package": "qt6-base",
+    "package_metadata": {
+      "Version": "6.11.2-3",
+      "Licenses": "GPL-3.0-only  LGPL-3.0-only  LicenseRef-Qt-Commercial  Qt-GPL-exception-1.0",
+      "URL": "https://www.qt.io"
+    },
+    "sha256": "76c10f18c6c5ba9492b12c9e2be85a7369ca2570fdcd1e9a2ed1fd3aa6a83e16"
+  },
+  {
+    "library": "/usr/lib/libGLX.so.0",
+    "package": "libglvnd",
+    "package_metadata": {
+      "Version": "1.7.0-3",
+      "Licenses": "custom:BSD-like",
+      "URL": "https://gitlab.freedesktop.org/glvnd/libglvnd"
+    },
+    "sha256": "4eca76728c640b67b1ed656a22b53d3734c100ba4f992aecd705d2e70bfe743a"
+  },
+  {
+    "library": "/usr/lib/libOpenGL.so.0",
+    "package": "libglvnd",
+    "package_metadata": {
+      "Version": "1.7.0-3",
+      "Licenses": "custom:BSD-like",
+      "URL": "https://gitlab.freedesktop.org/glvnd/libglvnd"
+    },
+    "sha256": "5ec13550cb78002495db99017a034c810e0a61facc9c289091420ba1edbd441e"
+  },
+  {
+    "library": "/usr/lib/libQt6Core.so.6",
+    "package": "qt6-base",
+    "package_metadata": {
+      "Version": "6.11.2-3",
+      "Licenses": "GPL-3.0-only  LGPL-3.0-only  LicenseRef-Qt-Commercial  Qt-GPL-exception-1.0",
+      "URL": "https://www.qt.io"
+    },
+    "sha256": "6c78628047a343d332108b882d2b4396ea19aae66e8226f7239edaf8415b388e"
+  },
+  {
+    "library": "/usr/lib/libhidapi-hidraw.so.0",
+    "package": "hidapi",
+    "package_metadata": {
+      "Version": "0.15.0-1",
+      "Licenses": "GPL3  BSD  custom",
+      "URL": "https://github.com/libusb/hidapi"
+    },
+    "sha256": "8861a9b614bad89b97e7a04cd2e4c5c78465f6635cd19fd579797589691c80a6"
+  },
+  {
+    "library": "/usr/lib/libstdc++.so.6",
+    "package": "libstdc++",
+    "package_metadata": {
+      "Version": "16.2.1+r23+gd564253eb6c8-1",
+      "Licenses": "GPL-3.0-or-later WITH GCC-exception-3.1  GFDL-1.3-or-later",
+      "URL": "https://gcc.gnu.org"
+    },
+    "sha256": "f5fc7380f2ae46fa4053a64be04e7b98109f1066a4bbfff3c37042488aa0be0e"
+  },
+  {
+    "library": "/usr/lib/libm.so.6",
+    "package": "glibc",
+    "package_metadata": {
+      "Version": "2.44+r24+g16be1518495f-1",
+      "Licenses": "GPL-2.0-or-later  LGPL-2.1-or-later",
+      "URL": "https://www.gnu.org/software/libc"
+    },
+    "sha256": "965106704753eefe8c31ae7da6daba3ead3d18c52b19b5fcc41178bcc4aa999d"
+  },
+  {
+    "library": "/usr/lib/libgcc_s.so.1",
+    "package": "libgcc",
+    "package_metadata": {
+      "Version": "16.2.1+r23+gd564253eb6c8-1",
+      "Licenses": "GPL-3.0-or-later WITH GCC-exception-3.1  GFDL-1.3-or-later",
+      "URL": "https://gcc.gnu.org"
+    },
+    "sha256": "e618cb9c90c2eb3a1dad1cfea5b6c1eebcf2e799ad805976f4ae47bdd61c716a"
+  },
+  {
+    "library": "/usr/lib/libc.so.6",
+    "package": "glibc",
+    "package_metadata": {
+      "Version": "2.44+r24+g16be1518495f-1",
+      "Licenses": "GPL-2.0-or-later  LGPL-2.1-or-later",
+      "URL": "https://www.gnu.org/software/libc"
+    },
+    "sha256": "e221b10fee9ee4776d8f0f1701253bc06817f7a4dbe6c5292487277d0bf8ffff"
+  },
+  {
+    "library": "/usr/lib/libEGL.so.1",
+    "package": "libglvnd",
+    "package_metadata": {
+      "Version": "1.7.0-3",
+      "Licenses": "custom:BSD-like",
+      "URL": "https://gitlab.freedesktop.org/glvnd/libglvnd"
+    },
+    "sha256": "89d5d0f68f7e42397544db26347c24a893be2e08b81406e8e8714803c29db03b"
+  },
+  {
+    "library": "/usr/lib/libfontconfig.so.1",
+    "package": "fontconfig",
+    "package_metadata": {
+      "Version": "2:2.18.3-2",
+      "Licenses": "HPND AND Unicode-DFS-2016",
+      "URL": "https://www.freedesktop.org/wiki/Software/fontconfig/"
+    },
+    "sha256": "9d103ae2234c4a8140250935ec6f8d72b0ce1a389fc1a75e17a485c16adc566b"
+  },
+  {
+    "library": "/usr/lib/libX11.so.6",
+    "package": "libx11",
+    "package_metadata": {
+      "Version": "1.8.13-1",
+      "Licenses": "MIT AND X11",
+      "URL": "https://gitlab.freedesktop.org/xorg/lib/libx11"
+    },
+    "sha256": "97736fa2855baf2022d80a8881ffc79cdbecca11c96935e4ca3cfeb47eae1ea4"
+  },
+  {
+    "library": "/usr/lib/libglib-2.0.so.0",
+    "package": "glib2",
+    "package_metadata": {
+      "Version": "2.88.3-1",
+      "Licenses": "LGPL-2.1-or-later",
+      "URL": "https://gitlab.gnome.org/GNOME/glib"
+    },
+    "sha256": "a09a06c2e7d70361dff4b7516b18c8493b7eb1e6b2f301cf82072148f143ad92"
+  },
+  {
+    "library": "/usr/lib/libQt6DBus.so.6",
+    "package": "qt6-base",
+    "package_metadata": {
+      "Version": "6.11.2-3",
+      "Licenses": "GPL-3.0-only  LGPL-3.0-only  LicenseRef-Qt-Commercial  Qt-GPL-exception-1.0",
+      "URL": "https://www.qt.io"
+    },
+    "sha256": "addae4a33f3e692ba2297989e0c5cec04afb92ca34ffc2420f9afbefe123d801"
+  },
+  {
+    "library": "/usr/lib/libxkbcommon.so.0",
+    "package": "libxkbcommon",
+    "package_metadata": {
+      "Version": "1.13.2-1",
+      "Licenses": "MIT",
+      "URL": "https://xkbcommon.org/"
+    },
+    "sha256": "e475adbf5abd181b1bdfdeba70ad4d501cb296bbf05b13e8649fd71b3989ee07"
+  },
+  {
+    "library": "/usr/lib/libpng16.so.16",
+    "package": "libpng",
+    "package_metadata": {
+      "Version": "1.6.58-2",
+      "Licenses": "libpng-2.0",
+      "URL": "http://www.libpng.org/pub/png/libpng.html"
+    },
+    "sha256": "c13e6aa88f5fe0dae5d5bf3d27edf8dce96ad91d130b4b81239ae72a3be36b8f"
+  },
+  {
+    "library": "/usr/lib/libharfbuzz.so.0",
+    "package": "harfbuzz",
+    "package_metadata": {
+      "Version": "14.4.0-1",
+      "Licenses": "MIT",
+      "URL": "https://harfbuzz.github.io/"
+    },
+    "sha256": "ea4f2a4d4593dd5645cf3b5c856b0e22fb72c2b515f331b3243886649e9639a1"
+  },
+  {
+    "library": "/usr/lib/libmd4c.so.0",
+    "package": "md4c",
+    "package_metadata": {
+      "Version": "0.5.3-1",
+      "Licenses": "MIT",
+      "URL": "https://github.com/mity/md4c"
+    },
+    "sha256": "693f209bfdb01deb3c2e0539917d0c1eb34a6d03aa36342a25cffa1e858e1736"
+  },
+  {
+    "library": "/usr/lib/libfreetype.so.6",
+    "package": "freetype2",
+    "package_metadata": {
+      "Version": "2.14.3-1",
+      "Licenses": "FTL OR GPL-2.0-or-later",
+      "URL": "https://www.freetype.org/"
+    },
+    "sha256": "8617439444dda4fc8bb4d53e9c5e888e7338543778d477723a6b69ee1e64c602"
+  },
+  {
+    "library": "/usr/lib/libz.so.1",
+    "package": "zlib",
+    "package_metadata": {
+      "Version": "1:1.3.2-3",
+      "Licenses": "Zlib",
+      "URL": "https://www.zlib.net/"
+    },
+    "sha256": "9ba92a0b85dc9b659e8f5e596a69452cec801def6ece0883a8a2c1f032e52397"
+  },
+  {
+    "library": "/usr/lib/libGLdispatch.so.0",
+    "package": "libglvnd",
+    "package_metadata": {
+      "Version": "1.7.0-3",
+      "Licenses": "custom:BSD-like",
+      "URL": "https://gitlab.freedesktop.org/glvnd/libglvnd"
+    },
+    "sha256": "b6d068112d4fd36750b6fedcddea0df7719b707495611cbe6fd92f6887eda467"
+  },
+  {
+    "library": "/usr/lib/liburing.so.2",
+    "package": "liburing",
+    "package_metadata": {
+      "Version": "2.15-1",
+      "Licenses": "GPL-2.0-only WITH Linux-syscall-note OR MIT  LGPL-2.0-or-later  MIT",
+      "URL": "https://github.com/axboe/liburing"
+    },
+    "sha256": "b01799e8295bc119d614bf061baad1f2a2a494a0787a057f49997244daf110c5"
+  },
+  {
+    "library": "/usr/lib/libicui18n.so.78",
+    "package": "icu",
+    "package_metadata": {
+      "Version": "78.3-1",
+      "Licenses": "LicenseRef-Unicode-3.0  BSD-2-Clause  BSD-3-Clause  NAIST-2003",
+      "URL": "https://icu.unicode.org"
+    },
+    "sha256": "60d7ad7b3f8e6e1c42895c03379954ee46008948dcdb2e556fa8e4c875742c60"
+  },
+  {
+    "library": "/usr/lib/libicuuc.so.78",
+    "package": "icu",
+    "package_metadata": {
+      "Version": "78.3-1",
+      "Licenses": "LicenseRef-Unicode-3.0  BSD-2-Clause  BSD-3-Clause  NAIST-2003",
+      "URL": "https://icu.unicode.org"
+    },
+    "sha256": "c99f0dd0c797c07f9ab64413d36c595393cdded6fa04cc4edd6f6a521fd155ca"
+  },
+  {
+    "library": "/usr/lib/libsystemd.so.0",
+    "package": "systemd-libs",
+    "package_metadata": {
+      "Version": "261.2-1",
+      "Licenses": "LGPL-2.1-or-later  CC0-1.0  GPL-2.0-or-later WITH Linux-syscall-note",
+      "URL": "https://www.github.com/systemd/systemd"
+    },
+    "sha256": "7bcde94dc45d0b77856129123b9afd07ead22ff3e0df446b7cbdd5bde2a2ec2f"
+  },
+  {
+    "library": "/usr/lib/libdouble-conversion.so.3",
+    "package": "double-conversion",
+    "package_metadata": {
+      "Version": "3.4.0-1",
+      "Licenses": "BSD-3-Clause",
+      "URL": "https://github.com/google/double-conversion"
+    },
+    "sha256": "d650a36479806f9425ba69871745fae91e63a7a72d4c199b4220637c4fe36d0a"
+  },
+  {
+    "library": "/usr/lib/libb2.so.1",
+    "package": "libb2",
+    "package_metadata": {
+      "Version": "0.98.1-3",
+      "Licenses": "CC0-1.0",
+      "URL": "https://blake2.net/"
+    },
+    "sha256": "2e1b5045b932561e84fa4e9fe141b462d23134f145ec12e4b65f7fe40d51a93e"
+  },
+  {
+    "library": "/usr/lib/libpcre2-16.so.0",
+    "package": "pcre2",
+    "package_metadata": {
+      "Version": "10.48-1",
+      "Licenses": "BSD-2-Clause  BSD-3-Clause WITH PCRE2-exception",
+      "URL": "https://github.com/PCRE2Project/pcre2"
+    },
+    "sha256": "5f0f5ca4b0ed6e4078592732c2ff70ac5ef497942e93aae341ec0b61e129a1f5"
+  },
+  {
+    "library": "/usr/lib/libcrypto.so.3",
+    "package": "openssl",
+    "package_metadata": {
+      "Version": "3.6.4-1",
+      "Licenses": "Apache-2.0",
+      "URL": "https://www.openssl.org"
+    },
+    "sha256": "24882a9ce56d9bf2f4c3722772aa8ce99e53b7165d70072ad06c9dd35cee13e3"
+  },
+  {
+    "library": "/usr/lib/libzstd.so.1",
+    "package": "zstd",
+    "package_metadata": {
+      "Version": "1.5.7-3",
+      "Licenses": "BSD-3-Clause  GPL-2.0-only",
+      "URL": "https://facebook.github.io/zstd/"
+    },
+    "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8"
+  },
+  {
+    "library": "/usr/lib64/ld-linux-x86-64.so.2",
+    "package": "glibc",
+    "package_metadata": {
+      "Version": "2.44+r24+g16be1518495f-1",
+      "Licenses": "GPL-2.0-or-later  LGPL-2.1-or-later",
+      "URL": "https://www.gnu.org/software/libc"
+    },
+    "sha256": "d011113b7054c641c8ca064f58bcc23804fd2654a3dff2444dad06ddeda61bfb"
+  },
+  {
+    "library": "/usr/lib/libudev.so.1",
+    "package": "systemd-libs",
+    "package_metadata": {
+      "Version": "261.2-1",
+      "Licenses": "LGPL-2.1-or-later  CC0-1.0  GPL-2.0-or-later WITH Linux-syscall-note",
+      "URL": "https://www.github.com/systemd/systemd"
+    },
+    "sha256": "3e03a0f64cbb61c28213a25c8ede88fcc52d0e5a2c55e01afd40341a862cebca"
+  },
+  {
+    "library": "/usr/lib/libexpat.so.1",
+    "package": "expat",
+    "package_metadata": {
+      "Version": "2.8.4-1",
+      "Licenses": "MIT",
+      "URL": "https://libexpat.github.io/"
+    },
+    "sha256": "516a880ec607ee15f664d92eeb587deeb609f6ef6d05c947e9bfeb781a9debaf"
+  },
+  {
+    "library": "/usr/lib/libxcb.so.1",
+    "package": "libxcb",
+    "package_metadata": {
+      "Version": "1.17.0-1",
+      "Licenses": "X11",
+      "URL": "https://gitlab.freedesktop.org/xorg/lib/libxcb"
+    },
+    "sha256": "40df5eff95408b67d969e559f2689b3e50e6151251b1f4e03608ce5cd9c9a133"
+  },
+  {
+    "library": "/usr/lib/libpcre2-8.so.0",
+    "package": "pcre2",
+    "package_metadata": {
+      "Version": "10.48-1",
+      "Licenses": "BSD-2-Clause  BSD-3-Clause WITH PCRE2-exception",
+      "URL": "https://github.com/PCRE2Project/pcre2"
+    },
+    "sha256": "cb615af32644bbb8f13a582b45dd52a73b0b94fe365f149f94b577c711fb534c"
+  },
+  {
+    "library": "/usr/lib/libdbus-1.so.3",
+    "package": "dbus",
+    "package_metadata": {
+      "Version": "1.16.2-1",
+      "Licenses": "AFL-2.1 OR GPL-2.0-or-later",
+      "URL": "https://www.freedesktop.org/wiki/Software/dbus/"
+    },
+    "sha256": "61be5c82b1d494a3690ad38abd756691bc129a51ba3fb7d5b9074016861b7d60"
+  },
+  {
+    "library": "/usr/lib/libgraphite2.so.3",
+    "package": "graphite",
+    "package_metadata": {
+      "Version": "1:1.3.15-1",
+      "Licenses": "LGPL-2.1-or-later OR MPL-2.0 OR GPL-2.0-or-later",
+      "URL": "https://graphite.sil.org/"
+    },
+    "sha256": "70eebd2fda11b867ebff5a8e3bdf272875acdde0851d258c98b3b046b01b4fc7"
+  },
+  {
+    "library": "/usr/lib/libbz2.so.1.0",
+    "package": "bzip2",
+    "package_metadata": {
+      "Version": "1.0.8-6",
+      "Licenses": "BSD",
+      "URL": "https://sourceware.org/bzip2/"
+    },
+    "sha256": "3265f0647d9157aaa820c5094eba03c5be0f101c49e9ffd21289978b8e1875af"
+  },
+  {
+    "library": "/usr/lib/libbrotlidec.so.1",
+    "package": "brotli",
+    "package_metadata": {
+      "Version": "1.2.0-1",
+      "Licenses": "MIT",
+      "URL": "https://github.com/google/brotli"
+    },
+    "sha256": "0883fb05fa42aa6a883722098530ab08551ed317e38a2311f5c96e94dd460979"
+  },
+  {
+    "library": "/usr/lib/libicudata.so.78",
+    "package": "icu",
+    "package_metadata": {
+      "Version": "78.3-1",
+      "Licenses": "LicenseRef-Unicode-3.0  BSD-2-Clause  BSD-3-Clause  NAIST-2003",
+      "URL": "https://icu.unicode.org"
+    },
+    "sha256": "d72003b08760852bee4c80cff32c1e6248ae6b1fda5bd313482733a4d5e70dc9"
+  },
+  {
+    "library": "/usr/lib/libgomp.so.1",
+    "package": "libgomp",
+    "package_metadata": {
+      "Version": "16.2.1+r23+gd564253eb6c8-1",
+      "Licenses": "GPL-3.0-or-later WITH GCC-exception-3.1  GFDL-1.3-or-later",
+      "URL": "https://gcc.gnu.org"
+    },
+    "sha256": "d6c6309ee83dbe9b50bf38342489799a4822ee22451677730ff5542aa74bdefc"
+  },
+  {
+    "library": "/usr/lib/libbrotlienc.so.1",
+    "package": "brotli",
+    "package_metadata": {
+      "Version": "1.2.0-1",
+      "Licenses": "MIT",
+      "URL": "https://github.com/google/brotli"
+    },
+    "sha256": "8dbc539197d276310ce2750dcb73de5465a1259d46a5d1894e6138fd354bf5c7"
+  },
+  {
+    "library": "/usr/lib/libXau.so.6",
+    "package": "libxau",
+    "package_metadata": {
+      "Version": "1.0.12-1",
+      "Licenses": "MIT-open-group",
+      "URL": "https://xorg.freedesktop.org/"
+    },
+    "sha256": "3e229dba702d7b56f1c58ac0e004ae691ae2ad5ede7b50968e1cd7d8b2ccdecc"
+  },
+  {
+    "library": "/usr/lib/libXdmcp.so.6",
+    "package": "libxdmcp",
+    "package_metadata": {
+      "Version": "1.1.5-2",
+      "Licenses": "MIT-open-group",
+      "URL": "https://gitlab.freedesktop.org/xorg/lib/libxdmcp"
+    },
+    "sha256": "0c572ba75de0f967c9c4d088161d3e435ea721bd99c169aae707aba6870a71b1"
+  },
+  {
+    "library": "/usr/lib/libbrotlicommon.so.1",
+    "package": "brotli",
+    "package_metadata": {
+      "Version": "1.2.0-1",
+      "Licenses": "MIT",
+      "URL": "https://github.com/google/brotli"
+    },
+    "sha256": "4f895094b7b6ff9c82909e6516bc9cf212e2ec5af451d39bf1bcbc5e5fa225b2"
+  }
+]

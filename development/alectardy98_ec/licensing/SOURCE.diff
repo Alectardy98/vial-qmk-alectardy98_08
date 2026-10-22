@@ -1,0 +1,230 @@
+--- before/keyboards/alectardy98_ec/README.md
++++ after/keyboards/alectardy98_ec/README.md
+@@ -1,4 +1,25 @@
+ # Alectardy98 EC42 v2.9 — canonical framework and porting reference
++
++## Attribution and licensing
++
++**Cipulot's electrocapacitive keyboard firmware is a substantial foundation of
++this framework.** Acquisition and matrix scanning, resting-baseline handling,
++EC runtime structures, calibrated threshold scaling, and extremum-based
++press/release behavior were adapted from
++[Cipulot's QMK EC implementation](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cipulot/common/ec_switch_matrix.c)
++and its [EC data structures](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cipulot/common/ec_switch_matrix.h).
++Original Cipulot copyright notices and GPL-3.0-or-later terms are preserved.
++EC42 transactions, incremental qualification, explicit storage records and the
++later VA-first/Deepest controls are subsequent framework work. This credit does
++not imply endorsement or collaboration by Cipulot.
++
++QMK/TMK/Vial, ChibiOS, the original board implementations, and Purdea Andrei's
++Cap-Util also contributed code or interfaces. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md),
++[licensing scope](LICENSE.md), and the repository's
++[full provenance audit](../../development/alectardy98_ec/licensing/REPORT.md).
++Unheaded Matrix imports and stock `DUMP/` redistribution permissions remain
++unresolved; no new blanket license or public-release clearance is asserted.
++
+ 
+ This is the authoritative architecture for current firmware. All three targets
+ implement **EC42 major 2 / minor 9, storage format 1 / method 0x42** with one explicit
+--- before/keyboards/alectardy98_ec/class0413_ec/matrix.c
++++ after/keyboards/alectardy98_ec/class0413_ec/matrix.c
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2023 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/util/NOTICE.md
++++ after/keyboards/alectardy98_ec/util/NOTICE.md
+@@ -29,3 +29,27 @@
+ 
+ The supplied Vial JSON fixture is copied unchanged from the existing keyboard.
+ It is example data, not an embedded or mandatory keyboard geometry.
++
++## Verified origin and dependency notices (audit 2026-10-21)
++
++The historical `reverseenginering/DUMPS/util/` location above is no longer the
++only available evidence. All 16 source hashes in docs/PROVENANCE.json also match
++`keyboards/xwhatsit/util/util/` in this checkout, including Purdea Andrei's
++GPL-2.0-or-later headers. Do not discard those notices when reorganizing Qt code.
++The current application source, tested fixtures and screenshot were imported
++from qmk-ec-util; no third-party icon/font files or Cap-Util binaries are bundled.
++The screenshot's exact original image creator is not independently established.
++
++The executable dynamically links Qt Core/Gui/Widgets, HIDAPI-hidraw, liblzma and
++system C/C++ libraries. Qt has component-specific LGPL/GPL/commercial choices;
++inspect the actual installed component licenses when packaging a release.
++HIDAPI's BSD option (Copyright 2010 Alan Ott, Signal 11 Software) and liblzma's
++0BSD text are preserved under LICENSES/, together with GPLv2 and LGPLv3 texts.
++COPYING already provides GPLv3. Dependencies are obtained from system packages,
++not copied into this source distribution. Bundling libraries/plugins later
++requires a separate complete dependency/license/source-compliance review.
++
++See ../THIRD_PARTY_NOTICES.md and the repository's
++`development/alectardy98_ec/licensing/REPORT.md` for the complete source audit.
++This application is separate from the keyboard firmware; using HID does not
++make its protocol or GUI code Cipulot-authored.
+--- before/keyboards/alectardy98_ec/ec_prox/config.h
++++ after/keyboards/alectardy98_ec/ec_prox/config.h
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2023 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/ec_prox/acquisition.c
++++ after/keyboards/alectardy98_ec/ec_prox/acquisition.c
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2023 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/ec_prox/keymaps/vial_alec/keymap.c
++++ after/keyboards/alectardy98_ec/ec_prox/keymaps/vial_alec/keymap.c
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2025 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/common/runtime/decision.c
++++ after/keyboards/alectardy98_ec/common/runtime/decision.c
+@@ -1,4 +1,21 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
++/* Copyright 2023 Cipulot
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++/* Adapted ec_update_key from Cipulot common/ec_switch_matrix.c; EC42 adds calibrated-key suppression, shared dispatch and VA-first RT.
++ * Modified for the EC42 framework; attribution updated 2026-10-21. */
+ #include "ec_switch_matrix.h"
+ #include "calibration.h"
+ #include "print.h"
+--- before/keyboards/alectardy98_ec/common/runtime/ec_board.c
++++ after/keyboards/alectardy98_ec/common/runtime/ec_board.c
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2023 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/common/engine/actuation_control.inc
++++ after/keyboards/alectardy98_ec/common/engine/actuation_control.inc
+@@ -1,4 +1,21 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
++/* Copyright 2023 Cipulot
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++/* Dynamic movement/extremum behavior adapts Cipulot ec_update_key. USB controls, filtering, VA-first activation and persistence are later EC42 work.
++ * Modified for the EC42 framework; attribution updated 2026-10-21. */
+ // Foreground only. USB commands and scanner task are serialized by QMK.
+ bool ec_actuators_blocked(void);
+ static bool va_released(void){
+--- before/keyboards/alectardy98_ec/common/engine/calibration.c
++++ after/keyboards/alectardy98_ec/common/engine/calibration.c
+@@ -1,4 +1,21 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
++/* Copyright 2023 Cipulot
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++/* Cipulot attribution applies to adapted EC runtime fields/threshold scaling. Transactional capture, qualification and explicit record handling are later EC42 work.
++ * Modified for the EC42 framework; attribution updated 2026-10-21. */
+ // Explicit RAM capture -> review -> validate -> activate -> verify -> save.
+ // No calibration deadlines, ADC conversions, or unchecked persistence in USB callbacks.
+ #include "calibration.h"
+--- before/keyboards/alectardy98_ec/common/engine/ec_switch_matrix.h
++++ after/keyboards/alectardy98_ec/common/engine/ec_switch_matrix.h
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /* Copyright 2023 Cipulot
+  *
+  * This program is free software: you can redistribute it and/or modify
+--- before/keyboards/alectardy98_ec/common/engine/calibration_console.c
++++ after/keyboards/alectardy98_ec/common/engine/calibration_console.c
+@@ -1,7 +1,21 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
+ /* Copyright 2023 Cipulot
+- * SPDX-License-Identifier: GPL-3.0-or-later
+- * Optional console view. EC42 is the only EC calibration/settings protocol.
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
++/* Rewritten EC42 console view derived from the original via_ec.c interface.
++ * Framework modifications; attribution updated 2026-10-21. */
+ #include "ec_switch_matrix.h"
+ #include "calibration.h"
+ #include "quantum.h"
+--- before/keyboards/alectardy98_ec/util/tests/fixtures/legacy_v28_harness.c
++++ after/keyboards/alectardy98_ec/util/tests/fixtures/legacy_v28_harness.c
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ 
+ #include <stdint.h>
+ #include <stdbool.h>
+--- before/keyboards/alectardy98_ec/me_ec_uf2/ld/me_ec_boot_STM32F411xE.ld
++++ after/keyboards/alectardy98_ec/me_ec_uf2/ld/me_ec_boot_STM32F411xE.ld
+@@ -1,3 +1,5 @@
++/* Modified for Alectardy98 EC42; original notices retained.
++ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+ /*
+     ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+ 
+--- before/keyboards/alectardy98_ec/class0413_ec/modules/native_music.c
++++ after/keyboards/alectardy98_ec/class0413_ec/modules/native_music.c
+@@ -1,4 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
++/* Includes QMK process_music.c, Copyright 2016 Jack Humbert,
++ * GPL-2.0-or-later; its full original notice remains in the included source.
++ * The safety wrapper is separate EC42 work. Attribution updated 2026-10-21. */
+ /* Reuse this checkout's native music behavior, with bounded legacy recording. */
+ #define process_music ec_qmk_process_music
+ #define music_task ec_qmk_music_task

@@ -1,0 +1,20 @@
+{
+  "changed_original_files": [
+    "keyboards/alectardy98_ec/README.md",
+    "keyboards/alectardy98_ec/class0413_ec/matrix.c",
+    "keyboards/alectardy98_ec/util/NOTICE.md",
+    "keyboards/alectardy98_ec/ec_prox/config.h",
+    "keyboards/alectardy98_ec/ec_prox/acquisition.c",
+    "keyboards/alectardy98_ec/ec_prox/keymaps/vial_alec/keymap.c",
+    "keyboards/alectardy98_ec/common/runtime/decision.c",
+    "keyboards/alectardy98_ec/common/runtime/ec_board.c",
+    "keyboards/alectardy98_ec/common/engine/actuation_control.inc",
+    "keyboards/alectardy98_ec/common/engine/calibration.c",
+    "keyboards/alectardy98_ec/common/engine/ec_switch_matrix.h",
+    "keyboards/alectardy98_ec/common/engine/calibration_console.c",
+    "keyboards/alectardy98_ec/util/tests/fixtures/legacy_v28_harness.c",
+    "keyboards/alectardy98_ec/me_ec_uf2/ld/me_ec_boot_STM32F411xE.ld",
+    "keyboards/alectardy98_ec/class0413_ec/modules/native_music.c"
+  ],
+  "executable_token_equivalence": true
+}

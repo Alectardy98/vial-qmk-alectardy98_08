@@ -1,0 +1,22 @@
+{
+  "src/calibration.cpp": "afd8d06dec5fb7f7c6aa08153c620a630f864e49e5f365e9e8f3d43533a1c691",
+  "src/settings.h": "7360df4e624451d78e41e267fb0265a740d196fb913f68295260b5aff4e04ed5",
+  "src/widgets.h": "4860eb290c6ebcd89261940e865a995443526f19b56d19653738ad6575caf746",
+  "src/protocol.h": "6aa88431881047b3c19c72db380050f91f9fcad514b43b8c0fddfb3d35a0edc7",
+  "src/calibration.h": "04a364b1cc56c726e3644922588cfbcedd8574d53abd297aca5089e3b215cffb",
+  "src/boardprofile.h": "c501cb52260ebf62ac62e4b52fbb87cff47ea388626743e6e0d24499bcd55922",
+  "src/mainwindow.h": "cd380248ace35682f90bc749ef84bcddc3ba473cd5594bfcc447778f048c4537",
+  "src/protocol.cpp": "b9dcaeab1d907c9d0c2f05a64b67ba313ab1fd9bf7cbf53bb20daeca29ee9486",
+  "src/settings.cpp": "b690cc166315e6f70525836755c483515b782a7d1129a81694d40921f43ad195",
+  "src/mainwindow.cpp": "6bbf39933ebca9ea965439037136b615f1a7db927b9f2b552866fcb426afef8e",
+  "src/livepanel.cpp": "006d506622bdfd4a5464b274dc43d9d7417ffea7c1949eb421f94585dad18b28",
+  "src/telemetry.h": "5f1d8455f8ac1abea226895860677c989816d42f3700d6732f75be35104d013a",
+  "src/widgets.cpp": "2328d155b6ee842eb29171c9321435e88e6f8d13777ddea3c25239a81eab74b7",
+  "src/main.cpp": "bd278b2831d28f85944f5bb7a38ae1dfc6be75f94506480bfbaa353d6e027fe0",
+  "src/boardprofile.cpp": "37cd582fa577c9a529e62de6c49eadb6d20b8d222958ddadd43ef6aa35228e35",
+  "src/layout.h": "aec7c840c1ac90d36dc3b8e36d7690d874ebc00d5246b8d496be4b139f22e361",
+  "src/device.h": "06a320b7bfe273f3bf0f1bd641625935f721367f5bc433450aa58ff7d63929ca",
+  "src/device.cpp": "0ee7eccfbd8719cfa93c4f9ff176667242d64681a21c809d3fc336f3a0718604",
+  "src/layout.cpp": "40519b65c9873bf987270c2edf3a431f21cdccaaaabfd620e5cfdca4ce9b0e37",
+  "src/telemetry.cpp": "ae5afa643f05f5e240a6d3ef7f0ec3b890368a29fe3411b0a32155d8255c60fb"
+}

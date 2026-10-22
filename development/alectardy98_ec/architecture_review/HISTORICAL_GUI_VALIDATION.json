@@ -1,0 +1,59 @@
+{
+  "application_version": "0.2.0",
+  "qt_core_tests": "37 passed, 0 failed, 0 skipped, 0 blacklisted, 304ms",
+  "qt_live_tests_injected_only": "20 passed, 0 failed, 0 skipped, 0 blacklisted, 7914ms",
+  "ctest": "4/4 passed",
+  "sanitizers": "4/4 passed; ASAN detect_leaks=0 for Qt plugins",
+  "native_desktop_launch": "passed --offline --smoke-test; screenshot docs/overview.png",
+  "physical_keyboard_communication": "none; real HID code compiled but never executed",
+  "firmware_adapter_test": "actual C adapter + existing Cipulot VIA/control/EC board handlers compiled with mocked ADC/clock/EEPROM; passed",
+  "legacy_preflash_control_test": "passed",
+  "original_recorded_caputil_sources": "unchanged",
+  "original_cipulot_files_verified": 304,
+  "stock_dump_sha256": "aaa112f5d46190a46bbc0f9bd2d227500454d91ccb46604c05005473ead2543b",
+  "application_binary_sha256": "bb22430801c163fab06e0bd4c3f24cc372663e35f7b82ecc7a5153e71f9cbc7c",
+  "firmware": {
+    "checks": "passed",
+    "stock_sha256": "aaa112f5d46190a46bbc0f9bd2d227500454d91ccb46604c05005473ead2543b",
+    "application_address": "0x8010000",
+    "application_limit_exclusive": "0x8020000",
+    "bin_bytes": 53636,
+    "bin_end_exclusive": "0x801d184",
+    "uf2_file_bytes": 107520,
+    "uf2_payload_bytes": 53760,
+    "uf2_end_exclusive": "0x801d200",
+    "uf2_zero_padding_bytes": 124,
+    "initial_msp": "0x20000400",
+    "reset_vector": "0x80102fd",
+    "elf_entry": "0x80102fd",
+    "load_segments": [
+      {
+        "vaddr": "0x8010000",
+        "load_address": "0x8010000",
+        "bytes": 52236
+      },
+      {
+        "vaddr": "0x20000c00",
+        "load_address": "0x801cc0c",
+        "bytes": 1400
+      }
+    ],
+    "reserved_stock_settings": [
+      "0x0800c000",
+      "0x08010000"
+    ],
+    "qmk_eeprom": [
+      "0x08020000",
+      "0x08040000"
+    ],
+    "sha256": {
+      "reverseenginering_vial.bin": "62f2f497a5a65fde1474a9660958ef6d594bc8294f19ee51dc2deed82b5b9c6f",
+      "reverseenginering_vial.uf2": "a8309096e7c42bfb7d2621f1330dce099ce541d4ec3af0c286df00d3189e3cec",
+      "class0413_stock_application.bin": "65ffb61149a519e141385a7c55ebdc4f8451f4863557a9564c66a95080b46e3b",
+      "class0413_stock_application.uf2": "30d63839ad5c1aae9724000ec0f7582e1b37855314e12aa33cc2dabce1f28aa2"
+    }
+  },
+  "flash_headroom_bytes": 11900,
+  "static_ram_end": "0x20004aa8",
+  "hardware_validation": "pending; see FIRST_HARDWARE_TEST.md"
+}

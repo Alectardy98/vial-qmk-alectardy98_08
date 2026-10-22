@@ -1,0 +1,92 @@
+[
+  {
+    "source": "quantum/vial.c",
+    "header_excerpt": "/* Copyright 2020 Ilya Zhuravlev\n *\n * This program is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n\n#include \"vial.h\"\n\n#include <string.h>\n\n#include \"dynamic_keymap.h\"\n#include \"quantum.h\"\n#include \"vial_generated_keyboard_definition.h\"\n",
+    "SPDX": []
+  },
+  {
+    "source": "quantum/audio/audio.c",
+    "header_excerpt": "/* Copyright 2016-2020 Jack Humbert\n * Copyright 2020 JohSchneider\n\n * This program is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n#include \"audio.h\"\n#include \"eeconfig.h\"\n#include \"timer.h\"\n#include \"debug.h\"\n#include \"wait.h\"\n#include \"util.h\"\n#include \"gpio.h\"\n",
+    "SPDX": []
+  },
+  {
+    "source": "quantum/process_keycode/process_music.c",
+    "header_excerpt": "/* Copyright 2016 Jack Humbert\n *\n * This program is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n#include \"process_music.h\"\n#include \"timer.h\"\n\n#ifdef AUDIO_ENABLE\n#    include \"audio.h\"\n#    include \"process_audio.h\"\n#endif\n#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)\n#    include \"process_midi.h\"",
+    "SPDX": []
+  },
+  {
+    "source": "quantum/process_keycode/process_clicky.c",
+    "header_excerpt": "#include \"process_clicky.h\"\n#include \"audio.h\"\n#include \"eeconfig.h\"\n#include <stdlib.h>\n\n#ifdef AUDIO_CLICKY\n\n#    ifndef AUDIO_CLICKY_DELAY_DURATION\n#        define AUDIO_CLICKY_DELAY_DURATION 1\n#    endif // !AUDIO_CLICKY_DELAY_DURATION\n#    ifndef AUDIO_CLICKY_FREQ_DEFAULT\n#        define AUDIO_CLICKY_FREQ_DEFAULT 440.0f\n#    endif // !AUDIO_CLICKY_FREQ_DEFAULT\n#    ifndef AUDIO_CLICKY_FREQ_MIN\n#        define AUDIO_CLICKY_FREQ_MIN 65.0f\n#    endif // !AUDIO_CLICKY_FREQ_MIN\n#    ifndef AUDIO_CLICKY_FREQ_MAX\n#        define AUDIO_CLICKY_FREQ_MAX 1500.0f\n#    endif // !AUDIO_CLICKY_FREQ_MAX\n#    ifndef AUDIO_CLICKY_FREQ_FACTOR\n#        define AUDIO_CLICKY_FREQ_FACTOR 1.18921f\n#    endif // !AUDIO_CLICKY_FREQ_FACTOR\n#    ifndef AUDIO_CLICKY_FREQ_RANDOMNESS\n#        define AUDIO_CLICKY_FREQ_RANDOMNESS 0.05f",
+    "SPDX": []
+  },
+  {
+    "source": "drivers/haptic/solenoid.c",
+    "header_excerpt": "/* Copyright 2018 mtdjr - modified by ishtob\n * Driver for solenoid written for QMK\n *\n * This program is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n\n#include \"timer.h\"\n#include \"solenoid.h\"\n#include \"haptic.h\"\n#include \"gpio.h\"\n#include \"usb_device_state.h\"\n#include \"util.h\"\n#include <stdlib.h>",
+    "SPDX": []
+  },
+  {
+    "source": "drivers/led/issi/is31fl3236.c",
+    "header_excerpt": "// Copyright 2024 QMK\n// SPDX-License-Identifier: GPL-2.0-or-later\n\n#include \"is31fl3236.h\"\n#include \"i2c_master.h\"\n#include \"gpio.h\"\n\n#define IS31FL3236_PWM_REGISTER_COUNT 36\n#define IS31FL3236_LED_CONTROL_REGISTER_COUNT 36\n\n#ifndef IS31FL3236_I2C_TIMEOUT\n#    define IS31FL3236_I2C_TIMEOUT 100\n#endif\n\n#ifndef IS31FL3236_I2C_PERSISTENCE\n#    define IS31FL3236_I2C_PERSISTENCE 0\n#endif\n\n#ifndef IS31FL3236_PWM_FREQUENCY\n#    define IS31FL3236_PWM_FREQUENCY IS31FL3236_PWM_FREQUENCY_3K_HZ // OFS - IS31FL3236A only\n#endif\n\nconst uint8_t i2c_addresses[IS31FL3236_DRIVER_COUNT] = {\n    IS31FL3236_I2C_ADDRESS_1,",
+    "SPDX": [
+      "GPL-2.0-or-later"
+    ]
+  },
+  {
+    "source": "tmk_core/protocol/chibios/usb_main.c",
+    "header_excerpt": "// Copyright 2023 Stefan Kerkmann\n// Copyright 2020-2021 Ryan (@fauxpark)\n// Copyright 2020 Nick Brassel (@tzarc)\n// Copyright 2020 a-chol\n// Copyright 2020 xyzz\n// Copyright 2020 Joel Challis (@zvecr)\n// Copyright 2020 George (@goshdarnharris)\n// Copyright 2018 James Laird-Wah\n// Copyright 2018 Drashna Jaelre (@drashna)\n// Copyright 2016 Fredizzimo\n// Copyright 2016 Giovanni Di Sirio\n// SPDX-License-Identifier: GPL-3.0-or-later OR Apache-2.0\n\n#include <ch.h>\n#include <hal.h>\n#include <string.h>\n\n#include \"usb_main.h\"\n#include \"usb_report_handling.h\"\n\n#include \"host.h\"\n#include \"suspend.h\"\n#include \"timer.h\"\n#ifdef SLEEP_LED_ENABLE",
+    "SPDX": [
+      "GPL-3.0-or-later OR Apache-2.0"
+    ]
+  },
+  {
+    "source": "platforms/chibios/drivers/analog.c",
+    "header_excerpt": "/* Copyright 2019 Drew Mills\n *\n * This program is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n\n#include \"analog.h\"\n#include <ch.h>\n#include <hal.h>\n\n#if !HAL_USE_ADC\n#    error \"You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC.\"\n#endif\n",
+    "SPDX": []
+  },
+  {
+    "source": "platforms/chibios/drivers/ws2812_bitbang.c",
+    "header_excerpt": "#include \"ws2812.h\"\n\n#include \"gpio.h\"\n#include \"chibios_config.h\"\n\n// DEPRECATED - DO NOT USE\n#if defined(NOP_FUDGE)\n#    define WS2812_BITBANG_NOP_FUDGE NOP_FUDGE\n#endif\n\n/* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */\n\n#ifndef WS2812_BITBANG_NOP_FUDGE\n#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)\n#        define WS2812_BITBANG_NOP_FUDGE 0.4\n#    else\n#        if defined(RP2040)\n#            error \"Please use `vendor` WS2812 driver for RP2040\"\n#        else\n#            error \"WS2812_BITBANG_NOP_FUDGE configuration required\"\n#        endif\n#        define WS2812_BITBANG_NOP_FUDGE 1 // this just pleases the compile so the above error is easier to spot\n#    endif\n#endif",
+    "SPDX": []
+  },
+  {
+    "source": "platforms/chibios/drivers/wear_leveling/wear_leveling_efl.c",
+    "header_excerpt": "// Copyright 2022 Nick Brassel (@tzarc)\n// SPDX-License-Identifier: GPL-2.0-or-later\n#include <stdbool.h>\n#include <hal.h>\n#include \"timer.h\"\n#include \"wear_leveling.h\"\n#include \"wear_leveling_efl_config.h\"\n#include \"wear_leveling_internal.h\"\n\nstatic flash_offset_t base_offset = UINT32_MAX;\n\n#if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)\nstatic flash_sector_t first_sector = WEAR_LEVELING_EFL_FIRST_SECTOR;\n#else  // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)\nstatic flash_sector_t first_sector = UINT16_MAX;\n#endif // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)\n\n#if !defined(WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT)\n#    define WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT 0\n#endif // WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT\n\nstatic flash_sector_t sector_count = UINT16_MAX;\nstatic BaseFlash *    flash;\nstatic bool           flash_erased_is_one;",
+    "SPDX": [
+      "GPL-2.0-or-later"
+    ]
+  },
+  {
+    "source": "quantum/wear_leveling/wear_leveling.c",
+    "header_excerpt": "// Copyright 2022 Nick Brassel (@tzarc)\n// SPDX-License-Identifier: GPL-2.0-or-later\n#include <stdbool.h>\n#include \"fnv.h\"\n#include \"wear_leveling.h\"\n#include \"wear_leveling_drivers.h\"\n#include \"wear_leveling_internal.h\"\n\n/*\n    This wear leveling algorithm is adapted from algorithms from previous\n    implementations in QMK, namely:\n        - Artur F. (http://engsta.com/stm32-flash-memory-eeprom-emulator/)\n        - Yiancar -- QMK's base implementation for STM32F303\n        - Ilya Zhuravlev -- initial wear leveling algorithm\n        - Don Kjer -- increased flash density algorithm\n        - Nick Brassel (@tzarc) -- decoupled for use on other peripherals\n\n    At this layer, it is assumed that any reads/writes from the backing store\n    have a \"reset state\" after erasure of zero.\n    It is up to the backing store to perform translation of values, such as\n    taking the complement in order to deal with flash memory's reset value.\n\n    Terminology:\n",
+    "SPDX": [
+      "GPL-2.0-or-later"
+    ]
+  },
+  {
+    "source": "lib/printf/src/printf/printf.c",
+    "header_excerpt": "/**\n * @author (c) Eyal Rozenberg <eyalroz1@gmx.com>\n *             2021-2022, Haifa, Palestine/Israel\n * @author (c) Marco Paland (info@paland.com)\n *             2014-2019, PALANDesign Hannover, Germany\n *\n * @note Others have made smaller contributions to this file: see the\n * contributors page at https://github.com/eyalroz/printf/graphs/contributors\n * or ask one of the authors. The original code for exponential specifiers was\n * contributed by Martijn Jasperse <m.jasperse@gmail.com>.\n *\n * @brief Small stand-alone implementation of the printf family of functions\n * (`(v)printf`, `(v)s(n)printf` etc., geared towards use on embedded systems with\n * a very limited resources.\n *\n * @note the implementations are thread-safe; re-entrant; use no functions from\n * the standard library; and do not dynamically allocate any memory.\n *\n * @license The MIT License (MIT)\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell",
+    "SPDX": []
+  },
+  {
+    "source": "lib/lib8tion/LICENSE",
+    "header_excerpt": "The MIT License (MIT)\n\nCopyright (c) 2013 FastLED\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+    "SPDX": []
+  },
+  {
+    "source": "lib/fnv/hash_32a.c",
+    "header_excerpt": "/*\n * hash_32 - 32 bit Fowler/Noll/Vo FNV-1a hash code\n *\n * @(#) $Revision: 5.1 $\n * @(#) $Id: hash_32a.c,v 5.1 2009/06/30 09:13:32 chongo Exp $\n * @(#) $Source: /usr/local/src/cmd/fnv/RCS/hash_32a.c,v $\n *\n ***\n *\n * Fowler/Noll/Vo hash\n *\n * The basis of this hash algorithm was taken from an idea sent\n * as reviewer comments to the IEEE POSIX P1003.2 committee by:\n *\n *      Phong Vo (http://www.research.att.com/info/kpv/)\n *      Glenn Fowler (http://www.research.att.com/~gsf/)\n *\n * In a subsequent ballot round:\n *\n *      Landon Curt Noll (http://www.isthe.com/chongo/)\n *\n * improved on their algorithm.  Some people tried this hash\n * and found that it worked rather well.  In an EMail message\n * to Landon, they named it the ``Fowler/Noll/Vo'' or FNV hash.",
+    "SPDX": []
+  },
+  {
+    "source": "lib/chibios/os/rt/include/ch.h",
+    "header_excerpt": "/*\n    ChibiOS - Copyright (C) 2006,2007,2008,2009,2010,2011,2012,2013,2014,\n              2015,2016,2017,2018,2019,2020,2021 Giovanni Di Sirio.\n\n    This file is part of ChibiOS.\n\n    ChibiOS is free software; you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation version 3 of the License.\n\n    ChibiOS is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n    You should have received a copy of the GNU General Public License\n    along with this program.  If not, see <http://www.gnu.org/licenses/>.\n*/\n\n/**\n * @file    rt/include/ch.h\n * @brief   ChibiOS/RT main include file.\n *\n * @addtogroup kernel_info",
+    "SPDX": []
+  },
+  {
+    "source": "lib/chibios/os/common/ext/ARM/CMSIS/Core/Include/core_cm4.h",
+    "header_excerpt": "/**************************************************************************//**\n * @file     core_cm4.h\n * @brief    CMSIS Cortex-M4 Core Peripheral Access Layer Header File\n * @version  V5.0.8\n * @date     04. June 2018\n ******************************************************************************/\n/*\n * Copyright (c) 2009-2018 Arm Limited. All rights reserved.\n *\n * SPDX-License-Identifier: Apache-2.0\n *\n * Licensed under the Apache License, Version 2.0 (the License); you may\n * not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an AS IS BASIS, WITHOUT\n * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n",
+    "SPDX": [
+      "Apache-2.0"
+    ]
+  }
+]

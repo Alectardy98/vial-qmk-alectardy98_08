@@ -1,0 +1,6 @@
+build*/
+__pycache__/
+*.pyc
+
+# QMK ignores this filename globally; the GUI build definition is source.
+!CMakeLists.txt

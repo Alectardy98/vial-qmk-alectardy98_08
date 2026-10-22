@@ -1,0 +1,62 @@
+[
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/GPL-2.0-or-later.txt",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/LICENSE",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/GPL-3.0-or-later.txt",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/alectardy98_ec/util/COPYING",
+    "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/GPL-3.0-only.txt",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/chibios/license.txt",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/Apache-2.0.txt",
+    "source": "/usr/share/licenses/qt6-base/Apache-2.0.txt",
+    "sha256": "e3ba223bb1423f0aad8c3dfce0fe3148db48926d41e6fbc3afbbf5ff9e1c89cb"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/LGPL-3.0-only.txt",
+    "source": "/usr/share/licenses/qt6-base/LGPL-3.0-only.txt",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/BSD-3-Clause-HIDAPI.txt",
+    "source": "/usr/share/licenses/hidapi/LICENSE-bsd.txt",
+    "sha256": "30eb1bef29b46f8ba7ab8b416035dbd93cb034a45481dd97815b944284582cd2"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/0BSD.txt",
+    "source": "/usr/share/licenses/xz/COPYING.0BSD",
+    "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/MIT-printf.txt",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/printf/LICENSE",
+    "sha256": "5eb5d9d30590fa5a20e21a772f461ab512d476bcb9ec5b6c564d431e63154813"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/MIT-lib8tion.txt",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/lib8tion/LICENSE",
+    "sha256": "4358d4c37f1305b43a3117a6a12780f666bf285538de0b28991613c0ccacecd8"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/GCC-exception-3.1.txt",
+    "source": "/usr/share/licenses/gcc/RUNTIME.LIBRARY.EXCEPTION",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/NEWLIB-NOTICES.txt",
+    "source": "/usr/share/licenses/arm-none-eabi-newlib/COPYING.NEWLIB",
+    "sha256": "f3afe48e4bc6ed8466a42e9dacb6be1d8f9cbf5aac15cb8e474a5ccde8b40ef6"
+  },
+  {
+    "file": "keyboards/alectardy98_ec/LICENSES/LIBGLOSS-NOTICES.txt",
+    "source": "/usr/share/licenses/arm-none-eabi-newlib/COPYING.LIBGLOSS",
+    "sha256": "4ef33c7bdd57f5fa8fbe3bdc0200245ab91c564c2ef530d95bbe7fd4070757cd"
+  }
+]

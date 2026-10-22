@@ -1,0 +1,140 @@
+[
+  {
+    "linked": 62230,
+    "end": 134345496,
+    "data": 1784,
+    "bss": 18224,
+    "stacks": 3072,
+    "board": "class0413_ec",
+    "keymap": "vial",
+    "span": 62232,
+    "free": 3304,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/.build/alectardy98_ec_class0413_ec_vial.uf2",
+    "image_bytes": 124928,
+    "sha256": "5b35ae69a02d521f9c35787ac783c3032ce2ee4b846eff0cb909e8edf35b6415",
+    "before": {
+      "linked": 62318,
+      "end": 134345584,
+      "data": 1784,
+      "bss": 18748,
+      "stacks": 3072
+    },
+    "flash_saved": 88,
+    "ram_saved": 524
+  },
+  {
+    "linked": 63638,
+    "end": 134346904,
+    "data": 1788,
+    "bss": 18224,
+    "stacks": 3072,
+    "board": "class0413_ec",
+    "keymap": "vial_alec",
+    "span": 63640,
+    "free": 1896,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/.build/alectardy98_ec_class0413_ec_vial_alec.uf2",
+    "image_bytes": 127488,
+    "sha256": "592c2ca02d1bffaf8387ca73266b33580eb06ac86c1d6d952938ab43976e0498",
+    "before": {
+      "linked": 63718,
+      "end": 134346984,
+      "data": 1788,
+      "bss": 18748,
+      "stacks": 3072
+    },
+    "flash_saved": 80,
+    "ram_saved": 524
+  },
+  {
+    "linked": 85062,
+    "end": 134335080,
+    "data": 1520,
+    "bss": 14944,
+    "stacks": 3072,
+    "board": "ec_prox",
+    "keymap": "vial",
+    "span": 117352,
+    "free": 13720,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/firmware/alectardy98_ec/ec_prox/vial/ec_prox.clean-install.bin",
+    "image_bytes": 117352,
+    "sha256": "47e24267ce36ed4b7ecc61ef031f12cbfa173837e35b8a45b72252b7aadbb4a8",
+    "before": {
+      "linked": 85138,
+      "end": 134335156,
+      "data": 1520,
+      "bss": 15320,
+      "stacks": 3072
+    },
+    "flash_saved": 76,
+    "ram_saved": 376
+  },
+  {
+    "linked": 88190,
+    "end": 134338208,
+    "data": 1520,
+    "bss": 14952,
+    "stacks": 3072,
+    "board": "ec_prox",
+    "keymap": "vial_alec",
+    "span": 120480,
+    "free": 10592,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/firmware/alectardy98_ec/ec_prox/vial_alec/ec_prox.clean-install.bin",
+    "image_bytes": 120480,
+    "sha256": "0a12808075619cc4e1dedfd2e3ff4af6357b98b0f50655c9aa85ea3b8a6c3874",
+    "before": {
+      "linked": 88298,
+      "end": 134338316,
+      "data": 1520,
+      "bss": 15332,
+      "stacks": 3072
+    },
+    "flash_saved": 108,
+    "ram_saved": 380
+  },
+  {
+    "linked": 81266,
+    "end": 134430068,
+    "data": 1612,
+    "bss": 18176,
+    "stacks": 3072,
+    "board": "me_ec_uf2",
+    "keymap": "vial",
+    "span": 81268,
+    "free": 49804,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/.build/alectardy98_ec_me_ec_uf2_vial.uf2",
+    "image_bytes": 162816,
+    "sha256": "3faa1eb2d0bcba680ccb65e816f153090d8974bde4bc7a74ec79288a858aa935",
+    "before": {
+      "linked": 81546,
+      "end": 134430348,
+      "data": 1612,
+      "bss": 18656,
+      "stacks": 3072
+    },
+    "flash_saved": 280,
+    "ram_saved": 480
+  },
+  {
+    "linked": 83074,
+    "end": 134431876,
+    "data": 1612,
+    "bss": 16072,
+    "stacks": 3072,
+    "board": "me_ec_uf2",
+    "keymap": "vial_alec",
+    "span": 83076,
+    "free": 47996,
+    "image": "/home/alec/firmware-analysis/analysis/ec42_cleanup/20261021/build-tree/.build/alectardy98_ec_me_ec_uf2_vial_alec.uf2",
+    "image_bytes": 166400,
+    "sha256": "ab05b713cf092c6e825438fbc0f462f53336027f1bf316858039641538cff3cf",
+    "before": {
+      "linked": 83346,
+      "end": 134432148,
+      "data": 1612,
+      "bss": 16552,
+      "stacks": 3072
+    },
+    "flash_saved": 272,
+    "ram_saved": 480
+  }
+]

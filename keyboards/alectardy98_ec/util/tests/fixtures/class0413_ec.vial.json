@@ -1,0 +1,467 @@
+{
+    "name": "MM Studio-0413 (Cipulot EC port)",
+    "manufacturer": "sunxkui Design Studio",
+    "url": "",
+    "vendorId": "0x2024",
+    "productId": "0x0319",
+    "maintainer": "sunxkui",
+    "matrix": {
+        "rows": 5,
+        "cols": 21
+    },
+    "layouts": {
+        "presets": {
+            "Default": [
+                0,
+                1
+            ]
+        },
+        "labels": [
+            "Split Backspace",
+            "ISO Enter",
+            "Split Left Shift",
+            "Split Rghit Shift",
+            [
+                "Bottom row",
+                "7U_WKL",
+                "7U_WK"
+            ]
+        ],
+        "keymap": [
+            [
+                "0,0",
+                "0,1",
+                {
+                    "x": 0.5
+                },
+                "0,2",
+                "0,3",
+                "0,4",
+                "0,5",
+                "0,6",
+                "0,7",
+                "0,8",
+                "0,9",
+                "0,10",
+                "0,11",
+                "0,12",
+                "0,13",
+                "0,14",
+                {
+                    "w": 2
+                },
+                "0,16\n\n\n0,0",
+                {
+                    "x": 0.5
+                },
+                "0,17",
+                "0,18",
+                "0,19",
+                "0,20",
+                {
+                    "x": 1
+                },
+                "0,15\n\n\n0,1",
+                "0,16\n\n\n0,1"
+            ],
+            [
+                "1,0",
+                "1,1",
+                {
+                    "x": 0.5,
+                    "w": 1.5
+                },
+                "1,2",
+                "1,3",
+                "1,4",
+                "1,5",
+                "1,6",
+                "1,7",
+                "1,8",
+                "1,9",
+                "1,10",
+                "1,11",
+                "1,12",
+                "1,13",
+                "1,14",
+                {
+                    "w": 1.5
+                },
+                "1,15\n\n\n1,0",
+                {
+                    "x": 0.5
+                },
+                "1,17",
+                "1,18",
+                "1,19",
+                {
+                    "h": 2
+                },
+                "1,20",
+                {
+                    "x": 1.75,
+                    "w": 1.25,
+                    "h": 2,
+                    "w2": 1.5,
+                    "h2": 1,
+                    "x2": -0.25
+                },
+                "2,15\n\n\n1,1"
+            ],
+            [
+                "2,0",
+                "2,1",
+                {
+                    "x": 0.5,
+                    "w": 1.75
+                },
+                "2,2",
+                "2,3",
+                "2,4",
+                "2,5",
+                "2,6",
+                "2,7",
+                "2,8",
+                "2,9",
+                "2,10",
+                "2,11",
+                "2,12",
+                "2,13",
+                {
+                    "w": 2.25
+                },
+                "2,15\n\n\n1,0",
+                {
+                    "x": 0.5
+                },
+                "2,17",
+                "2,18",
+                "2,19",
+                {
+                    "x": 1.75
+                },
+                "2,14\n\n\n1,1"
+            ],
+            [
+                "3,0",
+                "3,1",
+                {
+                    "x": 0.5,
+                    "w": 2.25
+                },
+                "3,2\n\n\n2,0",
+                "3,4",
+                "3,5",
+                "3,6",
+                "3,7",
+                "3,8",
+                "3,9",
+                "3,10",
+                "3,11",
+                "3,12",
+                "3,13",
+                {
+                    "w": 2.75
+                },
+                "3,14\n\n\n3,0",
+                {
+                    "x": 0.5
+                },
+                "3,17",
+                "3,18",
+                "3,19",
+                {
+                    "h": 2
+                },
+                "4,20",
+                {
+                    "x": 0.75,
+                    "w": 1.75
+                },
+                "3,14\n\n\n3,1",
+                "3,16\n\n\n3,1"
+            ],
+            [
+                "4,0",
+                "4,1",
+                {
+                    "x": 0.5,
+                    "w": 1.5
+                },
+                "4,2\n\n\n4,0",
+                "4,3\n\n\n4,0",
+                {
+                    "w": 1.5
+                },
+                "4,4\n\n\n4,0",
+                {
+                    "w": 7
+                },
+                "4,8\n\n\n4,0",
+                {
+                    "w": 1.5
+                },
+                "4,13\n\n\n4,0",
+                "4,14\n\n\n4,0",
+                {
+                    "w": 1.5
+                },
+                "4,15\n\n\n4,0",
+                {
+                    "x": 0.5,
+                    "w": 2
+                },
+                "4,18",
+                "4,19",
+                {
+                    "x": 1.75,
+                    "w": 1.25
+                },
+                "3,2\n\n\n2,1",
+                "3,3\n\n\n2,1"
+            ],
+            [
+                {
+                    "x": 2.5,
+                    "w": 1.5
+                },
+                "4,2\n\n\n4,1",
+                {
+                    "x": 1,
+                    "w": 1.5
+                },
+                "4,4\n\n\n4,1",
+                {
+                    "w": 7
+                },
+                "4,8\n\n\n4,1",
+                {
+                    "w": 1.5
+                },
+                "4,13\n\n\n4,1",
+                {
+                    "x": 1,
+                    "w": 1.5
+                },
+                "4,15\n\n\n4,1"
+            ]
+        ]
+    },
+    "customKeycodes": [
+  {
+    "name": "EC_NOIS",
+    "title": "Recalibrate noise floor after releasing all keys",
+    "shortName": "EC Noise"
+  },
+  {
+    "name": "EC_BOTM",
+    "title": "Calibration is controlled by QMK EC Utility test protocol",
+    "shortName": "Bottom Calibration"
+  },
+  {
+    "name": "EC_PRNT",
+    "title": "Print calibration data to QMK console",
+    "shortName": "Print Calibration"
+  },
+  {
+    "name": "LK_SONG",
+    "title": "Toggle lock-state sounds; requires master Audio",
+    "shortName": "Lock Sounds"
+  },
+  {
+    "name": "TEST",
+    "title": "Test macro",
+    "shortName": "TEST"
+  },
+  {
+    "name": "VDRT",
+    "title": "Virtual Desktop Right",
+    "shortName": "VDRT"
+  },
+  {
+    "name": "VDLT",
+    "title": "Virtual Desktop Left",
+    "shortName": "VDLT"
+  },
+  {
+    "name": "VDUP",
+    "title": "Virtual Desktop Up",
+    "shortName": "VDUP"
+  },
+  {
+    "name": "VDDN",
+    "title": "Virtual Desktop Down",
+    "shortName": "VDDN"
+  },
+  {
+    "name": "EXPL",
+    "title": "Open File Explorer",
+    "shortName": "EXPL"
+  },
+  {
+    "name": "SNIP",
+    "title": "Screenshot Snipping Tool",
+    "shortName": "SNIP"
+  },
+  {
+    "name": "COPY",
+    "title": "Copy All",
+    "shortName": "COPY"
+  },
+  {
+    "name": "CUTT",
+    "title": "Cut All",
+    "shortName": "CUTT"
+  },
+  {
+    "name": "PAST",
+    "title": "Paste",
+    "shortName": "PAST"
+  },
+  {
+    "name": "TASK",
+    "title": "Task Manager",
+    "shortName": "TASK"
+  },
+  {
+    "name": "GOGL",
+    "title": "Open Google Chrome",
+    "shortName": "GOGL"
+  },
+  {
+    "name": "CMD",
+    "title": "Open Command Prompt",
+    "shortName": "CMD"
+  },
+  {
+    "name": "QUIT",
+    "title": "Close Application",
+    "shortName": "QUIT"
+  },
+  {
+    "name": "DZRO",
+    "title": "Double Zero",
+    "shortName": "DZRO"
+  },
+  {
+    "name": "ATAB",
+    "title": "Alt + Tab",
+    "shortName": "ATAB"
+  },
+  {
+    "name": "LPRC",
+    "title": "Left Parenthesis (",
+    "shortName": "LPRC"
+  },
+  {
+    "name": "RPRC",
+    "title": "Right Parenthesis )",
+    "shortName": "RPRC"
+  },
+  {
+    "name": "NUM",
+    "title": "Custom Num Lock",
+    "shortName": "NUM"
+  },
+  {
+    "name": "THIS",
+    "title": ":this: emoji on Discord",
+    "shortName": "THIS"
+  },
+  {
+    "name": "OOF",
+    "title": ":oof: emoji on Discord",
+    "shortName": "OOF"
+  },
+  {
+    "name": "PIKA",
+    "title": ":surprised: emoji on Discord",
+    "shortName": "PIKA"
+  },
+  {
+    "name": "SCAT",
+    "title": ":smiley_cat2: emoji on Discord",
+    "shortName": "SCAT"
+  },
+  {
+    "name": "FCAT",
+    "title": ":smiley_cat1: emoji on Discord",
+    "shortName": "FCAT"
+  },
+  {
+    "name": "HART",
+    "title": ":heart: emoji on Discord",
+    "shortName": "HART"
+  },
+  {
+    "name": "DROL",
+    "title": ":drooling_face: emoji on Discord",
+    "shortName": "DROL"
+  },
+  {
+    "name": "MONY",
+    "title": ":smiley_take: emoji on Discord",
+    "shortName": "MONY"
+  },
+  {
+    "name": "FHAT",
+    "title": ":smiley_fedora: emoji on Discord",
+    "shortName": "FHAT"
+  },
+  {
+    "name": "SPIT",
+    "title": ":smiley_spit: emoji on Discord",
+    "shortName": "SPIT"
+  },
+  {
+    "name": "KING",
+    "title": ":pepe_king: emoji on Discord",
+    "shortName": "KING"
+  },
+  {
+    "name": "FLEX",
+    "title": ":muscle: emoji on Discord",
+    "shortName": "FLEX"
+  },
+  {
+    "name": "HAHA",
+    "title": ":smiley_kekw: emoji on Discord",
+    "shortName": "HAHA"
+  },
+  {
+    "name": "LCRY",
+    "title": ":joy: emoji on Discord",
+    "shortName": "LCRY"
+  },
+  {
+    "name": "NICE",
+    "title": ":nice~2: emoji on Discord",
+    "shortName": "NICE"
+  },
+  {
+    "name": "PPOG",
+    "title": ":pepe_pog: emoji on Discord",
+    "shortName": "PPOG"
+  },
+  {
+    "name": "PRAY",
+    "title": ":pray_tone2: emoji on Discord",
+    "shortName": "PRAY"
+  },
+  {
+    "name": "SWET",
+    "title": ":sweat_smile: emoji on Discord",
+    "shortName": "SWET"
+  },
+  {
+    "name": "COLD",
+    "title": ":cold_face: emoji on Discord",
+    "shortName": "COLD"
+  },
+  {
+    "name": "THUM",
+    "title": ":thumbsup: emoji on Discord",
+    "shortName": "THUM"
+  }
+]
+}

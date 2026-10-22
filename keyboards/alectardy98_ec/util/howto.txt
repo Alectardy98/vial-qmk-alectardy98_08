@@ -1,0 +1,50 @@
+# EC42 Universal GUI — Launch Instructions
+
+## Launch the application
+
+Open a terminal and copy and paste:
+
+```bash
+/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/alectardy98_ec/util/build-universal/qmk-ec-util
+```
+
+## Build and launch
+
+If you've made changes to the GUI source code, rebuild and launch it using:
+
+```bash
+cd /home/alec/Documents/GitHub/vial-qmk-alectardy98_08
+cmake --build keyboards/alectardy98_ec/util/build-universal -j4
+./keyboards/alectardy98_ec/util/build-universal/qmk-ec-util
+```
+
+## Build from scratch
+
+If the `build-universal` directory doesn't exist, configure and build the application:
+
+```bash
+cd /home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/alectardy98_ec/util
+cmake -S . -B build-universal -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build-universal -j4
+./build-universal/qmk-ec-util
+```
+
+## Supported keyboards
+
+The universal GUI supports the EC42 v2.9 framework for:
+
+- MM Studio 0413
+- Cipulot EC Prox
+- Matrix ME EC
+
+Connect a supported keyboard via USB before launching the application.
+
+## Application location
+
+The GUI source code, build configuration, resources, and tests are maintained in:
+
+`keyboards/alectardy98_ec/util/`
+
+The compiled Linux executable is located at:
+
+`keyboards/alectardy98_ec/util/build-universal/qmk-ec-util`

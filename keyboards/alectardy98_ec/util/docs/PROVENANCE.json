@@ -1,0 +1,28 @@
+{
+  "original_directory": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/reverseenginering/DUMPS/util",
+  "original_sources_sha256": {
+    "main.cpp": "b14589a6dc3e3e9b22a1c441fbc32801bccf0393d8bbb8aea920af7980627973",
+    "mainwindow.h": "1b910c683dfd2e52fb2a19b81f4be575276d901c01431056827019ce5e9d4a37",
+    "mainwindow.cpp": "55a464c5f5e69bb11dcdd1daf08f2dfd3ca119a7c4d403f7d6d8a8894e0558b8",
+    "communication.h": "52d0162c9904a950d4361a386268bb0e4dc4189906401d3859fa3acd8c45a823",
+    "communication.cpp": "e3d99a1034826d1c775cf60b2094a4738c81ffffcae68d5f449e46bbf832e0f7",
+    "hidthread.h": "363d394aff6ecf7a170d38ca72fb2281dfe0a4206463da885511fee6b1f8ecb1",
+    "hidthread.cpp": "8b76dad0f61d92b5de5d59d5d3c33b4acd5223d21dacf6d4576f167dc26b935c",
+    "device.h": "46dba6813c6741f75ca0140002538a4aa566fa21ae7334cb07eb75992e5934df",
+    "device.cpp": "84aaf2d8ce017be3ad28c0d5f9c59316e5f7b2ddfdc7a365c34c512b7205c60c",
+    "signal_level.h": "b80c38c8789a54dc10e9c2755da97001f7397ac1d9f40bfa5724d92595cd1d9a",
+    "signal_level.cpp": "0ea565c3171f06be984a6723a03883848cef931b9df186f34118703d334416db",
+    "monitorwindow.cpp": "70e10c7f5e6b54b748addf111684b3c47b1984f14b868eda826721e145a877b0",
+    "kbd_defs.h": "756198ceae22e10cd8e12c07bb753c66e8978adbd698ff4b318ec71387dedb76",
+    "generate_layout.py": "b23e8a5fb5ddcfdb3a113b7d11c1a2ac1f887102b68f296604c32beaa760efa4",
+    "util.pro": "3514ee56cd5103c3ff242362f8adcc958370f23364bd0aed878f299ce185c954",
+    "README.md": "cafea32b5d02d028629dfab9c96e037294c8f1944f2274b5a4fc3da76337b8cc"
+  },
+  "fixture_source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/reverseenginering/keymaps/vial/vial.json",
+  "fixture_sha256": "5aa8e7ab347e6c1f9728b2f2f0757d364f37f95e8888a310304cf14ebd6d1f18",
+  "adaptations": {
+    "src/widgets.cpp": "Cap-Util signal color interpolation and current/min/max overlay concept",
+    "src/mainwindow.cpp": "Qt monitor/device window organization; new runtime data flow"
+  },
+  "license": "GPL-3.0-or-later; original notices GPL-2.0-or-later retained"
+}

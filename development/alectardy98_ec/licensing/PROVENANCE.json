@@ -1,0 +1,2212 @@
+[
+  {
+    "path": "ARCHITECTURE.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "6561ab12dc416e463a8b498963303424af49fe8bff56771718d007a2f5f5c0d8"
+  },
+  {
+    "path": "AUDIT.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "556cde718126ccd25b24668181d62c0a33d1563f6eb744ceeb315b38d397f8c9"
+  },
+  {
+    "path": "DUMP/EC_PROX_DUMP.bin",
+    "category": "original physical firmware dump",
+    "confidence": "device dump provenance only",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Not framework source. No redistribution license established; keep private/exclude from releases pending permission.",
+    "sha256": "e2785fb0c3379d602b8f8650d1ef1fe9d15db736e73c9b100fe4cf2d4181284d"
+  },
+  {
+    "path": "DUMP/Matrix Dump/JustBootloader.bin",
+    "category": "original physical firmware dump",
+    "confidence": "device dump provenance only",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Not framework source. No redistribution license established; keep private/exclude from releases pending permission.",
+    "sha256": "421d7cfba90f14e5ace4754e90bae9ae9b0f756523de459dea444056e8aecff1"
+  },
+  {
+    "path": "DUMP/Matrix Dump/me_ec_all.hex",
+    "category": "original physical firmware dump",
+    "confidence": "device dump provenance only",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Not framework source. No redistribution license established; keep private/exclude from releases pending permission.",
+    "sha256": "0be8c0cfb6793023d53fca3b2f8d7c33dc804fefbf48d869a0428fd57b64bef8"
+  },
+  {
+    "path": "LICENSE.md",
+    "category": "new audit documentation",
+    "confidence": "this audit",
+    "source": "Local licensing audit, 2026-10-21",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Scope and attribution documentation; no new blanket license or copyright ownership assertion.",
+    "sha256": "2871322ac025756c38147fa3ab10d93cbe39f3c7a310199c990822c40939e7da"
+  },
+  {
+    "path": "LICENSES/0BSD.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/xz/COPYING.0BSD",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+  },
+  {
+    "path": "LICENSES/Apache-2.0.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/qt6-base/Apache-2.0.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "    2. Grant of Copyright License. Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form.",
+      "Copyright [yyyy] [name of copyright owner]"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "e3ba223bb1423f0aad8c3dfce0fe3148db48926d41e6fbc3afbbf5ff9e1c89cb"
+  },
+  {
+    "path": "LICENSES/BSD-3-Clause-HIDAPI.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/hidapi/LICENSE-bsd.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 2010, Alan Ott, Signal 11 Software"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "30eb1bef29b46f8ba7ab8b416035dbd93cb034a45481dd97815b944284582cd2"
+  },
+  {
+    "path": "LICENSES/FNV-public-domain.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "lib/fnv/hash_32a.c (initial notice only)",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files.",
+    "sha256": "3708614bf9208c41468016025bb4437099005730ad43a4ef71c1f1f7e311dac5"
+  },
+  {
+    "path": "LICENSES/GCC-exception-3.1.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/gcc/RUNTIME.LIBRARY.EXCEPTION",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (C) 2009 Free Software Foundation, Inc. <http://fsf.org/>"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+  },
+  {
+    "path": "LICENSES/GPL-2.0-or-later.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/LICENSE",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      " Copyright (C) 1989, 1991 Free Software Foundation, Inc.,",
+      "    Copyright (C) <year>  <name of author>",
+      "    Gnomovision version 69, Copyright (C) year name of author"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+  },
+  {
+    "path": "LICENSES/GPL-3.0-only.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/chibios/license.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      " Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>",
+      "  \"Copyright\" also means copyright-like laws that apply to other kinds of",
+      "    Copyright (C) <year>  <name of author>",
+      "    <program>  Copyright (C) <year>  <name of author>"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "path": "LICENSES/GPL-3.0-or-later.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/keyboards/alectardy98_ec/util/COPYING",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright \u00a9 2007 Free Software Foundation, Inc. <https://fsf.org/>",
+      "\u201cCopyright\u201d also means copyright-like laws that apply to other kinds of works, such as semiconductor masks.",
+      "     Copyright (C) <year>  <name of author>",
+      "     <program>  Copyright (C) <year>  <name of author>"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+  },
+  {
+    "path": "LICENSES/LGPL-3.0-only.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/qt6-base/LGPL-3.0-only.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      " Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+  },
+  {
+    "path": "LICENSES/LIBGLOSS-NOTICES.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/arm-none-eabi-newlib/COPYING.LIBGLOSS",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 1994-2009  Red Hat, Inc. All rights reserved.",
+      "Copyright (c) 1981-2000 The Regents of the University of California.",
+      "Copyright (C) 1993 DJ Delorie",
+      "Copyright 1989, 1990 Advanced Micro Devices, Inc.",
+      "Copyright (C) 2006, 2008, 2009, 2011, 2012 Analog Devices, Inc.",
+      "Copyright (c) 1990,1994 The University of Utah and",
+      "Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.",
+      "(c) Copyright 1986 HEWLETT-PACKARD COMPANY"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4ef33c7bdd57f5fa8fbe3bdc0200245ab91c564c2ef530d95bbe7fd4070757cd"
+  },
+  {
+    "path": "LICENSES/MIT-lib8tion.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/lib8tion/LICENSE",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 2013 FastLED"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4358d4c37f1305b43a3117a6a12780f666bf285538de0b28991613c0ccacecd8"
+  },
+  {
+    "path": "LICENSES/MIT-printf.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/home/alec/Documents/GitHub/vial-qmk-alectardy98_08/lib/printf/LICENSE",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 2014 Marco Paland",
+      "Copyright (c) 2021 Eyal Rozenberg"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "5eb5d9d30590fa5a20e21a772f461ab512d476bcb9ec5b6c564d431e63154813"
+  },
+  {
+    "path": "LICENSES/NEWLIB-NOTICES.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "/usr/share/licenses/arm-none-eabi-newlib/COPYING.NEWLIB",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 1994-2009  Red Hat, Inc. All rights reserved.",
+      "Copyright (c) 1981-2000 The Regents of the University of California.",
+      "Copyright (c) 1991 by AT&T.",
+      "Copyright (C) 1998-2001 by Lucent Technologies",
+      "Copyright 1989, 1990 Advanced Micro Devices, Inc.",
+      "Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.",
+      "(c) Copyright 1986 HEWLETT-PACKARD COMPANY",
+      "Copyright (C) 2001 Hans-Peter Nilsson"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "f3afe48e4bc6ed8466a42e9dacb6be1d8f9cbf5aac15cb8e474a5ccde8b40ef6"
+  },
+  {
+    "path": "LICENSES/README.md",
+    "category": "new audit documentation",
+    "confidence": "this audit",
+    "source": "Local licensing audit, 2026-10-21",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Scope and attribution documentation; no new blanket license or copyright ownership assertion.",
+    "sha256": "036ec30f83671e918577606090b522c9b1cbea85cda24b9e5a1fe13d3f6b8361"
+  },
+  {
+    "path": "README.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "ab1b4589bb189b9aee17a294401ed4b95a8a9f72768a10398e0c5d07bf9208fd"
+  },
+  {
+    "path": "TESTING.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "c0b11ee905a9f3c38cd81265954b274fc837e2ac59bda6e37e016269a2ff6cc1"
+  },
+  {
+    "path": "THIRD_PARTY_NOTICES.md",
+    "category": "new audit documentation",
+    "confidence": "this audit",
+    "source": "Local licensing audit, 2026-10-21",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [
+      "of this framework.** Copyright notices identify **Copyright 2023 Cipulot**, and",
+      "some copied keymaps identify **Copyright 2025 Cipulot**. Those notices are retained.",
+      "- `quantum/vial.c`: Copyright 2020 Ilya Zhuravlev, GPL-2.0-or-later.",
+      "- `quantum/process_keycode/process_music.c`: Copyright 2016 Jack Humbert,",
+      "- `quantum/wear_leveling/wear_leveling.c`: Copyright 2022 Nick Brassel (@tzarc),",
+      "- `lib/printf`: MIT; its LICENSE names Copyright 2014 Marco Paland and Copyright",
+      "- `lib/lib8tion`: Copyright 2013 FastLED, MIT; retained in MIT-lib8tion.txt.",
+      "- ARM CMSIS headers in ChibiOS include Copyright 2009\u20132018 Arm Limited and"
+    ],
+    "notes": "Scope and attribution documentation; no new blanket license or copyright ownership assertion.",
+    "sha256": "d8ce73e22c3a2db03ea2f061fac81b7e4b62b0cd3b27e5dcbaf9ecb96b871c62"
+  },
+  {
+    "path": "class0413_ec/README.md",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/README.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.060 (supporting evidence, not proof).",
+    "sha256": "c007986e5d996063aa9eff98d42b525223a21b45e8a791f1a8b66db692ce2baa"
+  },
+  {
+    "path": "class0413_ec/class0413_ec.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/class0413_ec.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "74741d45b9def9a937142e49eeb50db1d769076eafa563b0b47522aa2769364d"
+  },
+  {
+    "path": "class0413_ec/class0413_ec.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/class0413_ec.h",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "398db1ad518254c8c87cd1d6ad37cf639ad956c17227b2311be1a1cc0e31a3d2"
+  },
+  {
+    "path": "class0413_ec/config.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.927 (supporting evidence, not proof).",
+    "sha256": "d93ac4b2b6fd118009554cb74ebe7f97abf144a42af663b8a21457e9e6aca810"
+  },
+  {
+    "path": "class0413_ec/halconf.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/halconf.h",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "5288dbb18d84f939a1d9fc5a0d26d655751592763ce2885399cc8a60de39a18e"
+  },
+  {
+    "path": "class0413_ec/keyboard.json",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keyboard.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.999 (supporting evidence, not proof).",
+    "sha256": "fb5b03b0788b12d8f61ca1ace3fbdadcb8da5302f1bcb1b375c99484aeebde48"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial/config.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "36248e7f8c5e7317bf73086e31e1a45ce5a20aaa4b60341ca4fb207a0bb45547"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial/keymap.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial/keymap.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2022 Alectardy98"
+    ],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "51dc6dde6a78c8f3184d7afe7c23688c54673c889216c247635902db05ecef65"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial/rules.mk",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "a67e866579a6c153d266956c54afc70a9c1b1dd3c0fd7f18d089f77be8e35be2"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial/vial.json",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "c7da0fb00776fa910d457268aadb9740b556ae174606f2ea542b6c46f9bcbb12"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial_alec/config.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial_alec/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "36248e7f8c5e7317bf73086e31e1a45ce5a20aaa4b60341ca4fb207a0bb45547"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial_alec/keymap.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial_alec/keymap.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2022 Alectardy98"
+    ],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "88df2d07b960864af9ccf945fcef1f19a8c7aa8cc018081cf69d0acea7891a04"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial_alec/rules.mk",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial_alec/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "a67e866579a6c153d266956c54afc70a9c1b1dd3c0fd7f18d089f77be8e35be2"
+  },
+  {
+    "path": "class0413_ec/keymaps/vial_alec/vial.json",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/keymaps/vial_alec/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "44e2635a847057c125bbc477f0fb0452c364fb92b42c3ddf089d3cad6627a879"
+  },
+  {
+    "path": "class0413_ec/ld/class0413_ec.ld",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/ld/class0413_ec.ld",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "d5535b58ba4b55998236c3b221b088f34604e7e2698652026998213db05fe794"
+  },
+  {
+    "path": "class0413_ec/matrix.c",
+    "category": "adapted Cipulot port",
+    "confidence": "confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/matrix.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot",
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Earlier 0413 source itself retains Copyright 2023 Cipulot. Original cipulot/common/ec_switch_matrix.c is acquisition/normalization ancestor; 0413 wiring/timing adapters local. Byte identical to candidate: False; text similarity 0.858 (supporting evidence, not proof).",
+    "sha256": "d1a984e16783e7637e66498c032f4d6449ddf821948988bbf065fde0494999ef"
+  },
+  {
+    "path": "class0413_ec/mcuconf.h",
+    "category": "copied/adapted Cipulot config",
+    "confidence": "confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/mcuconf.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Copyright 2023 Cipulot retained; STM32F401 board-specific clock/peripheral settings. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "69e12242ff99ef9b3f94ecffe038ecbbb1732a66fc92b522e7e8344b225c1175"
+  },
+  {
+    "path": "class0413_ec/modules/diag.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/diag.h",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "89789b978a2a8c0064c560e8aaa533dcf88cb722598181cef65550fe92cedc74"
+  },
+  {
+    "path": "class0413_ec/modules/geometry.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/geometry.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "0f501a1f346b6919dce564fdb80ed97a271865d803df63f3bea21a2590220082"
+  },
+  {
+    "path": "class0413_ec/modules/music_compact.c",
+    "category": "new generated-data optimization",
+    "confidence": "confirmed project experiment",
+    "source": "quantum/process_keycode/process_audio.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "Computed binary32 results, not copied library source. No current Music build linkage. Numerical data has no separately proven third-party authorship. Byte identical to candidate: False; text similarity 0.120 (supporting evidence, not proof).",
+    "sha256": "6d99f99fa163b5a471f17fd519c87ab9b18e46da050ecec3ac2182af2adc0015"
+  },
+  {
+    "path": "class0413_ec/modules/native_actuators.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/native_actuators.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "131e4d4ad4b5e5ef761823e770e939462bd0de9d471e09668df449ebc4bf79c3"
+  },
+  {
+    "path": "class0413_ec/modules/native_music.c",
+    "category": "new wrapper includes upstream source",
+    "confidence": "confirmed",
+    "source": "quantum/process_keycode/process_music.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Includes QMK process_music.c, Copyright 2016 Jack Humbert,"
+    ],
+    "notes": "Wrapper includes unchanged QMK source by preprocessor; Copyright 2016 Jack Humbert/GPL-2.0-or-later remains in included core file. Music disabled in current build. Byte identical to candidate: False; text similarity 0.024 (supporting evidence, not proof).",
+    "sha256": "d3b0a29a3ef2cf2b2a83599557440475eef54c4bb07c9fe176e26b67f37c4b99"
+  },
+  {
+    "path": "class0413_ec/modules/storage_guards.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/storage_guards.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "cf25e45c8993cb85d417ef7a84b13ef91a7dc87c8e0a001604a2a23bcb5a5f8b"
+  },
+  {
+    "path": "class0413_ec/modules/storage_state.c",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/storage_state.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.968 (supporting evidence, not proof).",
+    "sha256": "ec240c2ddd5f81a0e2c7fe18220747689704b95cd59b5f2dec791aebd6cfcd9e"
+  },
+  {
+    "path": "class0413_ec/modules/storage_version.h",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/modules/storage_version.h",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "6a630db75afc1f544977dcb0c5a6d1e3828ad2a3cf3bbbcc46c16e719255aab1"
+  },
+  {
+    "path": "class0413_ec/modules/time_math.h",
+    "category": "algebraic reimplementation",
+    "confidence": "algorithmic correspondence; not literal body copy",
+    "source": "lib/chibios/os/rt/include/chvt.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "Exact upward rounding/type semantics from ChibiOS; new constant-rate specialization. ChibiOS original GPL-3.0-only; existing wrapper SPDX retained pending protectable-expression assessment. Byte identical to candidate: False; text similarity 0.020 (supporting evidence, not proof).",
+    "sha256": "043b198042a7b0fca77381823035f1e044ed2fb0ef14c2d9f61fd9455929ca78"
+  },
+  {
+    "path": "class0413_ec/post_rules.mk",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/post_rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.990 (supporting evidence, not proof).",
+    "sha256": "f2523ccb17fdd09d26884626eedada7d4b045fdd072fcdc7aa7a15cc57d51387"
+  },
+  {
+    "path": "class0413_ec/rules.mk",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: False; text similarity 0.818 (supporting evidence, not proof).",
+    "sha256": "7264707426ebb4b11ba91f0e1ea3d001a9a3dc9948ed1d6d8b4af101b7a92614"
+  },
+  {
+    "path": "class0413_ec/tests/verify_size_changes.py",
+    "category": "copied/adapted project reference",
+    "confidence": "source confirmed",
+    "source": "keyboards/mmstudio/class0413_ec/tests/verify_size_changes.py",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "0413 working port reference. Where present original Cipulot notices remain authoritative; hardware stock evidence is not source authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "757e280764c0f61d934477d92c0f23a9b83f32d8855eeeec42836888f3c1025e"
+  },
+  {
+    "path": "common/build_tools/test_matrix_metadata.py",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "404e44639f1e38a71462f2cd0da8bca7f55ea1ebb5a9a08dd23758ee63a923b9"
+  },
+  {
+    "path": "common/engine/actuation_control.inc",
+    "category": "adapted algorithm plus new controls",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/ec_switch_matrix.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "ec_rt_key retains extremum press/release direction; VA-first gate, median filter, deepest clamp, USB revision/debounce are later EC42 work. Byte identical to candidate: False; text similarity 0.078 (supporting evidence, not proof).",
+    "sha256": "770a9d44831c5cd2ea5b305292b850c82e15f845adc1252c9f19d539d742ecac"
+  },
+  {
+    "path": "common/engine/calibration.c",
+    "category": "new engine with adapted scaling",
+    "confidence": "confirmed local development; Cipulot influence",
+    "source": "keyboards/mmstudio/class0413_ec_test/modules/calibration.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Manual transaction/state/CRC/qualification code is new EC42 work; runtime-field/threshold-scaling lineage also cipulot/common/ec_board.c and via_ec.c. Byte identical to candidate: False; text similarity 0.946 (supporting evidence, not proof).",
+    "sha256": "8a53d96bc5b183a17af9db90569c350be5f67f26a70f29e0e333a86d3e1bc6e4"
+  },
+  {
+    "path": "common/engine/calibration.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "f4224d7c23f5f87793d8b754a99d083d0d76a8c8db76d1aa2c555eeda6df8f1c"
+  },
+  {
+    "path": "common/engine/calibration_console.c",
+    "category": "rewritten interface",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/via_ec.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "ec_show_calibration_data interface and diagnostic concept retained; new short EC42 console body, not old VIA command implementation. Byte identical to candidate: False; text similarity 0.094 (supporting evidence, not proof).",
+    "sha256": "9db68e0b26f9083e61d00d168345aea8b28d52248d379b4948506ecbd0123094"
+  },
+  {
+    "path": "common/engine/ec_diagnostic.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "3a5b6e7829fbd15a209e7ad77ffbd38de32e0fb43a92bbce34cb57102ce301a9"
+  },
+  {
+    "path": "common/engine/ec_diagnostic.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "5a553cbb0c46da6458b9004c7324e9e14bde802c022e86679591c2ada6fd667d"
+  },
+  {
+    "path": "common/engine/ec_switch_matrix.h",
+    "category": "adapted/refactored",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/ec_switch_matrix.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "EC runtime types, threshold fields and interfaces retained and extended; explicit record is new. Byte identical to candidate: False; text similarity 0.915 (supporting evidence, not proof).",
+    "sha256": "55989e13341f20305047f350327fc04d1125cd13d1fc8d4ee7537a7860be004d"
+  },
+  {
+    "path": "common/engine/record_storage.inc",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "6715700ed67a753ee49b7100d88e987707b2057b23bbf95fe7778dae9d7386d2"
+  },
+  {
+    "path": "common/interfaces/ec42_protocol.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "e7b4f335dad4e30177fb9834123edea016c502e42240936cd5b4a75f5a2818a7"
+  },
+  {
+    "path": "common/interfaces/ec_hardware.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "2905ab2c4446a311e95b7e4a834875798515929d5c038216fd7f93fe8e49301b"
+  },
+  {
+    "path": "common/runtime/decision.c",
+    "category": "adapted/refactored",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/ec_switch_matrix.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "ec_update_key drift/APC/extremum branches retain substantial source; EC42 disabled-key/VA dispatch added. Byte identical to candidate: False; text similarity 0.402 (supporting evidence, not proof).",
+    "sha256": "42f4e507da153d0a76ce77222bd271c3139ea73cc5c478e2c5d5794336b0941d"
+  },
+  {
+    "path": "common/runtime/diag.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "bcaae43a2ae90ed03b80a64c5ad0fe789f17ead4e12f57088734ffcf10dbb3d2"
+  },
+  {
+    "path": "common/runtime/ec_board.c",
+    "category": "adapted/refactored",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/ec_board.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "QMK keyboard/EEPROM hooks refactored; new RAM-only initialization and calibration transactions replace old save behavior. Byte identical to candidate: False; text similarity 0.372 (supporting evidence, not proof).",
+    "sha256": "0f44da4d747e3af9a6b25610647de2a2e81ebc297a18644f752a3c634bac2c16"
+  },
+  {
+    "path": "common/runtime/integration.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "6ea0537c4f15fac9b82a5daa707e3200a896ddb195a8f6861170566d84f44bd4"
+  },
+  {
+    "path": "common/runtime/record_io.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "c75dffab2e2c8f47d5dc56419b9d818c2fd47a586f1f20857c54e27515373359"
+  },
+  {
+    "path": "common/runtime/storage.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "303b84f7430c431b283672ecc3fdea56ea1c9252cf4be2b883fccd5a66a96f5e"
+  },
+  {
+    "path": "common/runtime/storage_version.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Common EC42 extracted from the local 0413 test port; protocol/explicit record codec/recovery logic are later framework work, not original Cipulot features.",
+    "sha256": "cc07f0474df76c36fdb19a431959d693b7f7cd023902667541325adbc680b1ea"
+  },
+  {
+    "path": "ec_prox/acquisition.c",
+    "category": "adapted extraction",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/ec_switch_matrix.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "EC init, bank/row acquisition, discharge/charge/sample, resting averaging retained; decision/capture moved to shared engine. Byte identical to candidate: False; text similarity 0.758 (supporting evidence, not proof).",
+    "sha256": "1addb8e4a5040a0e54d00271c9d4a94193ea3d5c5848f2033c776687239230e5"
+  },
+  {
+    "path": "ec_prox/clean_install.py",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "4651d8baf3628a707a911a6f03bb31a4c70ebe96614f4563107249e38d0bbe92"
+  },
+  {
+    "path": "ec_prox/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/config.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.827 (supporting evidence, not proof).",
+    "sha256": "8343e0276c3e7445a51b701cea1e3aeb507c191d882249bdbcfae86365c01cd5"
+  },
+  {
+    "path": "ec_prox/ec_prox.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "12983a8198d37ce5eb3bf9001f4edf65d50d6919122e011718207bce9dd05375"
+  },
+  {
+    "path": "ec_prox/halconf.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/halconf.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "00d248e2fe6368f5b377b1ecd5d967d5bd08250b3145c4906b0472daeba5bd12"
+  },
+  {
+    "path": "ec_prox/keyboard.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keyboard.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "ddc47c3bb6f507516d3d1ae949471492e4414a8a6ace853f738b0add699090e8"
+  },
+  {
+    "path": "ec_prox/keymaps/60_hhkb/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/60_hhkb/keymap.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "1cbcf4f9517b1cb2fdb936d0e1e5cdd5f83aa1c979933cb007b36f736654ba11"
+  },
+  {
+    "path": "ec_prox/keymaps/60_hhkb/vial.json",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "e3a7d11cbb43af8a6fb70b443a43ac2fb887fec04270285246fe9e4dfe53f81f"
+  },
+  {
+    "path": "ec_prox/keymaps/default/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/default/keymap.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "362a22b142af149cd93340b9c1d09032a5810e4863abbb1827c6ae6ea1aa7cdf"
+  },
+  {
+    "path": "ec_prox/keymaps/default/vial.json",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "e3a7d11cbb43af8a6fb70b443a43ac2fb887fec04270285246fe9e4dfe53f81f"
+  },
+  {
+    "path": "ec_prox/keymaps/via/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/via/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.571 (supporting evidence, not proof).",
+    "sha256": "4770773f2979f354d75fe08220f1b15a22be68dffbc6deaae85d3bb7ac9a0ee3"
+  },
+  {
+    "path": "ec_prox/keymaps/via/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/via/keymap.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2025 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "d9dc76e37c4fe45cb06d73e42442f74ad4c9e5e33fd0693002b9b454937b2243"
+  },
+  {
+    "path": "ec_prox/keymaps/via/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/via/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.283 (supporting evidence, not proof).",
+    "sha256": "5c7f8aaa96f78f3cafd00d5f4f9899eaa8be2d924b32508faef9ac506b2879be"
+  },
+  {
+    "path": "ec_prox/keymaps/via/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/via/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "e3a7d11cbb43af8a6fb70b443a43ac2fb887fec04270285246fe9e4dfe53f81f"
+  },
+  {
+    "path": "ec_prox/keymaps/vial/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.490 (supporting evidence, not proof).",
+    "sha256": "6879f7d00b091421b105116f24786a71fed5c5cd464d65a1da545b67abad0303"
+  },
+  {
+    "path": "ec_prox/keymaps/vial/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial/keymap.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2025 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "d9dc76e37c4fe45cb06d73e42442f74ad4c9e5e33fd0693002b9b454937b2243"
+  },
+  {
+    "path": "ec_prox/keymaps/vial/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.587 (supporting evidence, not proof).",
+    "sha256": "72d5d1842bf8929dcde6f851e3121e3fa75cc357c060a1d0fbafa6f5b2247126"
+  },
+  {
+    "path": "ec_prox/keymaps/vial/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.996 (supporting evidence, not proof).",
+    "sha256": "919fc9bc412f763e9219cb5babdf52fd379b1978f679ce9a451afbbdf3fc6f49"
+  },
+  {
+    "path": "ec_prox/keymaps/vial_alec/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial_alec/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.297 (supporting evidence, not proof).",
+    "sha256": "5d24fe475e43b121f76751f25c794f2ea3ab3c28cc3b2eaa6ef68f8a2ef31d20"
+  },
+  {
+    "path": "ec_prox/keymaps/vial_alec/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial_alec/keymap.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2025 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.916 (supporting evidence, not proof).",
+    "sha256": "68a6c13a4cad9f5f6aa258c4d81ca7711b2d050a7720e0af93b9fe13fdc1ffd7"
+  },
+  {
+    "path": "ec_prox/keymaps/vial_alec/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial_alec/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.508 (supporting evidence, not proof).",
+    "sha256": "9855ed48864ec6ad100ac9f6c299fa8fd5a21ed213549201bdaa2392d7f21c1c"
+  },
+  {
+    "path": "ec_prox/keymaps/vial_alec/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/keymaps/vial_alec/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.998 (supporting evidence, not proof).",
+    "sha256": "6557aeba82d86ae975acfa7f6e67d825c4e6b3b766c3b30a297bc06e534171ab"
+  },
+  {
+    "path": "ec_prox/matrix.c",
+    "category": "adapted",
+    "confidence": "confirmed",
+    "source": "keyboards/cipulot/common/matrix.c",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "QMK custom-matrix wrapper retained; EC42 hooks added. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "f53966c6e3d3ad4fdab7faa2475f9aa8848c4cbd436e32d4b23d970435815079"
+  },
+  {
+    "path": "ec_prox/mcuconf.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/mcuconf.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "496c6273df3b865cb034201c6f2c54e7e171fb85d94bd470f732ee6886003d40"
+  },
+  {
+    "path": "ec_prox/post_config.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "009e87c0134031ec5d9fda316496a64e476a295d59f2cd814c40fdf8f8eb0ea7"
+  },
+  {
+    "path": "ec_prox/post_rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/post_rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.034 (supporting evidence, not proof).",
+    "sha256": "30d0d395cf05478f86849a7d82b64e5deee20f86d6c59273255958ad71365a6c"
+  },
+  {
+    "path": "ec_prox/readme.md",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/readme.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.016 (supporting evidence, not proof).",
+    "sha256": "3dd0be431edb66105f2b446f2b08360664b992dd5de3067b9d019f61d461954c"
+  },
+  {
+    "path": "ec_prox/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/cipulot/ec_prox/ansi_iso/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Cipulot board source/keymap/config ancestry; local QMK/Vial/EC42 and lighting modifications retained. Byte identical to candidate: False; text similarity 0.019 (supporting evidence, not proof).",
+    "sha256": "5efe6e3f5206d5316ff11256ac4c0d1619618371d4e3453f3672b82c2464d00d"
+  },
+  {
+    "path": "ec_prox/storage_diagnostics.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "// Copyright 2026 Alectardy98"
+    ],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "cbb5ceafe3b03ab56a71011a972c77b53e6c554e11512f37ef9dc0595d5de58a"
+  },
+  {
+    "path": "ec_prox/storage_version.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "e8cddc0d6cf988ae6d25bd347bb72159f89f76146ad3ec45249b1c66c6d8d743"
+  },
+  {
+    "path": "me_ec_uf2/astro_bootloader.c",
+    "category": "independent handoff implementation",
+    "confidence": "confirmed development report",
+    "source": "keyboards/alectardy98_ec/DUMP/Matrix Dump/JustBootloader.bin",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "// Copyright 2026 Alectardy98"
+    ],
+    "notes": "New register-write/reset hook derived from observed RTC magic/MCU behavior; no copied bootloader implementation or claimed bootloader redistribution grant. Byte identical to candidate: False; text similarity 0.001 (supporting evidence, not proof).",
+    "sha256": "96a0680664dc46a5c8f03e2a7ec910e0bdb1c9f9ca0cd837e00b7c3769527862"
+  },
+  {
+    "path": "me_ec_uf2/chconf.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/chconf.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "9868f273762fca19a7422794610601dc171059ea9be258213f68f8c6ed8b3c64"
+  },
+  {
+    "path": "me_ec_uf2/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.798 (supporting evidence, not proof).",
+    "sha256": "03d3968565638140166974d80949c40fd5c2301fdd15889c3842e18538aa614d"
+  },
+  {
+    "path": "me_ec_uf2/halconf.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/halconf.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "11e64f90022c400554205de2620d9690971f71a51a8e74026eb7f42ec2940be6"
+  },
+  {
+    "path": "me_ec_uf2/is31fl3236_map.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/is31fl3236_map.c",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "42bec1a0b3b4deabc613e762ce76f79889024fdddbbcb270bbfcace8d2734c82"
+  },
+  {
+    "path": "me_ec_uf2/keyboard.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keyboard.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.997 (supporting evidence, not proof).",
+    "sha256": "1e1aa2d7334e4c49ba6851c767ee30f2e06b0eaad8f7689820c30cf054f6eb84"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "e30c35e5f93ae637091aea0ea8f49a6943a3c78a70c08ad07d8c97ed70f08a96"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial/keymap.c",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "6dffe6f851e31be0a98a2357987bc9a01967ce32a9f3f48838ea685d7cb74254"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4b5fa3e2d9b67303b919d7e8be2e8d65143a111beeac11f3f3883eee0fb29c0a"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "244e5061e7d05d2aa2df81d02eedb97fea51d62440d3f9e689edfcd42658f326"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "df6cc990f35b6083bfb62aa7bc6753ebc099ff13d4eea833c0f17dcceaa0e80a"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec/keymap.c",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "bfd0c79a18437b0ede20c558f492cabff20cb061788f7b5c686f75d8166717d6"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4b5fa3e2d9b67303b919d7e8be2e8d65143a111beeac11f3f3883eee0fb29c0a"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "94caa1da753e8b7a736f3a62d39cab0614417c1b24c50df25afbe23e360f5f6a"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec_old/config.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec_old/config.h",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "2dda852c250257929314ff7d47900765499eff283af59ca42ae5c1a43ec9b16d"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec_old/keymap.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec_old/keymap.c",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.998 (supporting evidence, not proof).",
+    "sha256": "155a1f7ae4fc5821d8afa1a50d397f43673a365267066be00909415e6a312020"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec_old/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec_old/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.991 (supporting evidence, not proof).",
+    "sha256": "e512f3558368d4dc685ad0d52d43f61bdc7b0e362a50663717a2d0b8016c4ac9"
+  },
+  {
+    "path": "me_ec_uf2/keymaps/vial_alec_old/vial.json",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/keymaps/vial_alec_old/vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "7ca01284af3163f35b622e4eb5b71f24a5b847b7c49c9c944f2ab845e31c8487"
+  },
+  {
+    "path": "me_ec_uf2/ld/me_ec_boot_STM32F411xE.ld",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/ld/me_ec_boot_STM32F411xE.ld",
+    "license": "Apache-2.0",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio"
+    ],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.930 (supporting evidence, not proof).",
+    "sha256": "63a5d2dedd01470cd08e1959c5204ed550e07f5ec8e410a2903231bafaab9111"
+  },
+  {
+    "path": "me_ec_uf2/matrix.c",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/matrix.c",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.806 (supporting evidence, not proof).",
+    "sha256": "4f4d7fc0ea136510d697934bf892ec4c43ad7f7701d3245b7181f65aa140ed72"
+  },
+  {
+    "path": "me_ec_uf2/mcuconf.h",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/mcuconf.h",
+    "license": "Apache-2.0",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio"
+    ],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4906afb3fc38d943e4225eb474c3e881686c258c9760c66196fab7ccda4406e6"
+  },
+  {
+    "path": "me_ec_uf2/me_ec_uf2.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "781326759c3b675e9462d93feb5953cd4f1758b5917be69f8b6c7ffc9e38e9f3"
+  },
+  {
+    "path": "me_ec_uf2/post_rules.mk",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "5acf8e763ab747c054555581da61ddf92d13060992cb56166bb126660bbd053a"
+  },
+  {
+    "path": "me_ec_uf2/readme.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "f91b166ce1d1ba17fe96e49ee7281498a94db54e61fadbf650b6201078a665eb"
+  },
+  {
+    "path": "me_ec_uf2/rules.mk",
+    "category": "copied/adapted",
+    "confidence": "source/history confirmed",
+    "source": "keyboards/matrix/me_ec_uf2/rules.mk",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Local Matrix import fe33059b22; importer is not necessarily original author. No file-level grant inferred when absent. Byte identical to candidate: False; text similarity 0.588 (supporting evidence, not proof).",
+    "sha256": "c1037976dd6b7344f643efe925b5a7aec88b9d5409144e1c86fa567046a990e4"
+  },
+  {
+    "path": "me_ec_uf2/storage_version.h",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "c82d8bf96c501b37cf13690c825d7d55946dcdf8ee71be71f2feb2cdef2dbe9d"
+  },
+  {
+    "path": "util/.clang-format",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/.clang-format",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "3cc2f56c1010be4154d35ca5db737e9964cf2b4327e20cabd998e50676c69398"
+  },
+  {
+    "path": "util/.gitignore",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/.gitignore",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.560 (supporting evidence, not proof).",
+    "sha256": "a6cb31add22d544b549311d1a13acf8ecad21cc07488a3caf852d73f3874d4f2"
+  },
+  {
+    "path": "util/CMakeLists.txt",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/CMakeLists.txt",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.277 (supporting evidence, not proof).",
+    "sha256": "29b192e2816853cf84efc5f6276398194e3fa3952cd5d980b5821dd22b8db349"
+  },
+  {
+    "path": "util/COPYING",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/COPYING",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "Full file notice",
+    "copyrights": [
+      "Copyright \u00a9 2007 Free Software Foundation, Inc. <https://fsf.org/>",
+      "\u201cCopyright\u201d also means copyright-like laws that apply to other kinds of works, such as semiconductor masks.",
+      "     Copyright (C) <year>  <name of author>",
+      "     <program>  Copyright (C) <year>  <name of author>"
+    ],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+  },
+  {
+    "path": "util/LICENSES/0BSD.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "keyboards/alectardy98_ec/LICENSES/0BSD.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+  },
+  {
+    "path": "util/LICENSES/BSD-3-Clause-HIDAPI.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "keyboards/alectardy98_ec/LICENSES/BSD-3-Clause-HIDAPI.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      "Copyright (c) 2010, Alan Ott, Signal 11 Software"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "30eb1bef29b46f8ba7ab8b416035dbd93cb034a45481dd97815b944284582cd2"
+  },
+  {
+    "path": "util/LICENSES/GPL-2.0-or-later.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "keyboards/alectardy98_ec/LICENSES/GPL-2.0-or-later.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      " Copyright (C) 1989, 1991 Free Software Foundation, Inc.,",
+      "    Copyright (C) <year>  <name of author>",
+      "    Gnomovision version 69, Copyright (C) year name of author"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+  },
+  {
+    "path": "util/LICENSES/LGPL-3.0-only.txt",
+    "category": "verbatim license/disclaimer text",
+    "confidence": "exact copy/hash checked",
+    "source": "keyboards/alectardy98_ec/LICENSES/LGPL-3.0-only.txt",
+    "license": "License text, not a program-level grant",
+    "license_evidence": "LICENSE-TEXT-SOURCES.json and source notice",
+    "copyrights": [
+      " Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>"
+    ],
+    "notes": "Supplies redistribution terms/notices; does not relicense other framework files. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+  },
+  {
+    "path": "util/NOTICE.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/NOTICE.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [
+      "Cap-Util by Purdea Andrei (Copyright 2020, GPL-2.0-or-later). This derivative is",
+      "HIDAPI's BSD option (Copyright 2010 Alan Ott, Signal 11 Software) and liblzma's"
+    ],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.714 (supporting evidence, not proof).",
+    "sha256": "6da190e06622b90cbeeeec9790934190cd9d6a972a3309a4346cf84029c4d41f"
+  },
+  {
+    "path": "util/README.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/README.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.101 (supporting evidence, not proof).",
+    "sha256": "4314c611fa4933affc65f7e0a69544ee680ccad3a9640a3f29fed6c74b357277"
+  },
+  {
+    "path": "util/SOURCE_SHA256SUMS",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "14f6c60b499d6298ccd98dea182b3da24452bc341693e298e9a1fd40daef73b6"
+  },
+  {
+    "path": "util/docs/CALIBRATION_VALIDATION.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/CALIBRATION_VALIDATION.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "8b62baf63ea299d60530a564fb6df0c484a1a0760e66864f1e2c52a0de361d20"
+  },
+  {
+    "path": "util/docs/EC42.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/EC42.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.017 (supporting evidence, not proof).",
+    "sha256": "bf19ab77026d6ff7125fe922510b65e0d4fbd8ea2ebc4eaecf2ef36c91cf80ad"
+  },
+  {
+    "path": "util/docs/FIRST_HARDWARE_TEST.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/FIRST_HARDWARE_TEST.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.013 (supporting evidence, not proof).",
+    "sha256": "9149b47e9eab905a933656a27f5fce53c3a1c45ced3720590b4be0c16318cb27"
+  },
+  {
+    "path": "util/docs/IMPORT.md",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "d156403ad284366d75c1f54841d30b5f3e3c60ccf0ff26d3a7d8413716be058d"
+  },
+  {
+    "path": "util/docs/IMPORTED_SOURCE_SHA256.json",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "06bba3b69458baa2ab0613db71c3f2b151163b20a6449aae2b8833fa350daed4"
+  },
+  {
+    "path": "util/docs/PROVENANCE.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/PROVENANCE.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "fa032f7623355e9085859acc122714419378482bfb1cb0ac48377a7cee5dc23b"
+  },
+  {
+    "path": "util/docs/RT_DIAGNOSTICS.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/RT_DIAGNOSTICS.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.958 (supporting evidence, not proof).",
+    "sha256": "eceeb9b17dfcdcd0423aa73fcc731ce16ad91a55ed2a73e989ff81f6e7aa6b14"
+  },
+  {
+    "path": "util/docs/VALIDATION.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/VALIDATION.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "70118aee8bb403ba388bc856d40bd7cddd5890bf6f4f68c8b34e33332db936b1"
+  },
+  {
+    "path": "util/docs/VARIABLE_ACTUATION.md",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/VARIABLE_ACTUATION.md",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.014 (supporting evidence, not proof).",
+    "sha256": "2238824fd55c5fef3c1d0372b74abac48013029513de3e08039763edc2917d4d"
+  },
+  {
+    "path": "util/docs/overview.png",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/docs/overview.png",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "Imported GUI screenshot; identical SHA-256 to external app image; no third-party icon/font asset bundled. Screenshot generation supported by src/main.cpp. Exact image creator not asserted.",
+    "sha256": "a3b67ddffe2d19410eac03bc744254ad65da6f32ffde742f1af827cab058dd4d"
+  },
+  {
+    "path": "util/howto.txt",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation.",
+    "sha256": "7d009cf1a0e52d50f6eba50dc0ef972661c6612763406c67ee20990de21667de"
+  },
+  {
+    "path": "util/src/boardprofile.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/boardprofile.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.995 (supporting evidence, not proof).",
+    "sha256": "f0d6ac75da66cef1ac091476b54dcab0f87e4d18caedf3b33f9ad9bc8f050117"
+  },
+  {
+    "path": "util/src/boardprofile.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/boardprofile.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "c501cb52260ebf62ac62e4b52fbb87cff47ea388626743e6e0d24499bcd55922"
+  },
+  {
+    "path": "util/src/calibration.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/calibration.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "afd8d06dec5fb7f7c6aa08153c620a630f864e49e5f365e9e8f3d43533a1c691"
+  },
+  {
+    "path": "util/src/calibration.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/calibration.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "04a364b1cc56c726e3644922588cfbcedd8574d53abd297aca5089e3b215cffb"
+  },
+  {
+    "path": "util/src/device.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/device.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.987 (supporting evidence, not proof).",
+    "sha256": "72c3e9901043cdd6dc8b31105c831182e0812f8bc05a70e80f978a1076ca10ed"
+  },
+  {
+    "path": "util/src/device.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/device.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "06a320b7bfe273f3bf0f1bd641625935f721367f5bc433450aa58ff7d63929ca"
+  },
+  {
+    "path": "util/src/layout.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/layout.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "40519b65c9873bf987270c2edf3a431f21cdccaaaabfd620e5cfdca4ce9b0e37"
+  },
+  {
+    "path": "util/src/layout.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/layout.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "aec7c840c1ac90d36dc3b8e36d7690d874ebc00d5246b8d496be4b139f22e361"
+  },
+  {
+    "path": "util/src/livepanel.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/livepanel.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.989 (supporting evidence, not proof).",
+    "sha256": "8f56a2e9e1466f51a9724fcb81b764a36de8df0d833f47e37e750f46f087d14d"
+  },
+  {
+    "path": "util/src/main.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/main.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "bd278b2831d28f85944f5bb7a38ae1dfc6be75f94506480bfbaa353d6e027fe0"
+  },
+  {
+    "path": "util/src/mainwindow.cpp",
+    "category": "adapted organization",
+    "confidence": "confirmed existing provenance",
+    "source": "keyboards/xwhatsit/util/util/mainwindow.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2020 Purdea Andrei",
+      "// Copyright 2020 Purdea Andrei (original GPL-2.0-or-later).",
+      "// New implementation Copyright 2026 QMK EC Utility contributors.",
+      "                                   \"Copyright 2020 Purdea Andrei.\\nQt %1; HIDAPI %2.\\nLive mode discovers \""
+    ],
+    "notes": "Original notice retained; application protocol/model/UI mostly rewritten. Byte identical to candidate: False; text similarity 0.054 (supporting evidence, not proof).",
+    "sha256": "6bbf39933ebca9ea965439037136b615f1a7db927b9f2b552866fcb426afef8e"
+  },
+  {
+    "path": "util/src/mainwindow.h",
+    "category": "adapted organization",
+    "confidence": "confirmed existing provenance",
+    "source": "keyboards/xwhatsit/util/util/mainwindow.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2020 Purdea Andrei",
+      "// Copyright 2020 Purdea Andrei (original GPL-2.0-or-later)."
+    ],
+    "notes": "Original notice retained; new model/layout and EC42 interfaces. Byte identical to candidate: False; text similarity 0.247 (supporting evidence, not proof).",
+    "sha256": "cd380248ace35682f90bc749ef84bcddc3ba473cd5594bfcc447778f048c4537"
+  },
+  {
+    "path": "util/src/protocol.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/protocol.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.987 (supporting evidence, not proof).",
+    "sha256": "fdb1daf32da137b9516b2eab011ef79b67551d92ffcd474267451a1260339242"
+  },
+  {
+    "path": "util/src/protocol.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/protocol.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.796 (supporting evidence, not proof).",
+    "sha256": "4038fa9e1363e309651d85a1724272c09f43bd94232a69fe174ba8ceb2343ca4"
+  },
+  {
+    "path": "util/src/settings.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/settings.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.987 (supporting evidence, not proof).",
+    "sha256": "7c86d760fccf471a7c98c4da9c58badfefed80123270ef142dd0f2900238e824"
+  },
+  {
+    "path": "util/src/settings.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/settings.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "7360df4e624451d78e41e267fb0265a740d196fb913f68295260b5aff4e04ed5"
+  },
+  {
+    "path": "util/src/telemetry.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/telemetry.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "ae5afa643f05f5e240a6d3ef7f0ec3b890368a29fe3411b0a32155d8255c60fb"
+  },
+  {
+    "path": "util/src/telemetry.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/telemetry.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "5f1d8455f8ac1abea226895860677c989816d42f3700d6732f75be35104d013a"
+  },
+  {
+    "path": "util/src/widgets.cpp",
+    "category": "adapted",
+    "confidence": "confirmed",
+    "source": "keyboards/xwhatsit/util/util/signal_level.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2020 Purdea Andrei",
+      "// Copyright 2020 Purdea Andrei. Original licensed GPL-2.0-or-later.",
+      "// Adaptations and new code: Copyright 2026 QMK EC Utility contributors."
+    ],
+    "notes": "Purdea Andrei 2020; bounded color interpolation/current-min-max concept. Original notice retained. Additional EC42 code separately identified. Byte identical to candidate: False; text similarity 0.071 (supporting evidence, not proof).",
+    "sha256": "2328d155b6ee842eb29171c9321435e88e6f8d13777ddea3c25239a81eab74b7"
+  },
+  {
+    "path": "util/src/widgets.h",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/src/widgets.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4860eb290c6ebcd89261940e865a995443526f19b56d19653738ad6575caf746"
+  },
+  {
+    "path": "util/tests/firmware_harness.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/firmware_harness.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.116 (supporting evidence, not proof).",
+    "sha256": "a3466412b7d0e1a7e09659ed56bd9ab04f5346b33f1189bf83051d39da783be3"
+  },
+  {
+    "path": "util/tests/fixtures/class0413_ec.vial.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/class0413_ec.vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Layout data copied from corresponding keyboard Vial JSON; authorship follows source data. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "44e2635a847057c125bbc477f0fb0452c364fb92b42c3ddf089d3cad6627a879"
+  },
+  {
+    "path": "util/tests/fixtures/compact.vial.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/compact.vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "f79d8ea25d76eac4a78f3eb436bb58310ead0b1667284e047056e059707aadcb"
+  },
+  {
+    "path": "util/tests/fixtures/ec_prox.vial.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/ec_prox.vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Layout data copied from corresponding keyboard Vial JSON; authorship follows source data. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "e3a7d11cbb43af8a6fb70b443a43ac2fb887fec04270285246fe9e4dfe53f81f"
+  },
+  {
+    "path": "util/tests/fixtures/legacy_v28_harness.c",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "GPL-3.0-or-later; GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2023 Cipulot",
+      "}/* Copyright 2023 Cipulot"
+    ],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Frozen generated C contains merged modules including Cipulot notices; not an independent source grant.",
+    "sha256": "837cf0875a77a15e26f875bb3609fdf770ce670ae4276c6c269a1bb769d583fa"
+  },
+  {
+    "path": "util/tests/fixtures/me_ec_uf2.vial.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/me_ec_uf2.vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Layout data copied from corresponding keyboard Vial JSON; authorship follows source data. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "244e5061e7d05d2aa2df81d02eedb97fea51d62440d3f9e689edfcd42658f326"
+  },
+  {
+    "path": "util/tests/fixtures/original_alec_macros.c",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/original_alec_macros.c",
+    "license": "GPL-2.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "/* Copyright 2022 Alectardy98"
+    ],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "da1afcc80e39b24f3318eaae6f79d3338d0b27750b5df3de2d77a37197e188b7"
+  },
+  {
+    "path": "util/tests/fixtures/reverseenginering.vial.json",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/fixtures/reverseenginering.vial.json",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Layout data copied from corresponding keyboard Vial JSON; authorship follows source data. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "38f61cbc047b8121b5afcafdefbcbd9028cffb94b417926b9a57bb6be18926d1"
+  },
+  {
+    "path": "util/tests/fixtures/scanner_harness_templates.json",
+    "category": "project-developed",
+    "confidence": "development records, not independent authorship proof",
+    "source": "Local EC42 development; see module narrative",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "No direct third-party source copy established; interfaces to QMK are not by themselves copied implementation. Layout data copied from corresponding keyboard Vial JSON; authorship follows source data.",
+    "sha256": "34896fc66239605508e0cbbb6b21e6abd1dc9e84da72dcc9e4e101bc1518b07b"
+  },
+  {
+    "path": "util/tests/fixtures/scanner_harness_templates.json.license",
+    "category": "restored sidecar notice",
+    "confidence": "source declarations confirmed",
+    "source": "keyboards/cipulot/common/ec_switch_matrix.h",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [
+      "SPDX-FileCopyrightText: 2023 Cipulot",
+      "/* Copyright 2023 Cipulot"
+    ],
+    "notes": "Cipulot notice for EC types in generated test template; original JSON unchanged. Byte identical to candidate: False; text similarity 0.223 (supporting evidence, not proof).",
+    "sha256": "5cf6296a35e81ba067f1a68f0b6f7602790dbf32b8cd2f507dd0a8c590df155a"
+  },
+  {
+    "path": "util/tests/packed_record.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/packed_record.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "e523f9f267693f490d72382d457c56f6e88e57e8cb0b0033e2d84f85e0bc295e"
+  },
+  {
+    "path": "util/tests/test_boards.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_boards.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.764 (supporting evidence, not proof).",
+    "sha256": "b0da7d57a2255c0f2642fbc99334e98bdb86ad19f026ba6f9f8f8070ed7c53ba"
+  },
+  {
+    "path": "util/tests/test_core.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_core.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "ab9d3d1be830926a0e761aebec2f7fb28101cd81495609a592376ecff4b2b014"
+  },
+  {
+    "path": "util/tests/test_explicit_calibration.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_explicit_calibration.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "722122215545fe5ca2fa8b54e8961a2a5f0fa921ab641f14499fe7bd05d0f8af"
+  },
+  {
+    "path": "util/tests/test_live.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_live.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "d1ec2f9b3514e2035f36ff93c1a32ab7085c29170aa4c0755887e8a984cff5c6"
+  },
+  {
+    "path": "util/tests/test_ports_live.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_ports_live.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.994 (supporting evidence, not proof).",
+    "sha256": "04c53803cfafe8fdf00244f6ae14e8ca8521982d02d9dc07c0546f130b1e41de"
+  },
+  {
+    "path": "util/tests/test_settings.cpp",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_settings.cpp",
+    "license": "GPL-3.0-or-later",
+    "license_evidence": "SPDX in file (embedded fixture components may have separate notices)",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "4e9dd23e603d4eb6290d482253ce067d5dce41381284c915cc1b4cfa12d06497"
+  },
+  {
+    "path": "util/tests/test_size_optimizations.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_size_optimizations.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: False; text similarity 0.958 (supporting evidence, not proof).",
+    "sha256": "dc09afd25395bcdf72ccbe172643c86293180cd57d369925546453084a0bd163"
+  },
+  {
+    "path": "util/tests/test_variable_actuation.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/test_variable_actuation.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "0151a175c3d3b68b803e384bbead1443bd3702eeb9fbff99e6a8eff27c1c7cc3"
+  },
+  {
+    "path": "util/tests/verify_current_fixture.py",
+    "category": "application import/adaptation",
+    "confidence": "source/import manifests",
+    "source": "/home/alec/Documents/GitHub/qmk-ec-util/tests/verify_current_fixture.py",
+    "license": "NOASSERTION",
+    "license_evidence": "No individual grant; repository context is evidence, not an invented file license",
+    "copyrights": [],
+    "notes": "EC42 app development; Cap-Util lineage only for specifically identified files, not blanket Cipulot authorship. Byte identical to candidate: True; text similarity 1.000 (supporting evidence, not proof).",
+    "sha256": "c371236cc26e7b8e146714eea9e6903ff88a1225b3227d387e86a4d5c6a610ef"
+  }
+]

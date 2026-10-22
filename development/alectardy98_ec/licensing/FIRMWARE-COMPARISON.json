@@ -1,0 +1,84 @@
+[
+  {
+    "target": "alectardy98_ec_class0413_ec_vial",
+    "hashes": {
+      "elf": "98e155a1ca7d75debda3872b79b7dc77b48d436e32848b5fd6616563681a8868",
+      "uf2": "33fef5d8a74f6a98d4a73424bc30fe2c1a8fcdbbd7b60aa0796cf34526539d83"
+    },
+    "identical": {
+      "elf": true,
+      "uf2": true
+    },
+    "span": 62320,
+    "free": 3216
+  },
+  {
+    "target": "alectardy98_ec_class0413_ec_vial_alec",
+    "hashes": {
+      "elf": "e7b27f491e9e371808a026d5e56d65c0d1c411503e84b30ff5922480efe485c6",
+      "uf2": "a6ed4729abff385fc2a30ac2dc6eca7dbcbf132bbc1798de95b0565a96f05281"
+    },
+    "identical": {
+      "elf": true,
+      "uf2": true
+    },
+    "span": 63720,
+    "free": 1816
+  },
+  {
+    "target": "alectardy98_ec_ec_prox_vial",
+    "hashes": {
+      "elf": "a0a6dd1e37cbc9999c2f84492ba021a4ecff75f27fa697d4a11901644af4b33a",
+      "bin": "ece4e8bd9b49f90e8b787f34f17bea9c9b9cb0e2e073616700d019c152629de6",
+      "hex": "c18a42d98493fc0e8559eb229c0bcaef3000cae26f6cb460fa9342f612f21ed4"
+    },
+    "identical": {
+      "elf": true,
+      "bin": true,
+      "hex": true
+    },
+    "span": 117428,
+    "free": 13644
+  },
+  {
+    "target": "alectardy98_ec_ec_prox_vial_alec",
+    "hashes": {
+      "elf": "f73e8e00732f01261092e1a3fa1b3282221ffb266307fa6ed15674a15f4f34c8",
+      "bin": "1b64e5128e6cf6d9284ac6038196ef0d539be78f4025ed0a973e7d4eec19d2ad",
+      "hex": "a3bbdb8c9778f889bb0286e944501a83cc13df683929ac8d2379319944de3003"
+    },
+    "identical": {
+      "elf": true,
+      "bin": true,
+      "hex": true
+    },
+    "span": 120588,
+    "free": 10484
+  },
+  {
+    "target": "alectardy98_ec_me_ec_uf2_vial",
+    "hashes": {
+      "elf": "3487ed943de2de34d92cf946b294d47089390a1638657bf3e25d1c7202a69e27",
+      "uf2": "b064915aa211b82705dfbdfa227fafb3d37e6ca1d6d3e640df6456a1661602b0"
+    },
+    "identical": {
+      "elf": true,
+      "uf2": true
+    },
+    "span": 81548,
+    "free": 49524
+  },
+  {
+    "target": "alectardy98_ec_me_ec_uf2_vial_alec",
+    "hashes": {
+      "elf": "762e7cc78dad6a771d04bf1723cdc394cc67ffe4af50e3a99f7c9f3ecbb0051d",
+      "uf2": "0c1791a179bc53fd6964f6765c4d5b713ae47e62412e31b6aae972c1b722ccfd"
+    },
+    "identical": {
+      "elf": true,
+      "uf2": true
+    },
+    "span": 83348,
+    "free": 47724
+  }
+]
