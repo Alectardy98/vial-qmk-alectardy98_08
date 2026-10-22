@@ -1,0 +1,185 @@
+diff --git a/ports/stm32f4/CMakeLists.txt b/ports/stm32f4/CMakeLists.txt
+index edf3037..63a7416 100644
+--- a/ports/stm32f4/CMakeLists.txt
++++ b/ports/stm32f4/CMakeLists.txt
+@@ -14,8 +14,11 @@ add_executable(tinyuf2
+   ${TOP}/lib/tinyusb/src/portable/synopsys/dwc2/dcd_dwc2.c
+   ${TOP}/lib/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c
+   )
++if (NOT DEFINED BOARD_BOOT_LD)
++  set(BOARD_BOOT_LD "${CMAKE_CURRENT_LIST_DIR}/linker/stm32f4_boot.ld")
++endif ()
+ target_link_options(tinyuf2 PUBLIC
+-  "LINKER:--script=${CMAKE_CURRENT_LIST_DIR}/linker/stm32f4_boot.ld"
++  "LINKER:--script=${BOARD_BOOT_LD}"
+   )
+ 
+ family_configure_tinyuf2(tinyuf2 OPT_MCU_STM32F4)
+@@ -25,6 +28,6 @@ family_flash_stlink(tinyuf2)
+ #------------------------------------
+ # Application
+ #------------------------------------
+-family_add_app(update-tinyuf2 ${TOP}/apps/self_update SELF_UPDATE)
+-family_add_app(blinky ${TOP}/apps/blinky)
+-family_add_app(erase_firmware ${TOP}/apps/erase_firmware)
++family_add_app(update-tinyuf2 ${TOP}/apps/self_update SELF_UPDATE BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
++family_add_app(blinky ${TOP}/apps/blinky BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
++family_add_app(erase_firmware ${TOP}/apps/erase_firmware BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
+diff --git a/ports/stm32f4/board_flash.c b/ports/stm32f4/board_flash.c
+index be835c0..482660b 100644
+--- a/ports/stm32f4/board_flash.c
++++ b/ports/stm32f4/board_flash.c
+@@ -77,6 +77,11 @@ enum
+   SECTOR_COUNT = sizeof(sector_size)/sizeof(sector_size[0])
+ };
+ 
++#ifdef BOARD_FLASH_APP_END
++static bool prox_write_failed;
++int ec_prox_flash_failed(void) { return prox_write_failed; }
++#endif
++
+ static uint8_t erased_sectors[SECTOR_COUNT] = { 0 };
+ 
+ //--------------------------------------------------------------------+
+@@ -133,7 +138,11 @@ static bool flash_erase(uint32_t addr)
+   {
+     TUF2_LOG1("Erase: %08lX size = %lu KB ... ", sector_addr, size / 1024);
+     FLASH_Erase_Sector(sector, FLASH_VOLTAGE_RANGE_3);
++#ifdef BOARD_FLASH_APP_END
++    if (FLASH_WaitForLastOperation(HAL_MAX_DELAY) != HAL_OK) return false;
++#else
+     FLASH_WaitForLastOperation(HAL_MAX_DELAY);
++#endif
+     TUF2_LOG1("OK\r\n");
+     TUF2_ASSERT( is_blank(sector_addr, size) );
+   }
+@@ -143,7 +152,11 @@ static bool flash_erase(uint32_t addr)
+ 
+ static void flash_write(uint32_t dst, const uint8_t *src, int len)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (!flash_erase(dst)) { prox_write_failed = true; return; }
++#else
+   flash_erase(dst);
++#endif
+ 
+   TUF2_LOG1("Write flash at address %08lX\r\n", dst);
+   for ( int i = 0; i < len; i += 4 )
+@@ -152,12 +165,18 @@ static void flash_write(uint32_t dst, const uint8_t *src, int len)
+ 
+     if ( HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, dst + i, (uint64_t) data) != HAL_OK )
+     {
++#ifdef BOARD_FLASH_APP_END
++      prox_write_failed = true;
++#endif
+       TUF2_LOG1("Failed to write flash at address %08lX\r\n", dst + i);
+       break;
+     }
+ 
+     if ( FLASH_WaitForLastOperation(HAL_MAX_DELAY) != HAL_OK )
+     {
++#ifdef BOARD_FLASH_APP_END
++      prox_write_failed = true;
++#endif
+       TUF2_LOG1("Waiting on last operation failed\r\n");
+       return;
+     }
+@@ -180,7 +199,11 @@ void board_flash_init(void)
+ 
+ uint32_t board_flash_size(void)
+ {
++#ifdef BOARD_FLASH_APP_END
++  return BOARD_FLASH_APP_END - BOARD_FLASH_APP_START;
++#else
+   return BOARD_FLASH_SIZE;
++#endif
+ }
+ 
+ void board_flash_read(uint32_t addr, void* buffer, uint32_t len)
+@@ -195,11 +218,24 @@ void board_flash_flush(void)
+ // TODO not working quite yet
+ bool board_flash_write(uint32_t addr, void const* data, uint32_t len)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (len != 256 || (addr & 255U) || addr < BOARD_FLASH_APP_START ||
++      addr > BOARD_FLASH_APP_END - len) {
++    prox_write_failed = true;
++    return false;
++  }
++#endif
+   // TODO skip matching contents
+   HAL_FLASH_Unlock();
+   flash_write(addr, data, len);
+   HAL_FLASH_Lock();
+ 
++#ifdef BOARD_FLASH_APP_END
++  if (prox_write_failed || HAL_FLASH_GetError() != HAL_FLASH_ERROR_NONE || memcmp((void const *)(uintptr_t)addr, data, len)) {
++    prox_write_failed = true;
++    return false;
++  }
++#endif
+   return true;
+ }
+ 
+diff --git a/ports/stm32f4/boards.c b/ports/stm32f4/boards.c
+index fbe65ae..466e3a7 100644
+--- a/ports/stm32f4/boards.c
++++ b/ports/stm32f4/boards.c
+@@ -178,6 +178,9 @@ void board_reset(void)
+ 
+ void board_dfu_complete(void)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (ec_prox_flash_failed()) return; // Stay available for recovery after a failed write.
++#endif
+   NVIC_SystemReset();
+ }
+ 
+@@ -198,6 +201,9 @@ bool board_app_valid(void)
+     return false;
+   }
+ 
++#ifdef BOARD_FLASH_APP_END
++  if (!(app_entry & 1U) || app_entry >= BOARD_FLASH_APP_END || sp > 0x2000FFFCU) return false;
++#endif
+   return true;
+ }
+ 
+@@ -273,7 +279,11 @@ uint8_t board_usb_get_serial(uint8_t serial_id[16])
+ 
+ void board_led_write(uint32_t state)
+ {
++#ifdef LED_PIN
+   HAL_GPIO_WritePin(LED_PORT, LED_PIN, state ? LED_STATE_ON : (1-LED_STATE_ON));
++#else
++  (void) state;
++#endif
+ }
+ 
+ #if NEOPIXEL_NUMBER
+diff --git a/src/ghostfat.c b/src/ghostfat.c
+index b7345bb..dea79d2 100644
+--- a/src/ghostfat.c
++++ b/src/ghostfat.c
+@@ -496,9 +496,21 @@ int uf2_write_block (uint32_t block_no, uint8_t *data, WriteState *state) {
+ 
+   if ( !is_uf2_block(bl) ) return -1;
+ 
++#ifdef BOARD_FLASH_APP_END
++  // Validate before any flash access or completion accounting. This board's
++  // two permitted erase units are sectors 4 and 5; EEPROM is sector 2.
++  if (bl->payloadSize != 256 || (bl->targetAddr & 255U) ||
++      bl->targetAddr < BOARD_FLASH_APP_START ||
++      bl->targetAddr > BOARD_FLASH_APP_END - bl->payloadSize ||
++      !(bl->flags & 0x2000U) || (bl->flags & 1U)) return -1;
++#endif
+   if (bl->familyID == BOARD_UF2_FAMILY_ID) {
+     // generic family ID
++#ifdef BOARD_FLASH_APP_END
++    if (!board_flash_write(bl->targetAddr, bl->data, bl->payloadSize)) return -1;
++#else
+     board_flash_write(bl->targetAddr, bl->data, bl->payloadSize);
++#endif
+   }else {
+     // TODO family matches VID/PID
+     return -1;

@@ -1,0 +1,240 @@
+diff --git a/.claude/skills/hil-contract/scripts/hil_test.py b/.claude/skills/hil-contract/scripts/hil_test.py
+index ed23881..5680cd4 100755
+--- a/.claude/skills/hil-contract/scripts/hil_test.py
++++ b/.claude/skills/hil-contract/scripts/hil_test.py
+@@ -302,6 +302,15 @@ def port_sources(port, bdir):
+   link's --defsym values) of a port the HIL supports, read from the CMake files the HIL's build uses."""
+   if port in STM32_DEVICE:
+     ld = cmake_script(f'ports/{port}/CMakeLists.txt')
++    # The STM32F4 port permits a literal board-local boot script. Do not infer
++    # that board's layout from the port fallback when an override is present.
++    board_code = cb.code_lines(ROOT / bdir / 'board.cmake')
++    if re.search(r'\bset\s*\(\s*BOARD_BOOT_LD\b', board_code):
++      overrides = re.findall(r'\bset\s*\(\s*BOARD_BOOT_LD\s+"\$\{CMAKE_CURRENT_LIST_DIR\}/([\w-]+\.ld)"\s*\)', board_code)
++      if len(overrides) != 1:
++        raise Refused(f'{bdir}: BOARD_BOOT_LD must name one literal board-local linker script')
++      ld = f'{bdir}/{overrides[0]}'
++
+     series, form = STM32_DEVICE[port]
+     mcus = set(re.findall(rf'\b{form}\b', cb.code_lines(ROOT / bdir / 'board.cmake')))
+     if len(mcus) != 1:
+diff --git a/.claude/test/test_hil.py b/.claude/test/test_hil.py
+index d5f361c..8632f47 100644
+--- a/.claude/test/test_hil.py
++++ b/.claude/test/test_hil.py
+@@ -617,6 +617,13 @@ class SourceFacts(unittest.TestCase):
+     # _board_dfu_dbl_tap = _estack, the last word of the boot script's 64K RAM; SPI5_IRQn = 85 is the highest IRQ
+     self.assertEqual((f['dblTapReg'], f['ram'], f['vectors'], f['family']), (0x2000FFFC, 0x20000000, 102, 0x57755a57))
+ 
++  def test_ec_prox_board_local_linker_facts(self):
++    f = ht.source_facts({'port': 'stm32f4', 'name': 'ec_prox'})
++    self.assertEqual((f['flashBase'], f['appStart'], f['flashSize'], f['dblTapReg']),
++                     (0x08000000, 0x08010000, 0x80000, 0x2000FFFC))
++    self.assertEqual((f['vid'], f['pid'], f['boardId']),
++                     (0x6369, 0x6B98, 'EC-Pro-X-STM32F411'))
++
+   def test_an_stm32_board_needs_exactly_one_device_define_of_its_series(self):
+     real = ht.cb.code_lines
+     for port, board, text in (('stm32f4', 'stm32f411ve_discovery', 'STM32F411xE STM32F407xG'),
+diff --git a/ports/stm32f4/CMakeLists.txt b/ports/stm32f4/CMakeLists.txt
+index edf3037..2e5e6d7 100644
+--- a/ports/stm32f4/CMakeLists.txt
++++ b/ports/stm32f4/CMakeLists.txt
+@@ -14,9 +14,13 @@ add_executable(tinyuf2
+   ${TOP}/lib/tinyusb/src/portable/synopsys/dwc2/dcd_dwc2.c
+   ${TOP}/lib/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c
+   )
+-target_link_options(tinyuf2 PUBLIC
+-  "LINKER:--script=${CMAKE_CURRENT_LIST_DIR}/linker/stm32f4_boot.ld"
+-  )
++if (DEFINED BOARD_BOOT_LD)
++  target_link_options(tinyuf2 PUBLIC "LINKER:--script=${BOARD_BOOT_LD}")
++else ()
++  target_link_options(tinyuf2 PUBLIC
++    "LINKER:--script=${CMAKE_CURRENT_LIST_DIR}/linker/stm32f4_boot.ld"
++    )
++endif ()
+ 
+ family_configure_tinyuf2(tinyuf2 OPT_MCU_STM32F4)
+ family_flash_jlink(tinyuf2 hex)
+@@ -25,6 +29,6 @@ family_flash_stlink(tinyuf2)
+ #------------------------------------
+ # Application
+ #------------------------------------
+-family_add_app(update-tinyuf2 ${TOP}/apps/self_update SELF_UPDATE)
+-family_add_app(blinky ${TOP}/apps/blinky)
+-family_add_app(erase_firmware ${TOP}/apps/erase_firmware)
++family_add_app(update-tinyuf2 ${TOP}/apps/self_update SELF_UPDATE BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
++family_add_app(blinky ${TOP}/apps/blinky BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
++family_add_app(erase_firmware ${TOP}/apps/erase_firmware BOARDS sparkfun_micromod_stm32 stm32f401_blackpill feather_stm32f405_express stm32f411ve_discovery sparkfun_stm32_thing_plus stm32f411ce_blackpill)
+diff --git a/ports/stm32f4/board_flash.c b/ports/stm32f4/board_flash.c
+index be835c0..f5bddca 100644
+--- a/ports/stm32f4/board_flash.c
++++ b/ports/stm32f4/board_flash.c
+@@ -77,6 +77,11 @@ enum
+   SECTOR_COUNT = sizeof(sector_size)/sizeof(sector_size[0])
+ };
+ 
++#ifdef BOARD_FLASH_APP_END
++static bool prox_write_failed;
++int ec_prox_flash_failed(void) { return prox_write_failed; }
++#endif
++
+ static uint8_t erased_sectors[SECTOR_COUNT] = { 0 };
+ 
+ //--------------------------------------------------------------------+
+@@ -133,7 +138,11 @@ static bool flash_erase(uint32_t addr)
+   {
+     TUF2_LOG1("Erase: %08lX size = %lu KB ... ", sector_addr, size / 1024);
+     FLASH_Erase_Sector(sector, FLASH_VOLTAGE_RANGE_3);
++#ifdef BOARD_FLASH_APP_END
++    if (FLASH_WaitForLastOperation(HAL_MAX_DELAY) != HAL_OK) return false;
++#else
+     FLASH_WaitForLastOperation(HAL_MAX_DELAY);
++#endif
+     TUF2_LOG1("OK\r\n");
+     TUF2_ASSERT( is_blank(sector_addr, size) );
+   }
+@@ -143,7 +152,11 @@ static bool flash_erase(uint32_t addr)
+ 
+ static void flash_write(uint32_t dst, const uint8_t *src, int len)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (!flash_erase(dst)) { prox_write_failed = true; return; }
++#else
+   flash_erase(dst);
++#endif
+ 
+   TUF2_LOG1("Write flash at address %08lX\r\n", dst);
+   for ( int i = 0; i < len; i += 4 )
+@@ -152,12 +165,18 @@ static void flash_write(uint32_t dst, const uint8_t *src, int len)
+ 
+     if ( HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, dst + i, (uint64_t) data) != HAL_OK )
+     {
++#ifdef BOARD_FLASH_APP_END
++      prox_write_failed = true;
++#endif
+       TUF2_LOG1("Failed to write flash at address %08lX\r\n", dst + i);
+       break;
+     }
+ 
+     if ( FLASH_WaitForLastOperation(HAL_MAX_DELAY) != HAL_OK )
+     {
++#ifdef BOARD_FLASH_APP_END
++      prox_write_failed = true;
++#endif
+       TUF2_LOG1("Waiting on last operation failed\r\n");
+       return;
+     }
+@@ -195,11 +214,24 @@ void board_flash_flush(void)
+ // TODO not working quite yet
+ bool board_flash_write(uint32_t addr, void const* data, uint32_t len)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (len != 256 || (addr & 255U) || addr < BOARD_FLASH_APP_START ||
++      addr > BOARD_FLASH_APP_END - len) {
++    prox_write_failed = true;
++    return false;
++  }
++#endif
+   // TODO skip matching contents
+   HAL_FLASH_Unlock();
+   flash_write(addr, data, len);
+   HAL_FLASH_Lock();
+ 
++#ifdef BOARD_FLASH_APP_END
++  if (prox_write_failed || HAL_FLASH_GetError() != HAL_FLASH_ERROR_NONE || memcmp((void const *)(uintptr_t)addr, data, len)) {
++    prox_write_failed = true;
++    return false;
++  }
++#endif
+   return true;
+ }
+ 
+diff --git a/ports/stm32f4/boards.c b/ports/stm32f4/boards.c
+index fbe65ae..55a085e 100644
+--- a/ports/stm32f4/boards.c
++++ b/ports/stm32f4/boards.c
+@@ -178,6 +178,9 @@ void board_reset(void)
+ 
+ void board_dfu_complete(void)
+ {
++#ifdef BOARD_FLASH_APP_END
++  if (ec_prox_flash_failed()) return; // Stay available for recovery after a failed write.
++#endif
+   NVIC_SystemReset();
+ }
+ 
+@@ -198,6 +201,10 @@ bool board_app_valid(void)
+     return false;
+   }
+ 
++#ifdef BOARD_FLASH_APP_END
++  if (!(app_entry & 1U) || app_entry >= BOARD_FLASH_APP_END ||
++      sp <= 0x20000000U || sp > 0x2000FFF8U || (sp & 7U)) return false;
++#endif
+   return true;
+ }
+ 
+@@ -273,7 +280,11 @@ uint8_t board_usb_get_serial(uint8_t serial_id[16])
+ 
+ void board_led_write(uint32_t state)
+ {
++#ifdef LED_PIN
+   HAL_GPIO_WritePin(LED_PORT, LED_PIN, state ? LED_STATE_ON : (1-LED_STATE_ON));
++#else
++  (void) state;
++#endif
+ }
+ 
+ #if NEOPIXEL_NUMBER
+diff --git a/src/ghostfat.c b/src/ghostfat.c
+index b7345bb..7bcb23b 100644
+--- a/src/ghostfat.c
++++ b/src/ghostfat.c
+@@ -139,7 +139,11 @@ STATIC_ASSERT(BPB_BYTES_PER_CLUSTER                        <= (32*1024)); // FAT
+ STATIC_ASSERT(FAT_ENTRIES_PER_SECTOR                       ==       256); // FAT requirement
+ 
+ #define UF2_FIRMWARE_BYTES_PER_SECTOR   256
++#ifdef BOARD_FLASH_APP_END
++#define UF2_SECTOR_COUNT ((BOARD_FLASH_APP_END - BOARD_FLASH_APP_START) / UF2_FIRMWARE_BYTES_PER_SECTOR)
++#else
+ #define UF2_SECTOR_COUNT                (_flash_size / UF2_FIRMWARE_BYTES_PER_SECTOR)
++#endif
+ #define UF2_BYTE_COUNT                  (UF2_SECTOR_COUNT * BPB_SECTOR_SIZE) // always a multiple of sector size, per UF2 spec
+ 
+ 
+@@ -461,7 +465,11 @@ void uf2_read_block (uint32_t block_no, uint8_t *data) {
+     else {
+       // CURRENT.UF2: generate data on-the-fly
+       uint32_t addr = BOARD_FLASH_APP_START + (fileRelativeSector * UF2_FIRMWARE_BYTES_PER_SECTOR);
++#ifdef BOARD_FLASH_APP_END
++      if ( addr < BOARD_FLASH_APP_END ) {
++#else
+       if ( addr < (BOARD_FLASH_ADDR_ZERO + _flash_size) ) {
++#endif
+         UF2_Block *bl = (void*) data;
+         bl->magicStart0 = UF2_MAGIC_START0;
+         bl->magicStart1 = UF2_MAGIC_START1;
+@@ -496,9 +504,21 @@ int uf2_write_block (uint32_t block_no, uint8_t *data, WriteState *state) {
+ 
+   if ( !is_uf2_block(bl) ) return -1;
+ 
++#ifdef BOARD_FLASH_APP_END
++  // Validate before any flash access or completion accounting. This board's
++  // two permitted erase units are sectors 4 and 5; EEPROM is sector 2.
++  if (bl->payloadSize != 256 || (bl->targetAddr & 255U) ||
++      bl->targetAddr < BOARD_FLASH_APP_START ||
++      bl->targetAddr > BOARD_FLASH_APP_END - bl->payloadSize ||
++      !(bl->flags & 0x2000U) || (bl->flags & 1U)) return -1;
++#endif
+   if (bl->familyID == BOARD_UF2_FAMILY_ID) {
+     // generic family ID
++#ifdef BOARD_FLASH_APP_END
++    if (!board_flash_write(bl->targetAddr, bl->data, bl->payloadSize)) return -1;
++#else
+     board_flash_write(bl->targetAddr, bl->data, bl->payloadSize);
++#endif
+   }else {
+     // TODO family matches VID/PID
+     return -1;

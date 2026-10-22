@@ -1,0 +1,8 @@
+Python 3.14.7
+arm-none-eabi-gcc (Arch Repository) 16.2.0
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+QMK HEAD: 823f2db1a0b0b6ce50d8f5d6d11ea18e10c4a89d
+TinyUF2 HEAD: 5639f2d0b1d99d98c67f39f130662bd1263c216e

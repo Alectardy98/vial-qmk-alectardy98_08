@@ -11,7 +11,10 @@ fw=repo/'keyboards/alectardy98_ec'
 def clean(text):
     return '\n'.join(l for l in text.splitlines() if not l.lstrip().startswith(('#include','#pragma')))+'\n'
 def build(board,output):
-    m=json.loads((Path(__file__).parent/'tests'/f'{board}-mocks.json').read_text())
+    m=json.loads((Path(__file__).parent/'tests'/f'{"ec_prox" if board=="ec_prox_uf2" else board}-mocks.json').read_text())
+    if board=='ec_prox_uf2':
+        # Confirmed CEU6 geometry for the UF2 endpoint's read-only descriptor.
+        m['stubs']=m['stubs'].replace('return MATRIX_COLS==15?256:MATRIX_COLS==21?128:512;', 'return 512;')
     def source(path):
         s=(fw/path).read_text()
         for name in ['record_storage.inc','actuation_control.inc']:
@@ -28,7 +31,7 @@ def build(board,output):
         native=(fw/board/'modules/native_actuators.c').read_text()
         s+=next(l for l in native.splitlines() if l.startswith('void suspend_power_down_user('))+'\n'
     s+=m['support']+source('common/runtime/decision.c')
-    acquisition=(fw/board/('acquisition.c' if board=='ec_prox' else 'matrix.c')).read_text()
+    acquisition=(fw/board/('acquisition.c' if board in ('ec_prox','ec_prox_uf2') else 'matrix.c')).read_text()
     if board=='me_ec_uf2':
         loop=acquisition[acquisition.index('bool matrix_scan_custom('):acquisition.index('eeprom_ec_config_t eeprom_ec_config;')]
         scan='matrix_scan_custom(host_matrix);'
@@ -45,4 +48,4 @@ def build(board,output):
     flags=['-fsanitize=address,undefined','-fno-omit-frame-pointer','-fno-pie','-no-pie'] if os.getenv('SANITIZE')=='1' else []
     subprocess.run(['cc','-std=gnu11','-Werror=implicit-function-declaration',*flags,str(src),'-o',str(output)],check=True)
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('board',choices=['class0413_ec','ec_prox','me_ec_uf2']);p.add_argument('output',type=Path);a=p.parse_args();build(a.board,a.output)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('board',choices=['class0413_ec','ec_prox','ec_prox_uf2','me_ec_uf2']);p.add_argument('output',type=Path);a=p.parse_args();build(a.board,a.output)

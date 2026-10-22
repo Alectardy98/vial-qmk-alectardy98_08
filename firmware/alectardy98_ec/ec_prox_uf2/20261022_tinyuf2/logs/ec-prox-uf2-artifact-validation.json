@@ -1,0 +1,31 @@
+{
+  "vial": {
+    "linked_flash": 84962,
+    "application_span": 84964,
+    "free_application": 111644,
+    "uf2_payload_bytes": 84992,
+    "data": 1520,
+    "bss": 14944,
+    "stacks": 3072,
+    "vector_sp": "0x20000400",
+    "reset": "0x80102fd"
+  },
+  "vial_alec": {
+    "linked_flash": 88086,
+    "application_span": 88088,
+    "free_application": 108520,
+    "uf2_payload_bytes": 88320,
+    "data": 1520,
+    "bss": 14952,
+    "stacks": 3072,
+    "vector_sp": "0x20000400",
+    "reset": "0x80102fd"
+  },
+  "bootloader": {
+    "bin_bytes": 15504,
+    "flash_span": 15504,
+    "free_in_32KiB": 17264,
+    "vector_sp": "0x2000fffc",
+    "reset": "0x80034b1"
+  }
+}

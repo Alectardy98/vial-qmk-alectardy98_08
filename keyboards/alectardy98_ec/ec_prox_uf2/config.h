@@ -1,0 +1,88 @@
+/* Modified for Alectardy98 EC42; original notices retained.
+ * Modification attribution reviewed 2026-10-21; see THIRD_PARTY_NOTICES.md. */
+/* Copyright 2023 Cipulot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#pragma once
+
+
+#define UNUSED_POSITIONS_LIST { {1, 14}, {2, 14}, {3, 12}, {4, 0}, {4, 3}, {4, 4}, {4, 5}, {4, 7}, {4, 8}, {4, 11}, {4, 12}, {4, 13}, {4, 14} }
+
+#define MATRIX_ROW_PINS \
+    { A7, B0, A4, A5, A6 }
+
+#define AMUX_COUNT 2
+#define AMUX_MAX_COLS_COUNT 8
+
+#define AMUX_EN_PINS \
+    { B7, B3 }
+
+#define AMUX_SEL_PINS \
+    { B4, B5, B6 }
+
+#define AMUX_COL_CHANNELS_SIZES \
+    { 8, 7 }
+
+#define AMUX_0_COL_CHANNELS \
+    { 0, 3, 1, 2, 5, 7, 6, 4 }
+
+#define AMUX_1_COL_CHANNELS \
+    { 0, 3, 1, 2, 5, 7, 6 }
+
+#define AMUX_COL_CHANNELS AMUX_0_COL_CHANNELS, AMUX_1_COL_CHANNELS
+
+#define DISCHARGE_PIN A2
+#define ANALOG_PORT A1
+
+#define DEFAULT_ACTUATION_MODE 0
+#define DEFAULT_MODE_0_ACTUATION_LEVEL 550
+#define DEFAULT_MODE_0_RELEASE_LEVEL 500
+#define DEFAULT_MODE_1_INITIAL_DEADZONE_OFFSET DEFAULT_MODE_0_ACTUATION_LEVEL
+#define DEFAULT_MODE_1_ACTUATION_OFFSET 70
+#define DEFAULT_MODE_1_RELEASE_OFFSET 70
+#define DEFAULT_EXTREMUM 1023
+#define EXPECTED_NOISE_FLOOR 0
+#define NOISE_FLOOR_THRESHOLD 50
+#define BOTTOMING_CALIBRATION_THRESHOLD 100
+#define DEFAULT_NOISE_FLOOR_SAMPLING_COUNT 30
+#define DEFAULT_BOTTOMING_READING 1023
+#define DEFAULT_CALIBRATION_STARTER true
+
+#define DISCHARGE_TIME 10
+
+// #define DEBUG_MATRIX_SCAN_RATE
+
+
+
+// New explicit EC profile; old EC/Vial settings are intentionally not migrated.
+#define A98_RECORD_MAGIC 0xa975
+#define A98_FIRMWARE_ID "A98-prox-UF2-2.9"
+#define EECONFIG_KB_DATA_SIZE (17+3*5*15)
+#define WEAR_LEVELING_LOGICAL_SIZE 4096
+#define WEAR_LEVELING_BACKING_SIZE 8192 // Original Prox QMK journal; erase unit is all of sector 2.
+#define WEAR_LEVELING_EFL_FIRST_SECTOR 2
+#define WEAR_LEVELING_EFL_FLASH_SIZE 524288
+#define WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT 0
+#define A98_STORAGE_START 0x8000U
+#define A98_STORAGE_END 0xc000U
+
+#define BACKING_STORE_WRITE_SIZE 4
+
+#define A98_APP_START 0x08010000U
+
+
+#define A98_IMAGE_END_SYMBOL __flash0_free__
+#define A98_TABLE_START 0x08010000U

@@ -1,0 +1,5 @@
+VIA_ENABLE = yes
+VIAL_INSECURE = yes
+WS2812_DRIVER = bitbang
+
+

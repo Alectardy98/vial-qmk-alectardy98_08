@@ -4,7 +4,9 @@
 from pathlib import Path
 import os, subprocess, tempfile
 repo = Path(__file__).resolve().parents[3]
-keymap = (repo/'keyboards/alectardy98_ec/ec_prox/keymaps/vial_alec/keymap.c').read_text()
+variant = os.environ.get('EC_PROX_VARIANT','ec_prox')
+assert variant in ('ec_prox','ec_prox_uf2')
+keymap = (repo/f'keyboards/alectardy98_ec/{variant}/keymaps/vial_alec/keymap.c').read_text()
 source = (repo/'quantum/rgblight/rgblight.c').read_text()
 header = (repo/'quantum/rgblight/rgblight.h').read_text()
 def function(text, name):
