@@ -4,13 +4,13 @@
 #include "aux_stock_parity.h"
 #include "aux_panels.h"
 #if AUX_STOCK_PARITY
-#include "aux_clock.h"
-void aux_text_clock_render(const aux_datetime *,aux_panels *);
+#    include "aux_clock.h"
+void aux_text_clock_render(const aux_datetime *, aux_panels *);
 #endif
 #include "my2k_wire.h"
 typedef struct {
     uint8_t history[7], count, current;
-    bool dirty;
+    bool    dirty;
 #if MY2K_RELEASE1_PROFILE
     bool typing_enabled;
     char label[11];
@@ -25,5 +25,5 @@ void aux_text_service(aux_text *text, aux_panels *panels);
 #endif
 
 #if MY2K_RELEASE1_PROFILE
-void aux_text_glyph(uint8_t *,unsigned,unsigned,uint8_t,unsigned);
+void aux_text_glyph(uint8_t *, unsigned, unsigned, uint8_t, unsigned);
 #endif

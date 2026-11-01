@@ -11,6 +11,26 @@ filesystem/journal modules are in `storage/`. QMK's `main.c`, `matrix.c`, board
 configuration, rules, keymaps and linker files retain their expected locations.
 All Python helpers are shared under `../tools/`.
 
+`rules.mk` describes the MCU, hardware drivers, shared sources and packaging.
+The Vial keymap enables VIA/Vial and includes `features.mk`, which holds the
+Release 1 board feature profile at its original point in QMK's build sequence.
+Use that file when adding a Main module; do not put application logic into
+`keymaps/vial/keymap.c`. That keymap is generated from the saved factory capture.
+
+Read `main.c` in lifecycle order: startup hooks, Main/AUX receive dispatch,
+housekeeping services, key processing, then suspend/resume. Its helpers live in
+`src/`; `drivers/` contains the actual buses, protocol engines and controller
+backends. Request asynchronous work from the key hooks rather than waiting for
+storage or display operations there. Filesystem ownership and export barriers
+must remain intact when adding a new GUI or keycode operation.
+
+The pre-init hook completes AUX's existing finite reset before USB and RGB setup
+so both processors can initialize in parallel. `aux_link.c` uses native RTOS
+milliseconds for this early step because QMK rebases `timer_read32()` later.
+Runtime UART servicing remains nonblocking; internal USB enumeration still waits
+for reset completion and host-driver binding. Never repeat the reset on a UART
+timeout or perform input callbacks from this early initialization path.
+
 `chibios/` holds required board-local USB adaptations. The build creates private
 patched copies in `.build/my2k-chibios/` while keeping both library submodules
 clean. Source and output hashes are pinned so an incompatible library update

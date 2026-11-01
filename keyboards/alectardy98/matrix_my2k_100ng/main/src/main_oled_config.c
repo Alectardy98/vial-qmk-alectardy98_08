@@ -21,7 +21,8 @@ static bool     send_request(unsigned operation, unsigned at) {
         m.v[3] = 4;
         memcpy(m.v + 4, staged + at, 4);
     }
-    if (!my2k_aux_send(&m)) return false;
+    if (!my2k_aux_send(&m))
+        return false;
     op      = operation;
     offset  = m.v[2];
     waiting = true;
@@ -36,11 +37,12 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_init(
     probe_at = sent_at = 0;
 }
 __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_receive(const my2k_wire_message *m) {
-    if (!m || m->type != MY2K_AR || !waiting || m->v[0] != op || m->v[1] != token || m->v[2] != offset) return;
+    if (!m || m->type != MY2K_AR || !waiting || m->v[0] != op || m->v[1] != token || m->v[2] != offset)
+        return;
     waiting = false;
     if (m->v[3]) {
         state = 3;
-        error = (uint8_t)(16u+m->v[3]);
+        error = (uint8_t)(16u + m->v[3]);
         return;
     }
     if (op == 6) {
@@ -48,7 +50,7 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_recei
         return;
     }
     if (op == 0) {
-        peer = m->v[4] == 1 && (m->v[5]&31)==31 && m->v[6] == 72 && m->v[7] == 40;
+        peer = m->v[4] == 1 && (m->v[5] & 31) == 31 && m->v[6] == 72 && m->v[7] == 40;
         if (!peer) {
             state = 3;
             error = 3;
@@ -116,12 +118,14 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_servi
         }
         if (!waiting && !export_owned && my2k_aux_responsive() && (uint32_t)(now - probe_at) >= 1000u) {
             probe_at = now;
-            if (++token == 0) ++token;
+            if (++token == 0)
+                ++token;
             (void)send_request(6, 4);
         }
         return;
     }
-    if (my2k_asset_transition_pending()) return;
+    if (my2k_asset_transition_pending())
+        return;
     if (!my2k_aux_responsive()) {
         peer    = false;
         loaded  = false;
@@ -136,7 +140,8 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_servi
     /* AFS has already claimed the unique AUX filesystem owner. Do not
      * start/restart OLED configuration discovery halfway through an upload.
      * In-flight ACKs still retire in receive(); admission counts waiting. */
-    if (my2k_usbh_animation_busy()) return;
+    if (my2k_usbh_animation_busy())
+        return;
     if (waiting) {
         if ((uint32_t)(now - sent_at) > 6000u) {
             waiting = false;
@@ -148,12 +153,14 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_servi
     if (!peer) {
         if ((uint32_t)(now - probe_at) >= 2000u) {
             probe_at = now;
-            if (++token == 0) ++token;
+            if (++token == 0)
+                ++token;
             (void)send_request(0, 0);
         }
         return;
     }
-    if (state != 1) return;
+    if (state != 1)
+        return;
     if (reading) {
         if (!send_request(5, next)) {
             state = 3;
@@ -179,7 +186,8 @@ __attribute__((noinline, noclone, externally_visible)) void my2k_oled_main_servi
     }
 }
 __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_t *r, unsigned length) {
-    if (length != 32 || r[0] != 0xfd || r[1] != 0xe8) return false;
+    if (length != 32 || r[0] != 0xfd || r[1] != 0xe8)
+        return false;
     uint8_t q[32];
     memcpy(q, r, 32);
     memset(r + 2, 0, 30);
@@ -203,9 +211,11 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
     }
     if (command == 1) {
         unsigned at = q[3] | (unsigned)q[4] << 8;
-        if (at >= MY2K_OLED_BYTES) return true;
+        if (at >= MY2K_OLED_BYTES)
+            return true;
         unsigned n = MY2K_OLED_BYTES - at;
-        if (n > 24) n = 24;
+        if (n > 24)
+            n = 24;
         r[2] = 0xaa;
         r[5] = at;
         r[6] = at >> 8;
@@ -225,10 +235,22 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
             r[16 + i] = (uint8_t)(applies >> (i * 8));
         return true;
     }
-    if (my2k_usbh_animation_busy() || !peer || !loaded || my2k_asset_export_active() || my2k_asset_transition_pending() || state == 1 || waiting) return true;
-    if(command==6){reading=true;next=0;state=1;op=0;if(++token==0)++token;r[2]=0xaa;return true;}
+    if (my2k_usbh_animation_busy() || !peer || !loaded || my2k_asset_export_active() ||
+        my2k_asset_transition_pending() || state == 1 || waiting)
+        return true;
+    if (command == 6) {
+        reading = true;
+        next    = 0;
+        state   = 1;
+        op      = 0;
+        if (++token == 0)
+            ++token;
+        r[2] = 0xaa;
+        return true;
+    }
     if (command == 2) {
-        if (q[3] != 1) return true;
+        if (q[3] != 1)
+            return true;
         memset(staged, 0, MY2K_OLED_BYTES);
         next      = 0;
         upload    = true;
@@ -238,7 +260,8 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
     }
     if (command == 3) {
         unsigned at = q[3] | (unsigned)q[4] << 8, n = q[5];
-        if (!upload || !n || n > 24 || at != next || at + n > MY2K_OLED_BYTES) return true;
+        if (!upload || !n || n > 24 || at != next || at + n > MY2K_OLED_BYTES)
+            return true;
         memcpy(staged + at, q + 6, n);
         upload_at = timer_read32();
         next += n;
@@ -246,13 +269,15 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
         return true;
     }
     if (command == 4) {
-        if (!upload || next != MY2K_OLED_BYTES || !my2k_oled_valid(staged)) return true;
+        if (!upload || next != MY2K_OLED_BYTES || !my2k_oled_valid(staged))
+            return true;
         upload = false;
         next   = 0;
         state  = 1;
         error  = 0;
         op     = 0;
-        if (++token == 0) ++token;
+        if (++token == 0)
+            ++token;
         r[2] = 0xaa;
         return true;
     }
@@ -260,11 +285,13 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
         my2k_wire_message tm = {.type = MY2K_TM, .year = (uint16_t)(q[3] | (uint16_t)q[4] << 8)};
         memcpy(tm.v, q + 5, 6);
         char b[128];
-        if (tm.year > 9999 || my2k_wire_encode(&tm, b, sizeof b) < 0 || !my2k_aux_send(&tm)) return true;
+        if (tm.year > 9999 || my2k_wire_encode(&tm, b, sizeof b) < 0 || !my2k_aux_send(&tm))
+            return true;
         uint32_t crc = my2k_oled_crc(q + 3, 8);
         for (unsigned i = 0; i < 4; i++)
             expected[i] = (uint8_t)(crc >> (i * 8));
-        if (++token == 0) ++token;
+        if (++token == 0)
+            ++token;
         state = 1;
         error = 0;
         if (!send_request(4, 0)) {
@@ -281,7 +308,9 @@ __attribute__((noinline, noclone, externally_visible)) bool my2k_oled_hid(uint8_
 bool my2k_oled_main_busy(void) {
     return upload || state == 1 || waiting;
 }
-bool my2k_oled_main_ready(void) { return peer && loaded && state == 2; }
+bool my2k_oled_main_ready(void) {
+    return peer && loaded && state == 2;
+}
 
 bool my2k_oled_export_owned(void) {
     return export_owned;

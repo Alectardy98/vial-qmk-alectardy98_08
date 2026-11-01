@@ -17,7 +17,13 @@ typedef struct {
     my2k_journal_backend backend;
     uint32_t             slot_bytes, slots, max_payload;
 } my2k_journal;
-typedef enum { MY2K_JOURNAL_OK, MY2K_JOURNAL_EMPTY, MY2K_JOURNAL_FULL, MY2K_JOURNAL_INVALID, MY2K_JOURNAL_IO } my2k_journal_result;
+typedef enum {
+    MY2K_JOURNAL_OK,
+    MY2K_JOURNAL_EMPTY,
+    MY2K_JOURNAL_FULL,
+    MY2K_JOURNAL_INVALID,
+    MY2K_JOURNAL_IO
+} my2k_journal_result;
 bool                my2k_journal_init(my2k_journal *, my2k_journal_backend, uint32_t max_payload);
 my2k_journal_result my2k_journal_load(const my2k_journal *, void *, size_t capacity, size_t *length);
 my2k_journal_result my2k_journal_save(const my2k_journal *, const void *, size_t length);
@@ -25,6 +31,7 @@ my2k_journal_result my2k_journal_save(const my2k_journal *, const void *, size_t
  * physical adapters must map any sector padding, not erase adjacent regions.
  * The newest valid record's unit is never erased. */
 typedef bool (*my2k_journal_erase_unit)(void *context, uint32_t unit);
-my2k_journal_result my2k_journal_rotate(const my2k_journal *, uint32_t slots_per_unit, my2k_journal_erase_unit, void *context);
+my2k_journal_result my2k_journal_rotate(const my2k_journal *, uint32_t slots_per_unit, my2k_journal_erase_unit,
+                                        void *context);
 
 #endif

@@ -65,7 +65,7 @@ void host_set_driver(host_driver_t *);
                     *[arg for p in [out, MAIN / "src", MAIN / "drivers", MAIN / "storage", COMMON] for arg in ("-I", str(p))],
                     str(MAIN / "tests/test_presentation.c"), str(MAIN / "src/main_animation.c"), str(MAIN / "src/main_games.c"),
                     str(COMMON / "my2k_oled_config.c"), "-Wl,--gc-sections", "-o", str(binary)], check=True)
-    for case in ("saved", "default", "older-aux", "highspeed", "atomic", "legacy"):
+    for case in ("saved", "default", "older-aux", "highspeed", "atomic", "legacy", "probe", "probe-wrap"):
         subprocess.run([str(binary), case], check=True)
     binary = out / "aux-assets"
     defs = ["MY2K_STOCK_PARITY_PROFILE", "MY2K_RELEASE1_PROFILE", "MY2K_ANIMATION_PROFILE", "AUX_FRAME_RATE_CONTROL", "AUX_ORIGINAL_TIMING_DEFAULT"]

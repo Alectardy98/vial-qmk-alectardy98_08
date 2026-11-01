@@ -4,5 +4,6 @@
  * remains untouched; no DMA/cache ownership rules are changed. */
 #include "stm32f722xx.h"
 void aux_instruction_cache_enable(void) {
-    if(!(SCB->CCR & SCB_CCR_IC_Msk)) SCB_EnableICache();
+    if (!(SCB->CCR & SCB_CCR_IC_Msk))
+        SCB_EnableICache();
 }

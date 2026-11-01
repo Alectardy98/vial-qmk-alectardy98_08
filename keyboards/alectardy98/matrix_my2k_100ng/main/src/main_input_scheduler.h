@@ -7,15 +7,15 @@
  * lock; transport pause legal) before passing safe_point=true. */
 void my2k_input_scheduler_reset(void);
 void my2k_input_scheduler_scan(uint32_t cycles);
-void my2k_input_scheduler_enter(bool high_performance,bool keyboard_ready,bool storage_mode);
+void my2k_input_scheduler_enter(bool high_performance, bool keyboard_ready, bool storage_mode);
 void my2k_input_scheduler_leave(void);
 bool my2k_input_scheduler_checkpoint(bool safe_point);
 /* Main-only DMA window admission; not a generic permission to reenter QMK. */
-bool my2k_input_scheduler_can_io(void);
+bool     my2k_input_scheduler_can_io(void);
 unsigned my2k_input_scheduler_wait_us(void);
-bool my2k_input_scheduler_status(uint8_t index,uint8_t report[32]);
+bool     my2k_input_scheduler_status(uint8_t index, uint8_t report[32]);
 #if MY2K_INPUT_SCHEDULER_HOST
 uint32_t my2k_input_scheduler_clock(void);
-bool my2k_input_scheduler_context_ready(void);
-void my2k_input_scheduler_keyboard_task(void);
+bool     my2k_input_scheduler_context_ready(void);
+void     my2k_input_scheduler_keyboard_task(void);
 #endif

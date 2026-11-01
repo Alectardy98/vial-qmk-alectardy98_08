@@ -12,7 +12,14 @@ typedef enum { MY2K_TOUCH_REPORT, MY2K_TOUCH_MUTE_TAP } my2k_touch_event;
 /* REPORT is the complete consumer usage (0 releases). MUTE_TAP delegates tap
  * scheduling to the host/backend; no stock configurable tap duration invented. */
 typedef void (*my2k_touch_emit_fn)(void *context, my2k_touch_event event, uint16_t usage);
-typedef enum { MY2K_TOUCH_IDLE, MY2K_TOUCH_DOWN, MY2K_TOUCH_UP, MY2K_TOUCH_MIDDLE, MY2K_TOUCH_LEFT_PENDING, MY2K_TOUCH_RIGHT_PENDING } my2k_touch_state;
+typedef enum {
+    MY2K_TOUCH_IDLE,
+    MY2K_TOUCH_DOWN,
+    MY2K_TOUCH_UP,
+    MY2K_TOUCH_MIDDLE,
+    MY2K_TOUCH_LEFT_PENDING,
+    MY2K_TOUCH_RIGHT_PENDING
+} my2k_touch_state;
 typedef struct {
     my2k_touch_state   state;
     uint8_t            raw[8];

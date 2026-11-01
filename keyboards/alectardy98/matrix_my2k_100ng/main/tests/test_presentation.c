@@ -11,12 +11,13 @@ static uint32_t now;
 static my2k_wire_message sent;
 static unsigned sends;
 static bool high_speed;
+static bool aux_responsive = true, oled_busy;
 int vial_unlocked=1;
 uint32_t timer_read32(void){return now;}
 void eeprom_read_block(void *dst,const void *src,size_t n){assert((uintptr_t)src+n<=sizeof eeprom);memcpy(dst,eeprom+(uintptr_t)src,n);}
 void eeprom_update_block(const void *src,void *dst,size_t n){assert((uintptr_t)dst+n<=sizeof eeprom);memcpy(eeprom+(uintptr_t)dst,src,n);}
 bool my2k_aux_send(const my2k_wire_message *m){sent=*m;sends++;return true;}
-bool my2k_aux_responsive(void){return true;}
+bool my2k_aux_responsive(void){return aux_responsive;}
 bool my2k_usbh_animation_busy(void){return false;}
 bool my2k_asset_export_active(void){return false;}
 bool my2k_asset_transition_pending(void){return false;}
@@ -25,7 +26,7 @@ bool my2k_eeprom32_reset_pending(void){return false;}
 bool my2k_eeprom_durable(void){return true;}
 bool my2k_eeprom_pending(void){return false;}
 uint32_t my2k_persist_error(void){return 0;}
-bool my2k_oled_main_busy(void){return false;}
+bool my2k_oled_main_busy(void){return oled_busy;}
 bool my2k_oled_main_ready(void){return true;}
 bool my2k_performance_hs_requested(void){return high_speed;}
 bool my2k_performance_mode_changing(void){return false;}
@@ -37,6 +38,38 @@ host_driver_t *host_get_driver(void){return NULL;}
 void host_set_driver(host_driver_t *d){(void)d;}
 static my2k_wire_message ack(unsigned a,unsigned b,unsigned c,unsigned d){my2k_wire_message r={.type=MY2K_AR};memcpy(r.v,sent.v,3);r.v[4]=a;r.v[5]=b;r.v[6]=c;r.v[7]=d;return r;}
 static void record(unsigned slot){uint8_t *p=eeprom+32672;memset(p,0,16);p[0]=1;p[1]=slot;memcpy(p+4,"ANI1",4);uint32_t crc=my2k_oled_crc(p,12);for(unsigned i=0;i<4;i++)p[12+i]=(uint8_t)(crc>>(8*i));}
+static void startup_probe(bool wrap) {
+ my2k_animation_init();
+ now = wrap ? UINT32_MAX - 50u : 0;
+ aux_responsive = false;
+ my2k_animation_service(now);
+ assert(sends == 0);
+ aux_responsive = true;
+ my2k_animation_service(now);
+ assert(sends == 1 && sent.v[0] == 8); /* No artificial initial one-second wait. */
+ my2k_animation_service(now + 50u);
+ assert(sends == 1); /* Never duplicate an in-flight command. */
+ my2k_wire_message r = ack(0,0,0,0);
+ r.v[3] = 2;
+ my2k_animation_receive(&r);
+ my2k_animation_service(now + 99u);
+ assert(sends == 1);
+ oled_busy = true;
+ my2k_animation_service(now + 100u);
+ assert(sends == 1); /* Local deferral must not restart the remote retry timer. */
+ oled_busy = false;
+ my2k_animation_service(now + 101u);
+ assert(sends == 2 && sent.v[0] == 8);
+ now += 101u;
+ r = ack(0,0,0,0);
+ r.v[3] = 1; /* Unsupported peer retains the normal backoff. */
+ my2k_animation_receive(&r);
+ my2k_animation_service(now + 999u);
+ assert(sends == 2);
+ my2k_animation_service(now + 1000u);
+ assert(sends == 3);
+ puts("PASS immediate startup probe, bounded busy retry, OLED admission, error backoff and timer wrap");
+}
 static void animation(unsigned slot,unsigned version){
  if(slot)record(slot);
  my2k_animation_init();now=1000;my2k_animation_service(now);
@@ -66,4 +99,4 @@ static void games(bool atomic){
  high_speed=true;mode(1);now+=100;unsigned before=sends;my2k_games_service(now);assert(sends==before&&!my2k_games_running());
  puts("PASS Main direct NES/GBC/Doom handoff, legacy fallback, normal return and 8K game gate");
 }
-int main(int argc,char **argv){assert(argc==2);if(!strcmp(argv[1],"saved"))animation(2,5);else if(!strcmp(argv[1],"default"))animation(0,5);else if(!strcmp(argv[1],"older-aux"))animation(2,4);else if(!strcmp(argv[1],"highspeed")){high_speed=true;animation(2,5);}else games(!strcmp(argv[1],"atomic"));}
+int main(int argc,char **argv){assert(argc==2);if(!strcmp(argv[1],"saved"))animation(2,5);else if(!strcmp(argv[1],"default"))animation(0,5);else if(!strcmp(argv[1],"older-aux"))animation(2,4);else if(!strcmp(argv[1],"highspeed")){high_speed=true;animation(2,5);}else if(!strcmp(argv[1],"probe")||!strcmp(argv[1],"probe-wrap"))startup_probe(!strcmp(argv[1],"probe-wrap"));else games(!strcmp(argv[1],"atomic"));}

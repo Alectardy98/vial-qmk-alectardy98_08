@@ -6,7 +6,7 @@
 void my2k_usb_msc_task(uint32_t now_ms);
 
 #if MY2K_DEV14_PROFILE
-bool my2k_usb_msc_diag(uint8_t page,uint8_t index,uint8_t report[32]);
+bool my2k_usb_msc_diag(uint8_t page, uint8_t index, uint8_t report[32]);
 #endif
 
 #if MY2K_RELEASE1_PROFILE

@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 #include "halconf_community.h"
 #define HAL_USE_EFL FALSE

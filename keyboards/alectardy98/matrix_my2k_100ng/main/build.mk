@@ -1,5 +1,5 @@
 # Main-only QMK packaging. Never opens or flashes a device.
-MY2K_BUILD_TOOLS := keyboards/alectardy98/matrix_my2k_100ng/tools
+MY2K_BUILD_TOOLS := $(MY2K_BOARD)/tools
 
 .PHONY: my2k-package-force
 # Override QMK's generic UF2 conversion with the verified ASTRO layout. QMK

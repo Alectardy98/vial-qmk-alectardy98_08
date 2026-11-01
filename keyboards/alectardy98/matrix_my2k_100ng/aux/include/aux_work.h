@@ -10,10 +10,10 @@ void aux_work_resume(void);
 void aux_work_yield(void);
 /* Yield after a complete idle pass. Unlike a fairness checkpoint this permits
  * foreground WFI. Pending transfers/chunks must use aux_work_yield instead. */
-void aux_work_idle(void);
-void aux_work_checkpoint(void);
-bool aux_work_active(void);
-bool aux_work_runnable(void);
+void                     aux_work_idle(void);
+void                     aux_work_checkpoint(void);
+bool                     aux_work_active(void);
+bool                     aux_work_runnable(void);
 extern volatile uint32_t aux_work_switches, aux_work_stack_fault;
-extern volatile uint32_t aux_work_runnable_yields,aux_work_idle_yields,aux_work_max_slice_ms;
+extern volatile uint32_t aux_work_runnable_yields, aux_work_idle_yields, aux_work_max_slice_ms;
 #endif

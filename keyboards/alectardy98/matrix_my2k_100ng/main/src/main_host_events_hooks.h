@@ -6,6 +6,6 @@
 #include "hal.h"
 #include "main_host_events.h"
 #if MY2K_DEV12_PROFILE
-#undef osalThreadSleepMilliseconds
-#define osalThreadSleepMilliseconds(ms) my2k_host_events_sleep_ms((uint32_t)(ms))
+#    undef osalThreadSleepMilliseconds
+#    define osalThreadSleepMilliseconds(ms) my2k_host_events_sleep_ms((uint32_t)(ms))
 #endif

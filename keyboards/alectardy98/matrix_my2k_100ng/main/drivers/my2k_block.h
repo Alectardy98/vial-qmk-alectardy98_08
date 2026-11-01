@@ -13,7 +13,14 @@ typedef struct {
     my2k_block_ready_fn ready;
     my2k_block_read_fn  read;
 } my2k_block_ops;
-typedef enum { MY2K_BLOCK_OK = 0, MY2K_BLOCK_NO_MEDIA, MY2K_BLOCK_RANGE, MY2K_BLOCK_IO, MY2K_BLOCK_PROTECTED, MY2K_BLOCK_ARGUMENT } my2k_block_error;
+typedef enum {
+    MY2K_BLOCK_OK = 0,
+    MY2K_BLOCK_NO_MEDIA,
+    MY2K_BLOCK_RANGE,
+    MY2K_BLOCK_IO,
+    MY2K_BLOCK_PROTECTED,
+    MY2K_BLOCK_ARGUMENT
+} my2k_block_error;
 typedef struct {
     my2k_block_ops   ops;
     uint32_t         blocks, generation;

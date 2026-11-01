@@ -16,5 +16,6 @@ typedef struct {
 } my2k_flash_region;
 /* reviewed_allocation must remain false until recovery, readback and ownership
  * gates approve these EXACT sectors. Sector geometry still needs errata audit. */
-bool my2k_flash_region_init(my2k_flash_region *, my2k_flash_io, uint8_t first_sector, uint8_t sector_count, uint32_t payload, bool reviewed_allocation, my2k_journal *);
+bool my2k_flash_region_init(my2k_flash_region *, my2k_flash_io, uint8_t first_sector, uint8_t sector_count,
+                            uint32_t payload, bool reviewed_allocation, my2k_journal *);
 bool my2k_flash_region_erase(void *region, uint32_t virtual_unit);

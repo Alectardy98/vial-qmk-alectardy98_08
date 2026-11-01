@@ -22,9 +22,16 @@ typedef struct {
     bool (*submit_sync)(void *);
 #endif
 } my2k_scsi_ops;
-typedef enum { MY2K_SCSI_IDLE, MY2K_SCSI_DATA, MY2K_SCSI_WAIT, MY2K_SCSI_DRAIN, MY2K_SCSI_PASSED, MY2K_SCSI_FAILED
+typedef enum {
+    MY2K_SCSI_IDLE,
+    MY2K_SCSI_DATA,
+    MY2K_SCSI_WAIT,
+    MY2K_SCSI_DRAIN,
+    MY2K_SCSI_PASSED,
+    MY2K_SCSI_FAILED
 #if MY2K_DEV7_WRITABLE_MSC
-    ,MY2K_SCSI_OUT
+    ,
+    MY2K_SCSI_OUT
 #endif
 } my2k_scsi_state;
 typedef struct {
@@ -35,7 +42,7 @@ typedef struct {
     uint16_t        data_size;
     bool            inflight;
 #if MY2K_DEV7_WRITABLE_MSC
-    bool write_command,sync_command,eject_command,ejected,writes_armed;
+    bool write_command, sync_command, eject_command, ejected, writes_armed;
 #endif
 #if MY2K_DEV15_PROFILE
     uint16_t read_bytes;
@@ -64,7 +71,7 @@ void my2k_scsi_cancel(my2k_scsi *);
 #if MY2K_DEV7_WRITABLE_MSC
 /* At most64bytes, never past the current512byte block. No backend call until
  * a complete block is owned. Caller must stop OUT while state is WAIT/DRAIN. */
-bool my2k_scsi_out(my2k_scsi *,const uint8_t *,size_t);
+bool my2k_scsi_out(my2k_scsi *, const uint8_t *, size_t);
 bool my2k_scsi_ejected(const my2k_scsi *);
 /* Read-only/no-media export may leave without an unsupported physical SYNC.
  * Once writable capability was advertised/accepted, only completed eject is safe. */

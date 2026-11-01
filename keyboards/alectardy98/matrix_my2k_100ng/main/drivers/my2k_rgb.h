@@ -44,5 +44,5 @@ bool my2k_rgb_snapshot(const my2k_rgb_state *state, uint16_t start, size_t count
 my2k_rgb_color my2k_rgb_hsv(uint8_t h, uint8_t s, uint8_t v);
 my2k_rgb_color my2k_rgb_custom_color(my2k_rgb_config config, uint32_t now_ms);
 void           my2k_rgb_render_custom(my2k_rgb_state *state, uint32_t now_ms);
-bool           my2k_rgb_flush(const my2k_rgb_state *state, my2k_rgb_write_fn write, void *ctx, bool channel_map_verified);
+bool my2k_rgb_flush(const my2k_rgb_state *state, my2k_rgb_write_fn write, void *ctx, bool channel_map_verified);
 #endif

@@ -2,7 +2,9 @@
 #pragma once
 #include "keycodes.h"
 /* VialAstro customKeycodes[0] is USER00 = QK_KB_0, not SAFE_RANGE.
- * The resolved code is handled at any physical matrix position/layer. */
+ * The resolved code is handled at any physical matrix position/layer.
+ * These numeric values are stored in Vial keymaps: append new entries, never
+ * reorder existing ones to match a preferred GUI display order. */
 enum my2k_keycodes {
     MY2K_STORAGE_TOGGLE = QK_KB_0,
     MY2K_ANIMATION_NEXT,

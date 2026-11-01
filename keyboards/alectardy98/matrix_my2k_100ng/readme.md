@@ -52,6 +52,7 @@ alectardy98/matrix_my2k_100ng/
 │   ├── boards/       QMK/ChibiOS board support
 │   ├── ld/           Main linker scripts
 │   ├── keymaps/vial/ Vial definition and captured default keymap
+│   ├── features.mk   Release 1 source selection and feature guards
 │   ├── defaults/     Saved factory configuration
 │   └── tests/        Offline regression tests
 ├── aux/
@@ -68,6 +69,13 @@ root where QMK expects them. AUX has its own `build.mk`, `rules.mk`, complete
 compile manifest and linker script. It remains a standalone Cortex-M7
 application rather than a QMK keymap. Shared QMK/ChibiOS source is unchanged.
 
+This follows [QMK's keyboard layout conventions](https://docs.qmk.fm/hardware_keyboard_guidelines)
+for Main: `keyboard.json`, `config.h`, `rules.mk`, `main.c`, `matrix.c` and
+`keymaps/vial/` remain at the supported keyboard target. The maker directory is
+organizational, not another keyboard target. AUX deliberately has no dummy
+`keyboard.json`: its standalone build is the documented extension to QMK's
+normal single-application build.
+
 Both `lib/chibios` and `lib/chibios-contrib` stay pristine. Main applies its
 required USB adaptations only to private generated copies in
 `.build/my2k-chibios/`. The build checks pinned source/patch hashes, and never
@@ -76,6 +84,47 @@ modifies either submodule. Keep `main/chibios/` as part of the board source.
 The root `GNUmakefile` routes these two commands; other keyboards still use
 QMK's original Makefile. The Python compatibility launcher supports Manjaro's
 Python 3.14. Tool and source paths are relative to this checkout.
+
+## Finding and extending the code
+
+| Change | Start here |
+| --- | --- |
+| Physical layout, USB metadata | `main/keyboard.json`, `main/config.h` |
+| Key scanning and debounce | `main/matrix.c`, `main/src/main_debounce.c` |
+| QMK startup, key/layer callbacks, housekeeping | `main/main.c` |
+| Enable a board feature or add a Main source | `main/features.mk`; hardware/build defaults are in `main/rules.mk` |
+| Vial identity, defaults, custom key labels | `main/keymaps/vial/`; generated keymap comes from `tools/generate-defaults.py` |
+| Custom keycode behavior | `main/src/main_keycodes.h`, `main/src/main_games.c`, `main/src/main_animation.c` |
+| RGB, Lock Lights, touch, sleep | Matching `main/src/main_rgb_*`, `main_lock_*`, `main_touch_*`, `main_sleep.*` modules |
+| Main flash settings and factory reset | `main/src/main_nv32.*`, `main_eeprom32.*`, `main_factory_*`, `main/defaults/` |
+| UART framing and shared record formats | `common/`; Main transport is `main/src/aux_link.c` |
+| USB host, storage ownership and export | `main/drivers/my2k_usbh_chibios.c`, `main/src/main_storage_mode.c`, `main/src/my2k_usb_msc.c` |
+| AUX worker dispatch and peripheral startup | `aux/src/main.c`, `aux/src/work.c`, `aux/src/platform.c` |
+| Color animation and display output | `aux/src/assets.c`, `animation.c`, `panels.c`, `panel_platform.c` |
+| Small OLED content and settings | `aux/src/oled.c`, `text.c`, `clock.c`, `oled_store.c` |
+| AUX card and filesystem access | `aux/src/sd_card.c`, `diskio.c`, `storage.c`, `msc_io.c` |
+| Games and ROM libraries | `aux/src/nes.c`, `gbc.c`, `doom.c`, corresponding library/ROM modules; upstream cores are in `aux/vendor/` |
+
+Main owns QMK input, external USB and RGB. AUX owns the displays, touch sensor,
+asset filesystem and game execution. UART carries small control/status messages;
+the internal USB connection carries block and file transfers. The AUX foreground
+services USB/UART while its cooperative worker serializes display and filesystem
+operations. Keep slow filesystem/display work out of Main's matrix path and out
+of interrupt handlers. See the individual [Main](main/readme.md) and
+[AUX](aux/readme.md) guides for entrypoints and build responsibilities.
+
+Before changing an interface, check both endpoints and the GUI capability
+negotiation. Append custom keycodes instead of reordering stored numeric values.
+Treat EEPROM addresses, protocol fields and game RAM overlays as compatibility
+boundaries. Settings migrations and capability/version changes need explicit
+tests, not just a successful link.
+
+Hand-maintained board C/headers use the root QMK formatting style with the local
+`.clang-format` line-length setting. Leave generated defaults, captured keymaps,
+vendor sources and pinned upstream patches out of blanket formatting. Historical
+`DEV*` flags remain compatibility guards in the tested Release 1 build; their
+names do not mean an old firmware image is selected. The AUX `DBG_SLEEP` setting
+is required for reliable ASTRO programming and is not expendable debug logging.
 
 ## Outputs
 
@@ -111,6 +160,7 @@ python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_package.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_chibios.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
 SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
+SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_startup.py
 sh keyboards/alectardy98/matrix_my2k_100ng/aux/tests/run-stock-write-tests.sh
 SANITIZE=1 sh keyboards/alectardy98/matrix_my2k_100ng/aux/tests/run-stock-write-tests.sh
 ```
@@ -119,6 +169,14 @@ Build both images before running the artifact and packaging checks. Tests are
 offline; the AUX write tests use simulated sectors in RAM and cannot write to
 the keyboard. See [AUX test notes](aux/tests/readme.md) for the scope of the
 historical fixtures. Passing these checks does not replace physical testing.
+
+`qmk lint -kb alectardy98/matrix_my2k_100ng/main` can also check the conventional
+keyboard files. This is a Vial fork, not an upstream-QMK submission: the stock
+linter rejects the `vial` keymap, expects a `default` keymap, and flags the
+intentional `defaults/factory.bin` test fixture. It also sees ignored local
+`__pycache__` files, which are not committed. Keep those expected differences
+separate from actual build/layout/test failures; do not delete required defaults
+or change the supported keymap simply to silence upstream lint.
 
 ## Firmware updates
 
@@ -165,6 +223,38 @@ root CRS from flashing onscreen first. With no saved slot, Main explicitly
 accepts the discovered default. An invalid saved slot stays unpresented until
 the user chooses an available slot; it does not silently display a different GIF.
 The small OLED, storage and input services continue during this handshake.
+
+`Release1-20261101-p2` starts animation discovery as soon as the AUX link is
+responsive. An explicit AUX busy reply during panel/storage startup permits a
+bounded 100ms retry; other errors retain the one-second backoff. A locally
+deferred request does not restart that timer. This lets saved-slot restoration
+finish before the separate OLED settings readback, while retaining the ANI5
+first-frame gate and all panel initialization waits. This change is Main-only;
+the paired AUX image remains unchanged.
+Controlled Standard-mode software restarts measured about 3.60s before this
+change and 2.11–2.13s afterward to the first observed completed color transfer.
+These are host-polled transfer-counter measurements, not cold plug-in timing
+or independently measured LCD scanout.
+
+`Release1-20261101-p4` pairs with AUX build tag `aa8e2f79` for parallel startup.
+Main completes the existing 11ms/2ms AUX reset in QMK's pre-init hook. AUX then
+overlaps color initialization with OLED initialization and storage loading on
+their independent peripheral buses. Each panel retains its command order and
+minimum waits, including clearing the color window before display-on. Storage
+starts during the color panel's 500ms sleep-out wait; slow/failed storage can
+extend startup and is never hidden by fake readiness. The bounded control queue
+may hold an animation capability probe during startup; settings and filesystem
+commands remain deferred. The ANI5 saved-selection gate is unchanged.
+
+Read-only diagnostic pages DQ26–28 expose boot timing (version 1): first completed
+color transfer, panel readiness, storage loading and selection acknowledgement.
+DBG1 operation 9 also reports native Main reset-release/current clock values;
+its byte11 identifies pre-init timing before QMK rebases its timer. Six measured
+restarts in Standard and High Performance modes estimated 0.888–0.891s from reset
+to the first SPI-drained animation frame. The estimate removes the diagnostic
+command's existing 100ms delay and QMK's 250ms shutdown delay; it is not an
+optical cold plug-to-pixel guarantee. Confirm cold startup on physical hardware.
+Neither ASTRO bootloader nor EEPROM/asset formats change.
 
 Game status advertises an additive atomic-handoff capability in byte6 bit1.
 Main then requests the next game directly, and AUX stops/starts the two owners

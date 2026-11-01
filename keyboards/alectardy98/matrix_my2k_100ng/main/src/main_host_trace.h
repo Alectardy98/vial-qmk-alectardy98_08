@@ -6,5 +6,5 @@
  * Service reads non-pop registers at most once/20ms. HID handlers use RAM only. */
 void my2k_host_trace_service(uint32_t now_ms);
 void my2k_host_trace_loop(bool entering);
-bool my2k_host_trace_page(uint8_t index,uint8_t report[32]);
-bool my2k_host_channel_page(uint8_t index,uint8_t report[32]);
+bool my2k_host_trace_page(uint8_t index, uint8_t report[32]);
+bool my2k_host_channel_page(uint8_t index, uint8_t report[32]);

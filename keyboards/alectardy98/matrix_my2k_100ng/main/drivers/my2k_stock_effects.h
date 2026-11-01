@@ -15,12 +15,12 @@
 #define MY2K_STOCK_STRIP_CUSTOM_ALIAS 26u
 
 typedef struct {
-    uint8_t type, mode, speed;
-    uint16_t count, rows, cols;
-    uint32_t now_ms;
+    uint8_t        type, mode, speed;
+    uint16_t       count, rows, cols;
+    uint32_t       now_ms;
     my2k_rgb_color base;
 } my2k_stock_effect;
-bool my2k_stock_effect_valid(uint8_t type,uint8_t mode);
-uint8_t my2k_stock_effect_custom(uint8_t type);
-uint16_t my2k_stock_effect_period(uint8_t speed);
-my2k_rgb_color my2k_stock_effect_render(const my2k_stock_effect *effect,uint16_t index,my2k_rgb_color custom_color);
+bool           my2k_stock_effect_valid(uint8_t type, uint8_t mode);
+uint8_t        my2k_stock_effect_custom(uint8_t type);
+uint16_t       my2k_stock_effect_period(uint8_t speed);
+my2k_rgb_color my2k_stock_effect_render(const my2k_stock_effect *effect, uint16_t index, my2k_rgb_color custom_color);

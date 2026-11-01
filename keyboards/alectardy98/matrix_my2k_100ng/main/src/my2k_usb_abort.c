@@ -9,7 +9,8 @@ void my2k_usb_abort_begin(my2k_usb_abort *a, uint32_t now) {
 }
 bool my2k_usb_abort_pollI(my2k_usb_abort *a, USBDriver *d, usbep_t ep, uint32_t now) {
     stm32_otg_t *o = d->otg;
-    if (a->failed) return false;
+    if (a->failed)
+        return false;
     if ((uint32_t)(now - a->started) > 100) {
         o->DCTL |= DCTL_CGONAK;
         a->failed = true;

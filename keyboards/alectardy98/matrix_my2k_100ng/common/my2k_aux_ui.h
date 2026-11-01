@@ -8,9 +8,9 @@
  * apply_mode atomically owns queueing SCR:AM and committing its RAM/NVM mode.
  * Never advertise the GUI aux_display flag until clock+file upload work too. */
 typedef struct {
- void *context;
- bool (*send)(void *,const my2k_wire_message *);
- bool (*get_mode)(void *,uint8_t *);
- bool (*apply_mode)(void *,uint8_t);
+    void *context;
+    bool (*send)(void *, const my2k_wire_message *);
+    bool (*get_mode)(void *, uint8_t *);
+    bool (*apply_mode)(void *, uint8_t);
 } my2k_aux_ui_backend;
-bool my2k_aux_ui_hid(const my2k_aux_ui_backend *,uint8_t report[32],size_t length);
+bool my2k_aux_ui_hid(const my2k_aux_ui_backend *, uint8_t report[32], size_t length);

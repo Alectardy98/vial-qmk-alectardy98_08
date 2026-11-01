@@ -4,9 +4,15 @@
 #include "my2k_scsi.h"
 /* Single-LUN read-only Bulk-Only Transport, task context only. USB glue owns
  * endpoint transfers/stalls; this engine never touches a device or registers. */
-typedef enum { MY2K_BOT_CBW, MY2K_BOT_COMMAND, MY2K_BOT_DATA, MY2K_BOT_STATUS, MY2K_BOT_RECOVERY
+typedef enum {
+    MY2K_BOT_CBW,
+    MY2K_BOT_COMMAND,
+    MY2K_BOT_DATA,
+    MY2K_BOT_STATUS,
+    MY2K_BOT_RECOVERY
 #if MY2K_DEV7_WRITABLE_MSC
-    ,MY2K_BOT_OUT
+    ,
+    MY2K_BOT_OUT
 #endif
 } my2k_bot_stage;
 typedef struct {
@@ -19,7 +25,7 @@ typedef struct {
 #if MY2K_DEV7_WRITABLE_MSC
     bool host_in;
 #endif
-    uint8_t        csw[13];
+    uint8_t csw[13];
 } my2k_bot;
 void my2k_bot_init(my2k_bot *, my2k_scsi *);
 /* Feed one completed OUT transfer. Invalid CBW stalls until BOT reset recovery. */

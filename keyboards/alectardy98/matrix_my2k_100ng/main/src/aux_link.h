@@ -9,6 +9,8 @@
 #    define MY2K_AUX_STARTUP_CONTROL_ENABLED 0
 #endif
 bool my2k_aux_start(void);
+/* Pre-init only: bounded 11ms/2ms reset, before QMK rebases its clock. */
+void my2k_aux_prepare(void);
 /* Physical startup reset must finish before the internal host enumerates AUX. */
 bool my2k_aux_startup_ready(void);
 void my2k_aux_startup_status(uint8_t report[32]);

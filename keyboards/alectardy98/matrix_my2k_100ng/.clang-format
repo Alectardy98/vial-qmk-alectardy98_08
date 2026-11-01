@@ -1,0 +1,4 @@
+# Inherit QMK's C style, with shorter lines for this board's standalone modules.
+BasedOnStyle: InheritParentConfig
+ColumnLimit: 120
+AllowShortIfStatementsOnASingleLine: Never
