@@ -1,5 +1,6 @@
 {
-  "origin": "/home/alec/Documents/GitHub/pico-peanutGB",
+  "origin": "https://github.com/PicoPlus-devel/pico-peanutGB",
+  "source_path": "peanut_gb.h",
   "commit": "2bc79e52885064765c36f5d4507e02d435619492",
   "source_SHA256": "a644d46e26ed5d04547f9e68f8965a9217540f8c4f8e0c88487d60aab63aac3f",
   "license": "MIT (file header; includes marked SameBoy MIT code)",

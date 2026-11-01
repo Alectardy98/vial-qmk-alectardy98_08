@@ -58,11 +58,11 @@ static bool start(unsigned op,unsigned arg,unsigned part,unsigned token,uint32_t
  memcpy(request,m.v,8);host_token=token;state=1;error=0;sent=now;return true;
 }
 API void my2k_animation_key(uint8_t action){if((action>=1&&action<=10)||action==254||action==255){queued=action;stop_test=true;}}
-API void my2k_animation_return(void){stop_test=true;}
+API void my2k_animation_return(void){stop_test=true;restore=true;}
 API void my2k_animation_receive(const my2k_wire_message *m){
  if(!m||m->type!=MY2K_AR||state!=1||memcmp(m->v,request,3))return;
  memcpy(response,m->v,8);state=m->v[3]?3:2;error=m->v[3];
- if(request[0]==8){rate_version=state==2&&!memcmp(response+4,"ANI4",4)?4:state==2&&!memcmp(response+4,"ANI3",4)?3:state==2&&!memcmp(response+4,"ANI2",4)?2:0;rate_peer=rate_version!=0;peer=rate_peer||(state==2&&!memcmp(response+4,"ANI1",4));}
+ if(request[0]==8){rate_version=state==2&&!memcmp(response+4,"ANI5",4)?5:state==2&&!memcmp(response+4,"ANI4",4)?4:state==2&&!memcmp(response+4,"ANI3",4)?3:state==2&&!memcmp(response+4,"ANI2",4)?2:0;rate_peer=rate_version!=0;peer=rate_peer||(state==2&&!memcmp(response+4,"ANI1",4));}
  if(request[0]==9&&state==2&&request[2]){restore=false;remember(response[4]);}
  if(request[0]==11&&state==2){
   uint8_t policy=rate_version>=3?response[6]:1;
@@ -78,9 +78,14 @@ API void my2k_animation_service(uint32_t now){
  if(!my2k_aux_responsive()){peer=rate_peer=false;active_rate=rate_version=0;active_policy=255;restore=restore_rate=true;}
  if(state==1){if((uint32_t)(now-sent)>6000u){state=3;error=255;}return;}
  if(host_token){if((uint32_t)(now-sent)<10000u)return;host_token=0;}
- if(!peer){if((uint32_t)(now-probe)>=1000u){probe=now;(void)start(8,1,0,0,now);}return;}
+ if(!peer){if((uint32_t)(now-probe)>=1000u){probe=now;(void)start(8,1,5,0,now);}return;}
  if(rate_peer&&restore_rate){if(start(11,saved_rate,rate_version>=3?saved_policy:0,0,now))restore_rate=false;return;}
- if(restore){restore=false;if(saved)queued=saved;}
+ if(restore){
+  /* ANI5 AUX holds its initial color frame until this explicit selection.
+   * Slot0 accepts the discovered default when EEPROM has no saved slot. */
+  if(rate_version>=5){if(start(9,saved,0,0,now))restore=false;return;}
+  restore=false;if(saved)queued=saved;
+ }
  if(stop_test){if(rate_version<4||start(12,0,0,0,now))stop_test=false;return;}
  if(queued&&start(9,queued,0,0,now))queued=0;
 }

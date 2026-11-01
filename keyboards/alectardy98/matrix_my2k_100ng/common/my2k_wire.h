@@ -15,6 +15,9 @@
 #endif
 #define MY2K_UART_BAUD 115200u
 #define MY2K_WIRE_MAX 128u
+/* AC16 status byte6 retains bit0 and advertises atomic game handoff in bit1.
+ * Only negotiated peers may send AC16 part2 instead of legacy part1. */
+#define MY2K_GAME_ATOMIC_HANDOFF 2u
 typedef enum { MY2K_SCR = 5, MY2K_LED = 6, MY2K_LYR = 7, MY2K_KH = 8, MY2K_STS = 9, MY2K_TC = 10, MY2K_TX = 11, MY2K_TM = 12, MY2K_TH = 13, MY2K_PWR = 14
 #if MY2K_DEV6_PROFILE
 , MY2K_DQ = 15, MY2K_DR = 16

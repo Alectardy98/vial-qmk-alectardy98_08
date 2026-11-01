@@ -1,5 +1,6 @@
 {
-  "source": "/home/alec/Documents/GitHub/esp32-nesemu/components/nofrendo",
+  "source": "https://github.com/espressif/esp32-nesemu",
+  "source_path": "components/nofrendo",
   "source_commit": "693e378643dd4810665e52c0ec02bd9f64559c50",
   "license": "GNU Library General Public License version2, per retained file notices",
   "files": [

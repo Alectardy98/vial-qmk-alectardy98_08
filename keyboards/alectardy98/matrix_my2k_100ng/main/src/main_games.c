@@ -63,9 +63,10 @@ static void clear_inputs(void){
 }
 static uint32_t at,attempt_at;
 static uint8_t wire[8],stats[20],part,export_row,export_col;
-static bool export_pending,status_read,synced;
+static bool export_pending,status_read,synced,atomic_mode;
 static bool send(unsigned op,unsigned arg,uint32_t now){
  my2k_wire_message m={.type=MY2K_AC,.v={(uint8_t)op,0,(uint8_t)arg,1}};
+ if(op==16&&arg!=2&&atomic_mode)m.v[3]=2;
  if(++token==0)++token;
  m.v[1]=token;
  if(!my2k_aux_send(&m))return false;
@@ -85,6 +86,7 @@ API void my2k_games_receive(const my2k_wire_message *m){
  if(op==15){peer=error?0:!memcmp(m->v+4,"GAM3",4)?3:!memcmp(m->v+4,"GAM2",4)?2:!memcmp(m->v+4,"NES1",4)?1:0;return;}
  if(error)return;
  if(op==16){
+  atomic_mode=(m->v[6]&MY2K_GAME_ATOMIC_HANDOFF)!=0;
   uint8_t previous=active;bool changed=active!=m->v[4];active=m->v[4];error=m->v[5];if(changed){clear_inputs();clear_keyboard();}
   if(wire[2]==2){if(!synced)attempt_at=at;synced=true;status_read=true;if(!active){if(wanted==previous)wanted=0;error=m->v[5];}}
  }
@@ -93,7 +95,7 @@ API void my2k_games_receive(const my2k_wire_message *m){
 }
 API void my2k_games_service(uint32_t now){
  mapping_init();filter_install();
- if(!my2k_aux_responsive()){peer=active=pending=wanted=0;export_pending=synced=false;clear_inputs();return;}
+ if(!my2k_aux_responsive()){peer=active=pending=wanted=0;export_pending=synced=atomic_mode=false;clear_inputs();return;}
  if(pending){if((uint32_t)(now-at)>(pending==16&&wire[2]==3?15000u:3000u)){pending=0;error=255;wanted=active;}return;}
  if(my2k_asset_export_active()||my2k_asset_transition_pending()){active=wanted=0;return;}
  if(!my2k_oled_main_ready())return;
@@ -101,7 +103,7 @@ API void my2k_games_service(uint32_t now){
  if(!synced){(void)send(16,2,now);return;}
  if(wanted!=active){
   if((uint32_t)(now-attempt_at)>(wanted==2?15000u:2500u)){wanted=active;return;}
-  if(!error||error==2){if((uint32_t)(now-at)>=20u)(void)send(16,active?0:wanted==3?4:wanted==2?3:wanted,now);}else wanted=active;
+  if(!error||error==2){if((uint32_t)(now-at)>=20u)(void)send(16,active&&!atomic_mode?0:wanted==3?4:wanted==2?3:wanted,now);}else wanted=active;
   return;
  }
  if(!active&&export_pending){export_pending=false;if(my2k_asset_mode_request_key(export_row,export_col,true,now))clear_keyboard();else error=8;return;}

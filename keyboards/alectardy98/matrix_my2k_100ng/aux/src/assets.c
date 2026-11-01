@@ -19,6 +19,15 @@ static char selected_color[100];
 static FATFS volume;
 static bool mounted,paused;
 static bool color_enabled=true,mono_enabled=true;
+#if MY2K_RELEASE1_PROFILE && MY2K_ANIMATION_PROFILE
+/* Main owns the persistent slot. Mounting a legacy CRS does not authorize
+ * presenting it before Main's saved selection has been acknowledged. */
+static bool color_selected;
+#else
+static bool color_selected=true;
+#endif
+void aux_assets_allow_color(void){color_selected=true;}
+void aux_assets_hold_color(void){color_selected=false;}
 typedef struct {FIL file;my2k_asset asset;uint16_t frame;uint32_t last;bool ready,started,present,decoding,output_ok;uint32_t next_pixel,read_errors,output_failures;
     uint32_t deadline;uint16_t rate_remainder;bool rate_clock_valid;
 #if AUX_STOCK_PARITY
@@ -169,7 +178,7 @@ bool aux_assets_select_color(const char *filename){
     color=(channel){0};
     bool ok=open_asset(&color,path,MY2K_ASSET_ANIM);
 #if AUX_STOCK_PARITY
-    if(ok)memcpy(selected_color,path,strlen(path)+1);
+    if(ok){memcpy(selected_color,path,strlen(path)+1);aux_assets_allow_color();}
 #endif
     return ok;
 }
@@ -286,7 +295,7 @@ void aux_assets_step(uint32_t now,const aux_render_sinks *sinks){
 #endif
     if(paused)return;
 #if AUX_STOCK_PARITY
-    if(color_enabled&&color.retry_pending&&(int32_t)(now-color.retry_at)>=0&&aux_msc_io_idle()){
+    if(color_selected&&color_enabled&&color.retry_pending&&(int32_t)(now-color.retry_at)>=0&&aux_msc_io_idle()){
         /* A transient file read must not permanently kill animation. Reopen
          * only the selected color FIL; never reset card, volume or mono image.
          * media_service above already excludes an active host-write lease. */
@@ -296,10 +305,10 @@ void aux_assets_step(uint32_t now,const aux_render_sinks *sinks){
         if(selected_color[0]&&open_asset(&color,selected_color,MY2K_ASSET_ANIM))color.retry_pending=false;
     }
 #endif
-    if(color_enabled)render(&color,now,sinks?sinks->color:0,sinks?sinks->context:0,&aux_decoded_color_frames);
+    if(color_selected&&color_enabled)render(&color,now,sinks?sinks->color:0,sinks?sinks->context:0,&aux_decoded_color_frames);
     if(mono_enabled)render(&mono,now,sinks?sinks->mono:0,sinks?sinks->context:0,&aux_decoded_mono_frames);
 }
-bool aux_assets_busy(void){return !paused&&((color_enabled&&aux_display_test_runnable(aux_millis()))||(color_enabled&&color.decoding)||(mono_enabled&&mono.decoding));}
+bool aux_assets_busy(void){return !paused&&((color_enabled&&aux_display_test_runnable(aux_millis()))||(color_selected&&color_enabled&&color.decoding)||(mono_enabled&&mono.decoding));}
 void aux_assets_set_outputs(bool color_on,bool mono_on,uint32_t now){
     if(color_on&&!color_enabled&&color.ready){
         color.next_pixel=0;color.decoding=true;color.output_ok=true;color.last=now;

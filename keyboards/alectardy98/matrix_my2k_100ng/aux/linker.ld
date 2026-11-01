@@ -1,10 +1,10 @@
-/* Dedicated game profile; fully backed up AUX, SWD install only. */
+/* Standalone AUX application, installed through Main's ASTRO UF2 bridge. */
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 ENTRY(Reset_Handler)
 MEMORY {
- /* Stock AUX UF2 occupies sectors 0..4 (last payload ends at 0801BD00).
-  * Restrict this application to that complete 128KiB erase footprint. Neither
-  * the dump's FF tail nor its filename establishes ownership above 08020000. */
+ /* Release 1 uses the complete, backed-up 512KiB AUX flash. Its UF2 family
+  * routes writes through Main's original programmer, not Main application or
+  * bootloader flash. package.py independently checks this erase footprint. */
  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 512K
  ITCM (rwx) : ORIGIN = 0x00000100, LENGTH = 16128
  RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 256K

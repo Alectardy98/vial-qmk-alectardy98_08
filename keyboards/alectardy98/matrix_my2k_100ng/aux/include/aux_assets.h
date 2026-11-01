@@ -18,6 +18,11 @@ void aux_assets_step(uint32_t now,const aux_render_sinks *sinks);
 bool aux_assets_busy(void);
 /* Select a validated root-directory ANIM by filename; no filesystem writes. */
 bool aux_assets_select_color(const char *filename);
+/* Release startup presentation only after Main resolves its persistent slot.
+ * With no saved slot, Main explicitly accepts the discovered default. */
+void aux_assets_allow_color(void);
+/* Retain the displayed frame while a game owns or is acquiring the panel. */
+void aux_assets_hold_color(void);
 #if MY2K_ANIMATION_PROFILE
 const char *aux_assets_selected_color(void);
 bool aux_assets_release_color(void);

@@ -22,13 +22,17 @@ bool aux_animation_request(const my2k_wire_message *q,my2k_wire_message *r){
  if(!q||!r||q->type!=MY2K_AC||q->v[0]<8||q->v[0]>12)return false;
  *r=(my2k_wire_message){.type=MY2K_AR};memcpy(r->v,q->v,3);r->v[3]=1;
  if(!q->v[1])return true;
- if(q->v[0]==8){if(q->v[2]!=1)return true;r->v[3]=0;memcpy(r->v+4,
+ if(q->v[0]==8){if(q->v[2]!=1||(q->v[3]&&q->v[3]!=5))return true;r->v[3]=0;memcpy(r->v+4,
 #if AUX_FRAME_RATE_CONTROL
- "ANI4",
+ q->v[3]==5?"ANI5":"ANI4",
 #else
  "ANI1",
 #endif
- 4);return true;}
+ 4);
+ /* Older Main sends part0 and has no explicit startup-release step. Retain
+  * its existing behavior; a paired ANI5 Main keeps the boot frame gated. */
+ if(q->v[3]!=5)aux_assets_allow_color();
+ return true;}
  if(q->v[0]==11){
   if(q->v[3]>1||(!q->v[2]&&q->v[3])||(q->v[2]&&q->v[2]!=30&&q->v[2]!=60))return true;
   if(q->v[2]){(void)aux_assets_set_frame_rate(q->v[2]);(void)aux_assets_set_timing(q->v[3]);}
@@ -56,5 +60,6 @@ bool aux_animation_request(const my2k_wire_message *q,my2k_wire_message *r){
   for(unsigned i=0;i<10;i++){target=(unsigned)((int)target-1+direction+10)%10+1u;if(mask&(1u<<(target-1)))break;}
  }
  if(target){char path[64];if(!aux_animation_slot_path(target,path)||!(mask&(1u<<(target-1)))||!aux_assets_select_color(path+3)){r->v[3]=3;return true;}active=(uint8_t)target;}
+ aux_assets_allow_color();
  r->v[3]=0;r->v[4]=active;r->v[5]=(uint8_t)mask;r->v[6]=(uint8_t)(mask>>8);return true;
 }

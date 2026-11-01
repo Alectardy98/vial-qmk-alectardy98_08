@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 /* Independent register-level implementation. Register facts: ST CMSIS F722.
  * Configuration facts: investigation AUX clock/MSP evidence; no binary code copied.
- * Caches remain disabled: PIO buffers may reside in DTCM, no DMA coherency issue. */
+ * Data cache remains disabled; the optional instruction cache is enabled in
+ * aux_main. PIO buffers may reside in DTCM without DMA coherency maintenance. */
 #include "aux_platform.h"
 #include "aux_ring.h"
 #include "aux_work.h"
@@ -23,6 +24,13 @@ static bool wait_bits(uint32_t a,uint32_t mask,uint32_t value){
     return false;
 }
 bool aux_clock_init(void){
+    /* RM0431 34.16.1/34.16.3: WFI gates HCLK unless DBG_SLEEP is set.
+     * ASTRO's onboard SWD programmer must attach to this running target;
+     * without it, idle-time AP reads can be stale before flash even starts.
+     * Set only Sleep support, preserving trace/Stop/Standby configuration.
+     * This is volatile AUX state; the Main bootloader remains untouched. */
+    R32(0xe0042004u)|=1u;
+    __asm__ volatile("dsb\nisb" ::: "memory");
     R32(0xe000e010u)=0;
     R32(0xe000ed88u)|=0xfu<<20; /* CPACR: enable FPU before softfp/library use. */
     R32(0xe000ed08u)=0x08000000u;

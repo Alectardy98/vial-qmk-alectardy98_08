@@ -127,7 +127,8 @@ static int load_rom(void){
 bool aux_nes_request(const my2k_wire_message *q,my2k_wire_message *r){
  if(!q||!r||q->type!=MY2K_AC||q->v[0]<15||q->v[0]>18)return false;
  *r=(my2k_wire_message){.type=MY2K_AR};memcpy(r->v,q->v,3);r->v[3]=1;
- if(!q->v[1]||q->v[3]!=1)return true;
+ bool handoff=q->v[0]==16&&q->v[3]==2&&q->v[2]!=2;
+ if(!q->v[1]||(!handoff&&q->v[3]!=1))return true;
  if(q->v[0]==15){if(q->v[2])return true;memcpy(r->v+4,
 #if MY2K_GBC_PROFILE
  "GAM3",
@@ -147,7 +148,19 @@ bool aux_nes_request(const my2k_wire_message *q,my2k_wire_message *r){
  2
 #endif
  )return true;
-  if(!q->v[2])stop();
+  if(q->v[2]!=0&&q->v[2]!=2&&(!active||handoff)){
+   /* Finish an existing animation transfer before taking ownership. Holding
+    * midway through GRAM would prevent that transfer ever reaching its end. */
+   if(!panel||panel->color_streaming||panel->color_blanked||aux_panel_color_busy(panel)){r->v[3]=2;return true;}
+   aux_assets_hold_color();
+  }
+  if(handoff&&q->v[2]&&active){
+   /* Stop and start execute in this one filesystem-worker dispatch. No asset
+    * service pass can present an animation between the two game owners. */
+   stop();
+   if(fault){r->v[3]=fault;r->v[4]=active;return true;}
+  }
+  if(!q->v[2]){stop();aux_assets_allow_color();}
 #if MY2K_GBC_PROFILE
   else if(q->v[2]==4){
    if(active||!panel||panel->color_streaming||panel->color_blanked||aux_panel_color_busy(panel)){r->v[3]=2;return true;}
@@ -170,7 +183,7 @@ bool aux_nes_request(const my2k_wire_message *q,my2k_wire_message *r){
    fault=(uint8_t)load_rom();if(fault){r->v[3]=fault;return true;}
    active=1;frames=simulated=last_ms=max_ms=completed_hash=0;next_frame=aux_millis();fraction=0;
   }
-  r->v[3]=0;r->v[4]=active;r->v[5]=fault;r->v[6]=1;return true;
+  r->v[3]=0;r->v[4]=active;r->v[5]=fault;r->v[6]=1|MY2K_GAME_ATOMIC_HANDOFF;return true;
  }
  if(q->v[0]==17){if(!active){r->v[3]=3;return true;}
 #if MY2K_GBC_PROFILE
