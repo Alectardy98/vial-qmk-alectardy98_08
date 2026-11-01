@@ -1,0 +1,22 @@
+{
+  "origin": "/home/alec/Documents/GitHub/pico-peanutGB",
+  "commit": "2bc79e52885064765c36f5d4507e02d435619492",
+  "source_SHA256": "a644d46e26ed5d04547f9e68f8965a9217540f8c4f8e0c88487d60aab63aac3f",
+  "license": "MIT (file header; includes marked SameBoy MIT code)",
+  "changes": [
+    "Bounded cooperative step checkpoint hook; default no-op",
+    "Sequenced CGB palette-index increment, preserving semantics",
+    "MBC3 RTC enable/invalid-bank bounds and latched snapshot",
+    "Banked RAM writes consistent with reads; MBC5 rumble RAM types and bank mask",
+    "MBC1 lower/upper window banking; unbanked RAM enabled on reset",
+    "Optional port-owned MBC7 register/EEPROM hook; unchanged default unsupported behavior",
+    "MBC30 extended ROM banking and RAM-bank capacity"
+  ],
+  "primary_references": [
+    "https://raw.githubusercontent.com/gbdev/pandocs/master/src/The_Cartridge_Header.md",
+    "https://raw.githubusercontent.com/gbdev/pandocs/master/src/MBC1.md",
+    "https://raw.githubusercontent.com/gbdev/pandocs/master/src/MBC3.md",
+    "https://raw.githubusercontent.com/gbdev/pandocs/master/src/MBC5.md",
+    "https://raw.githubusercontent.com/gbdev/pandocs/master/src/MBC7.md"
+  ]
+}

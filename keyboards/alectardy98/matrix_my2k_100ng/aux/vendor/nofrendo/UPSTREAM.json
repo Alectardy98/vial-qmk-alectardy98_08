@@ -1,0 +1,155 @@
+{
+  "source": "/home/alec/Documents/GitHub/esp32-nesemu/components/nofrendo",
+  "source_commit": "693e378643dd4810665e52c0ec02bd9f64559c50",
+  "license": "GNU Library General Public License version2, per retained file notices",
+  "files": [
+    {
+      "path": "intro.h",
+      "SHA256": "fa4fe0566bbf751930bbf5db3e3b2dede37286e692049cfd29d308cf530b78e8"
+    },
+    {
+      "path": "nofconfig.h",
+      "SHA256": "cd832622486f82daad61df0e2d339735fdb08cdaf1280c097c9087813e6e0703"
+    },
+    {
+      "path": "bitmap.h",
+      "SHA256": "ae5d62ca536f8f33aa7c53afa45ce0f1a6a2ba17c8656876ad5edc186f681c4e"
+    },
+    {
+      "path": "vid_drv.h",
+      "SHA256": "0b5f7fbb56635d144a207e97e708c1d38551e0a36885cf723ea5ba789801e62c"
+    },
+    {
+      "path": "nofrendo.h",
+      "SHA256": "3022df64b901ed53fdf9b4f6a988c368c5f44e90c839d29e20ed82fa819f0001"
+    },
+    {
+      "path": "pcx.h",
+      "SHA256": "1cbf5a0ce6da62a0d45133b0f6f2b4bf364a8fab2e2263d656db97714ea52592"
+    },
+    {
+      "path": "gui_elem.h",
+      "SHA256": "580ccbb31167436cd43840ce7e32e6c1820419e488ddfd144ec30b8d551a5c7c"
+    },
+    {
+      "path": "version.h",
+      "SHA256": "ab2ae4eb8697893265f8dee161b5ea297a99a103ac82c31aa7a19be9f0cac3a9"
+    },
+    {
+      "path": "log.h",
+      "SHA256": "f42741cd6b48ee5bb691e79f241ae1ccbe363c0e6ccd4cd24d88f3e7c8f0fe4f"
+    },
+    {
+      "path": "event.h",
+      "SHA256": "f9b0a9b634eb84d4a7f4d1d17779bda620cf6cdc8f99f695e9df8ea6e6347293"
+    },
+    {
+      "path": "noftypes.h",
+      "SHA256": "f728229894f6361c29feb6d046e4313c1de6fcd118420fc819d1fee1dba9e1d8"
+    },
+    {
+      "path": "osd.h",
+      "SHA256": "3c608ee66326d82683b3cce93b5e091cfdc7598b1c006e523b6a9a60e53dcb87"
+    },
+    {
+      "path": "gui.h",
+      "SHA256": "03c5bff8aa42f8de84b85bfcdf62b4899c91591d9de250d908641fc206aab239"
+    },
+    {
+      "path": "memguard.h",
+      "SHA256": "2cc12f58e832d334243be744c72855e68379482c3d8e03a79a50898829534dab"
+    },
+    {
+      "path": "sndhrdw/mmc5_snd.h",
+      "SHA256": "a927f925a982b8d1b61406f44a417a31af99576bb80c7cdefd480b317c0d1c3a"
+    },
+    {
+      "path": "sndhrdw/nes_apu.h",
+      "SHA256": "6489e869f380219598709fb3b06b06758cd122d8f2c330683f69c85555252d0d"
+    },
+    {
+      "path": "sndhrdw/fds_snd.h",
+      "SHA256": "6fb34cbfef6d924812957833411e89ca6a4575311fd94b529939b7d49196fd3a"
+    },
+    {
+      "path": "sndhrdw/vrcvisnd.h",
+      "SHA256": "394fee662dfa2bba49a660b0ebebaf84064f268e86ca41fcb382d953f5fe8182"
+    },
+    {
+      "path": "nes/nes.h",
+      "SHA256": "da805dfdd993973597e3611501ed9fdb3c50e4d92b6fb47ed93c0d4128dfc607"
+    },
+    {
+      "path": "nes/nes_pal.h",
+      "SHA256": "0a87d59821c58f6571f4f5eb97d3dbb1f5dd40058f4735dad2715faab4706c6f"
+    },
+    {
+      "path": "nes/mmclist.h",
+      "SHA256": "f171eefa9d012506981865a4259f9afc2a3f3a97dac67c89de7debca207a040d"
+    },
+    {
+      "path": "nes/nesstate.h",
+      "SHA256": "2001a5c136dc52b8b2443d6d99db168f7bb9de900dc9ef1bf903c11fd075c882"
+    },
+    {
+      "path": "nes/nes_rom.h",
+      "SHA256": "aaa91f1fc141580899193175bd95a1f662c0c12b9ddbb2c37f426648ecd40dc9"
+    },
+    {
+      "path": "nes/nes_mmc.h",
+      "SHA256": "56fd81ca36e0c13395add250bcdca0db566527ca8d81b23db78f24bd20581c19"
+    },
+    {
+      "path": "nes/nesinput.h",
+      "SHA256": "df0599584951114534fdd7adf09cc3d6593b2803c04bb23958ba168a923b91da"
+    },
+    {
+      "path": "nes/nes_ppu.h",
+      "SHA256": "7b9ab5389678bf426b34d7225aa7314d2c4abbb79747e390da6956c93af0a5fe"
+    },
+    {
+      "path": "libsnss/libsnss.h",
+      "SHA256": "b483af73aeeca680fc43cbfa26b1fba71f8557f34878b0dbb3bd113b83bc6bb8"
+    },
+    {
+      "path": "cpu/nes6502.h",
+      "SHA256": "e3198ce6d052168adbfea1eb3dca52b0d225e67733424d7810fa3bc1eed06561"
+    },
+    {
+      "path": "cpu/dis6502.h",
+      "SHA256": "49e3b6929f174b90da76534e17ad1f9a384026549a9c0e74ab2f70febce4e7a5"
+    },
+    {
+      "path": "cpu/nes6502.c",
+      "SHA256": "51380b14d8acafa48a65538b6ec5a17fce844bceaaaf158b0e94a0c74dadaa8d"
+    },
+    {
+      "path": "nes/nes.c",
+      "SHA256": "50679ea7992cbec310610cb4c7636bc5ae9b21fd648de3274898cb9429f091c9"
+    },
+    {
+      "path": "nes/nes_ppu.c",
+      "SHA256": "67a96bc2e4176d369eceb36336c7b692ed7e97ce232faf4b9d9414273edf38c2"
+    },
+    {
+      "path": "nes/nes_mmc.c",
+      "SHA256": "45cd7f60a7cfdec7cab085aedf780241b541898162b8e3cc4e0cfd7ede8a748b"
+    },
+    {
+      "path": "sndhrdw/nes_apu.c",
+      "SHA256": "30f348d3f1736f690b1c73df445c810c1b0da11fb01769d6ac2caf7340305564"
+    },
+    {
+      "path": "mappers/map000.c",
+      "SHA256": "b6463f9ed1f26b1d392c1661083213cbf50475056825f90808a910320141b334"
+    },
+    {
+      "path": "mappers/map040.c",
+      "SHA256": "b7d849d71d95411b3520edd80f2befd96931229f5ce68619bfeb55c434fd09f9"
+    },
+    {
+      "path": "nes/nes_pal.c",
+      "SHA256": "75cac7ef541a5602208121a8e35136fe13d92f8dc2c5ba94cd04d6d27261cfbc"
+    }
+  ]
+}

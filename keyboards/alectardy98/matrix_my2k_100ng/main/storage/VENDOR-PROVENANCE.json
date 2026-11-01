@@ -1,0 +1,37 @@
+[
+  {
+    "file": "ff.c",
+    "source": "development/my2k-100ng-experimental/aux/vendor/fatfs/ff.c",
+    "source_sha256": "a6938c99498603df619eac8fc9fb1155da50023aefb12afa5d7bbf1d0f4b6590",
+    "sha256": "a6938c99498603df619eac8fc9fb1155da50023aefb12afa5d7bbf1d0f4b6590",
+    "modified": false
+  },
+  {
+    "file": "ff.h",
+    "source": "development/my2k-100ng-experimental/aux/vendor/fatfs/ff.h",
+    "source_sha256": "46e9a88e181289ff68a5bf7faf63a6ac2cc0f04f49f6cbd94073e42720960d95",
+    "sha256": "46e9a88e181289ff68a5bf7faf63a6ac2cc0f04f49f6cbd94073e42720960d95",
+    "modified": false
+  },
+  {
+    "file": "ffunicode.c",
+    "source": "development/my2k-100ng-experimental/aux/vendor/fatfs/ffunicode.c",
+    "source_sha256": "b519b20a6de1ceea6ae01421480d0137d03abe788b4e6553b2153d2a8591b840",
+    "sha256": "b519b20a6de1ceea6ae01421480d0137d03abe788b4e6553b2153d2a8591b840",
+    "modified": false
+  },
+  {
+    "file": "diskio.h",
+    "source": "development/my2k-100ng-experimental/aux/vendor/fatfs/diskio.h",
+    "source_sha256": "43b63bc5d1c35b2aa4a57c4e1cd7b66ab318748b51e9c6b12aded2574896e73c",
+    "sha256": "43b63bc5d1c35b2aa4a57c4e1cd7b66ab318748b51e9c6b12aded2574896e73c",
+    "modified": false
+  },
+  {
+    "file": "ffconf.h",
+    "source": "development/my2k-100ng-experimental/aux/vendor/fatfs/ffconf.h",
+    "source_sha256": "409c91090a75c125002885e8d2ab02f8abb73349778d68c2dc1467f011b991dc",
+    "sha256": "409c91090a75c125002885e8d2ab02f8abb73349778d68c2dc1467f011b991dc",
+    "modified": true
+  }
+]

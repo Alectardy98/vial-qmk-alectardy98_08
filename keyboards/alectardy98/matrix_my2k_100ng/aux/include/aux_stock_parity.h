@@ -1,0 +1,12 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+#pragma once
+#ifndef AUX_STOCK_PARITY
+#ifdef MY2K_STOCK_PARITY_PROFILE
+#define AUX_STOCK_PARITY MY2K_STOCK_PARITY_PROFILE
+#else
+#define AUX_STOCK_PARITY 0
+#endif
+#endif
+#ifndef MY2K_STOCK_PARITY_PROFILE
+#define MY2K_STOCK_PARITY_PROFILE AUX_STOCK_PARITY
+#endif

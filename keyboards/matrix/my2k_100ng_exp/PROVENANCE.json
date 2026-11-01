@@ -1,0 +1,14 @@
+{
+  "keymap_transactions": "/home/alec/Documents/GitHub/vial-gui_astro/target/astro/hardware-validation/transactions.jsonl",
+  "sha256": "2003572203abd0f99e95a3d1a75b45b4b6ae5c2a583f46c2a9af89d4898c1ddb",
+  "captured_bytes": 1024,
+  "definition": "/home/alec/Documents/GitHub/vial-gui_astro/target/astro/hardware-validation/keyboard-definition.json",
+  "definition_sha256": "eef936fa102828361b75e1bd96915fe3afc84f5fe1c448ca6ca594db50236655",
+  "actual_silicon": "Geehy APM32F405RGT6",
+  "compatibility": "target-local STM32F405 register layer, hardware unvalidated",
+  "flash_start": "0x08020000",
+  "flash_end_exclusive": "0x08040000",
+  "persistent_writes": false,
+  "captured_keymap_file": "captured-keymap-data.txt",
+  "captured_keymap_file_sha256": "f62c7cf2329259687a51b93c3cec08ad70ab0684e9ae2a89cfaa954eecd7d5ef"
+}

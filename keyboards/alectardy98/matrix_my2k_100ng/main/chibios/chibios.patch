@@ -1,0 +1,17 @@
+diff --git a/os/hal/ports/STM32/LLD/OTGv1/hal_usb_lld.c b/os/hal/ports/STM32/LLD/OTGv1/hal_usb_lld.c
+index 1d2611af30..51691247a3 100644
+--- a/os/hal/ports/STM32/LLD/OTGv1/hal_usb_lld.c
++++ b/os/hal/ports/STM32/LLD/OTGv1/hal_usb_lld.c
+@@ -190,6 +190,12 @@ static void otg_enable_ep(USBDriver *usbp) {
+   unsigned i;
+ 
+   for (i = 0; i <= usbp->otgparams->num_endpoints; i++) {
++    /* A host may resume before SET_CONFIGURATION, or after unconfiguration.
++       Only EP0 is then installed. Do not dereference absent configurations
++       or enable interrupts for endpoints which have not been initialized. */
++    if (usbp->epc[i] == NULL) {
++      continue;
++    }
+     if (usbp->epc[i]->out_state != NULL) {
+       otgp->DAINTMSK |= DAINTMSK_OEPM(i);
+     }

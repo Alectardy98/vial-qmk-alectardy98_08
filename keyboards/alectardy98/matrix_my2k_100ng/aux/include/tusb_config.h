@@ -1,0 +1,18 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+#ifndef MY2K_TUSB_CONFIG_H
+#define MY2K_TUSB_CONFIG_H
+#define CFG_TUSB_MCU OPT_MCU_STM32F7
+#define CFG_TUSB_OS OPT_OS_NONE
+#define CFG_TUSB_RHPORT1_MODE (OPT_MODE_DEVICE | OPT_MODE_FULL_SPEED)
+#define CFG_TUD_ENABLED 1
+#define CFG_TUH_ENABLED 0
+#define CFG_TUD_MAX_SPEED OPT_MODE_FULL_SPEED
+#define CFG_TUSB_DEBUG 0
+#define CFG_TUD_DWC2_DMA_ENABLE 0
+#define CFG_TUD_DWC2_SLAVE_ENABLE 1
+#define CFG_TUD_ENDPOINT0_SIZE 64
+#define CFG_TUD_MSC 1
+#include "aux_msc_limits.h"
+#define CFG_TUD_MSC_EP_BUFSIZE AUX_MSC_READ_MAX_BYTES
+#define CFG_TUSB_MEM_ALIGN __attribute__((aligned(4)))
+#endif

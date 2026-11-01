@@ -1,0 +1,59 @@
+{
+  "format": 1,
+  "modules": {
+    "chibios": {
+      "commit": "8bd61b804303f1614d574546c2dd735eeabb09f5",
+      "patch_sha256": "3d08d4a5183f0ebd34044a7cf81d2377556c044e1483600547f5ce107d11ce86",
+      "files": {
+        "os/hal/ports/STM32/LLD/OTGv1/hal_usb_lld.c": {
+          "upstream_sha256": "5afec3b52c460862f313b508bf6f1595c8e36c5e847077ba6e52d1f85fefdc96",
+          "patched_sha256": "54bcfcd95be589bb7acd828c3ada9411658aff648ca7ce32685fbaa60d5fcf07"
+        }
+      }
+    },
+    "chibios-contrib": {
+      "commit": "3ac181e4ca5cafddaf8b472baa1d09c2b24c77b6",
+      "patch_sha256": "9b8a32f54baaf2b7f65c377fc000ce0688a249d43541a5e9e72a05c3ce4dd1b9",
+      "files": {
+        "os/hal/include/usbh/dev/msd.h": {
+          "upstream_sha256": "78ac424c3148cbcba9da44fc06e3c21c48a61ba434db72f51614c992948c760f",
+          "patched_sha256": "4321eacf1efe85e7c32396017e350721d283c0235f8c7a9897bf4ecc34166d28"
+        },
+        "os/hal/include/usbh/internal.h": {
+          "upstream_sha256": "ae2efb4e56b7436217133c1bb744e4b64fb84a0778cee8a538a92d35b9903867",
+          "patched_sha256": "ee6033df5ccabad3df0869acaea7a59f95109f5ba50e2d1c9117cca3480291a2"
+        },
+        "os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.c": {
+          "upstream_sha256": "08f6b080575f37c88c77c2b1a7af78d2384d9754cecb9d269d81878c53709dfa",
+          "patched_sha256": "899a4521ebea8913673bff3c2626fffaa1579a27d81fb363dc2985982542de52"
+        },
+        "os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.h": {
+          "upstream_sha256": "958f8df6b373455d2b72fb29c53b92a13b64b9b21656fa244b4b098faee92e3a",
+          "patched_sha256": "c21c2a14a063f8e4621698bacd90dd045cab71eec57a076bd24d8b2af8f963df"
+        },
+        "os/hal/src/hal_usbh.c": {
+          "upstream_sha256": "cfc21282ce36cd9708b87e8dfe797ec725448fbb5a7ca773919ae24d75e3fc34",
+          "patched_sha256": "555d6ff94381156a73d44e63708b425fe289f2e572b15b2c4e69bd7d0afd004f"
+        },
+        "os/hal/src/usbh/hal_usbh_msd.c": {
+          "upstream_sha256": "242093976383e99f73b7ed015cf5a23d284fb81a87873b170e642d6ea0c43a60",
+          "patched_sha256": "a83eac04820138d35311c20683d97f7f9bdee8325f58d4fb92973e2da7bd7826"
+        }
+      },
+      "extra": {
+        "os/hal/ports/STM32/LLD/USBHv1/my2k_usbh_bounded.h": {
+          "asset": "my2k_usbh_bounded.h",
+          "sha256": "e4b6dc3618e8f9629eac27af5b5df15d077b8ca46abb7b38a7991b1a3e5d539e"
+        }
+      },
+      "header_inputs": {
+        "os/hal/include/hal_community.h": "9ade0d2ee010c7e7f40c40b9107131d2a20ff0864022bf330825870d6f156426",
+        "os/hal/include/hal_usbh.h": "50165e5824bdaaa24e7bcb86f2d87a76dfa188e7a9789e20d36f9d3505da9620"
+      }
+    }
+  },
+  "header_copies": [
+    "os/hal/include/hal_community.h",
+    "os/hal/include/hal_usbh.h"
+  ]
+}

@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+OPT_DEFS += -DMY2K_AUX_REPLACEMENT_AUX=1 -DMY2K_RELEASE_PROFILE=1
+OPT_DEFS += -DMY2K_AUX_LINK_MANAGED=1 -DMY2K_AUX_STARTUP_CONTROL_ENABLED=1
+# Persistence remains a separately tested prototype. No free region outside
+# ASTRO/settings has been established under the current storage restriction.
+OPT_DEFS += -DMY2K_DEV_PROFILE=1 -DMY2K_DEV_PERSISTENCE=0
+MY2K_GEEHY_FS_USB_ENABLE = 1
+SRC += my2k_astro_boot.c main_diag.c

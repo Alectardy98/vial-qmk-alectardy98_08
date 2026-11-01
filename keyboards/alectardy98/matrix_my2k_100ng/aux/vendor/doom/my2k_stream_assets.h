@@ -1,0 +1,2 @@
+#define MY2K_WAD_BYTES 1527746u
+#define MY2K_WAD_LUMPS 738u

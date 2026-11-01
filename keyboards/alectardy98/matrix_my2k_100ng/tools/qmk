@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""Host-only Python3.14 compatibility for this checkout's QMK math parser.
+
+Python3.14 removed ast.Num and Constant.n. Restore only their numeric-literal
+compatibility in this CLI process; do not edit shared QMK or system packages.
+"""
+import ast
+import sys
+
+if not hasattr(ast, "Num"):
+    class NumericLiteral(type):
+        def __instancecheck__(cls, value):
+            return isinstance(value, ast.Constant) and type(value.value) in (int, float, complex)
+
+    class Num(metaclass=NumericLiteral):
+        pass
+
+    ast.Num = Num
+    ast.Constant.n = property(lambda self: self.value)
+
+from qmk_cli.script_qmk import main
+sys.exit(main())

@@ -1,0 +1,797 @@
+{
+  "name": "MY-2K Release 1",
+  "vendorId": "0x4D58",
+  "productId": "0xF103",
+  "keyboardType": "mx_state",
+  "keyboardSpeed": "fs",
+  "lighting": "none",
+  "amkFeature": [
+    "datetime",
+    "aux_display",
+    {
+      "rgb_led": {
+        "total": 128,
+        "bright": 255
+      },
+      "rgb_grid": {
+        "config_start": 0,
+        "start": 0,
+        "count": 64,
+        "grids": [
+          {
+            "name": "Right Grid/右上灯阵",
+            "start": 0,
+            "count": 64
+          }
+        ],
+        "effects": [
+          "Disabled/关闭",
+          "Static/静态",
+          "Gradient Left Right/左右渐变",
+          "Gradient Up Down/上下渐变",
+          "Breathing/呼吸",
+          "Scan Left Right/左右扫描",
+          "Scan Up Down/上下扫描",
+          "Wipe Left Right/左右擦除",
+          "Wipe Up Down/上下擦除",
+          "Cycle Left Right/左右循环",
+          "Cycle Up Down/上下循环",
+          "Cycle Out In/内外循环",
+          "Cycle Out In Dual/双重内外循环",
+          "Cycle Pinwheel/风车循环",
+          "Cycle Spiral/螺旋循环",
+          "Custom"
+        ],
+        "layout": [
+          [
+            "0,0",
+            "0,1",
+            "0,2",
+            "0,3",
+            "0,4",
+            "0,5",
+            "0,6",
+            "0,7",
+            "0,8",
+            "0,9",
+            "0,10",
+            "0,11",
+            "0,12",
+            "0,13",
+            "0,14",
+            "0,15"
+          ],
+          [
+            "0,16",
+            "0,17",
+            "0,18",
+            "0,19",
+            "0,20",
+            "0,21",
+            "0,22",
+            "0,23",
+            "0,24",
+            "0,25",
+            "0,26",
+            "0,27",
+            "0,28",
+            "0,29",
+            "0,30",
+            "0,31"
+          ],
+          [
+            "0,32",
+            "0,33",
+            "0,34",
+            "0,35",
+            "0,36",
+            "0,37",
+            "0,38",
+            "0,39",
+            "0,40",
+            "0,41",
+            "0,42",
+            "0,43",
+            "0,44",
+            "0,45",
+            "0,46",
+            "0,47"
+          ],
+          [
+            "0,48",
+            "0,49",
+            "0,50",
+            "0,51",
+            "0,52",
+            "0,53",
+            "0,54",
+            "0,55",
+            "0,56",
+            "0,57",
+            "0,58",
+            "0,59",
+            "0,60",
+            "0,61",
+            "0,62",
+            "0,63"
+          ]
+        ]
+      },
+      "rgb_strip": {
+        "config_start": 1,
+        "start": 64,
+        "count": 61,
+        "strips": [
+          {
+            "name": "Top left",
+            "start": 2,
+            "count": 19
+          },
+          {
+            "name": "Top right",
+            "start": 21,
+            "count": 19
+          },
+          {
+            "name": "Right circle",
+            "start": 40,
+            "count": 8
+          },
+          {
+            "name": "Led square",
+            "start": 48,
+            "count": 1
+          },
+          {
+            "name": "Led bar",
+            "start": 49,
+            "count": 8
+          },
+          {
+            "name": "Left Circle",
+            "start": 57,
+            "count": 4
+          },
+          {
+            "name": "100NG",
+            "start": 0,
+            "count": 2
+          }
+        ],
+        "effects": [
+          "Disabled",
+          "Static",
+          "Gradient",
+          "Blink",
+          "Rainbow",
+          "Random",
+          "Breath",
+          "Circle",
+          "Static Scan",
+          "Static Breath Scan",
+          "Dynamic Scan",
+          "Static Inverse Scan",
+          "Static Breath Inverse Scan",
+          "Dynamic Inverse Scan",
+          "Static Wipe",
+          "Static Breath Wipe",
+          "Dynamic Wipe",
+          "Custom"
+        ],
+        "layout": [
+          [
+            "0,0",
+            "0,1",
+            "0,2",
+            "0,3",
+            "0,4",
+            "0,5",
+            "0,6",
+            "0,7",
+            "0,8",
+            "0,9",
+            "0,10",
+            "0,11",
+            "0,12",
+            "0,13",
+            "0,14",
+            "0,15",
+            "0,16",
+            "0,17",
+            "0,18"
+          ],
+          [
+            "1,18",
+            "1,17",
+            "1,16",
+            "1,15",
+            "1,14",
+            "1,13",
+            "1,12",
+            "1,11",
+            "1,10",
+            "1,9",
+            "1,8",
+            "1,7",
+            "1,6",
+            "1,5",
+            "1,4",
+            "1,3",
+            "1,2",
+            "1,1",
+            "1,0"
+          ],
+          [
+            {
+              "y": -0.5,
+              "x": 19.75
+            },
+            "6,0",
+            "6,1"
+          ],
+          [
+            {
+              "y": 0.5,
+              "x": 12
+            },
+            "3,0"
+          ],
+          [
+            {
+              "y": 0.25,
+              "x": 1
+            },
+            "4,0",
+            "4,1",
+            "4,2",
+            "4,3",
+            "4,4",
+            "4,5",
+            "4,6",
+            "4,7"
+          ],
+          [
+            {
+              "x": 14.5
+            },
+            "2,6"
+          ],
+          [
+            {
+              "y": -0.5,
+              "x": 13.5
+            },
+            "2,7",
+            {
+              "x": 1
+            },
+            "2,5"
+          ],
+          [
+            {
+              "x": 13
+            },
+            "2,0",
+            {
+              "x": 2
+            },
+            "2,4"
+          ],
+          [
+            {
+              "y": -0.5,
+              "x": 2.5
+            },
+            "5,0",
+            "5,3"
+          ],
+          [
+            {
+              "y": -0.5,
+              "x": 13.5
+            },
+            "2,1",
+            {
+              "x": 1
+            },
+            "2,3"
+          ],
+          [
+            {
+              "y": -0.5,
+              "x": 2.5
+            },
+            "5,1",
+            "5,2",
+            {
+              "x": 10
+            },
+            "2,2"
+          ]
+        ]
+      },
+      "rgb_indicator": {
+        "leds": [
+          {
+            "name": "Caps Lock",
+            "index": 125,
+            "type": "standalone"
+          },
+          {
+            "name": "Scroll Lock",
+            "index": 126,
+            "type": "standalone"
+          },
+          {
+            "name": "None",
+            "index": 112,
+            "type": "shared"
+          },
+          {
+            "name": "Caps Lock",
+            "index": 64,
+            "type": "shared"
+          },
+          {
+            "name": "Num Lock",
+            "index": 65,
+            "type": "shared"
+          },
+          {
+            "name": "Num Lock",
+            "index": 127,
+            "type": "standalone"
+          }
+        ],
+        "layout": [
+          [
+            {
+              "x": 2.5
+            },
+            "0,1",
+            {
+              "x": 3.75
+            },
+            "0,3",
+            "0,4"
+          ],
+          [
+            {
+              "y": 1,
+              "w": 1.75
+            },
+            "0,0",
+            {
+              "x": 2.25
+            },
+            "0,2",
+            {
+              "x": 2.25
+            },
+            "0,5"
+          ]
+        ]
+      }
+    }
+  ],
+  "matrix": {
+    "rows": 8,
+    "cols": 16
+  },
+  "layouts": {
+    "labels": [
+      "Split Right Shift",
+      "Split Left Shift",
+      [
+        "Enter Key",
+        "ANSI",
+        "ISO"
+      ],
+      "Split Numpad Plus",
+      "Split Numpad Enter",
+      "Split Numpad Zero"
+    ],
+    "keymap": [
+      [
+        {
+          "c": "#777777"
+        },
+        "0,0",
+        {
+          "x": 1
+        },
+        "0,1",
+        "0,2",
+        "0,3",
+        "0,4",
+        {
+          "x": 0.5
+        },
+        "0,5",
+        "0,6",
+        "0,7",
+        "0,8",
+        {
+          "x": 0.5
+        },
+        "0,9",
+        "0,10",
+        "0,11",
+        "0,12",
+        {
+          "x": 0.75
+        },
+        "0,14",
+        "0,15",
+        "1,15",
+        {
+          "x": 3.75
+        },
+        "6,3"
+      ],
+      [
+        {
+          "c": "#cccccc"
+        },
+        "1,0",
+        "1,1",
+        "1,2",
+        "1,3",
+        "1,4",
+        "1,5",
+        "1,6",
+        "1,7",
+        "1,8",
+        "1,9",
+        "1,10",
+        "1,11",
+        "1,12",
+        {
+          "c": "#777777",
+          "w": 2
+        },
+        "1,13",
+        {
+          "x": 0.75
+        },
+        "1,14",
+        "2,14",
+        "2,15",
+        {
+          "x": 0.75
+        },
+        "6,4",
+        "6,5",
+        "6,6",
+        "6,7"
+      ],
+      [
+        {
+          "y": -0.25,
+          "x": 25.25,
+          "w": 1.25,
+          "h": 2,
+          "w2": 1.5,
+          "h2": 1,
+          "x2": -0.25
+        },
+        "3,12\n\n\n2,1"
+      ],
+      [
+        {
+          "y": -0.75,
+          "w": 1.5
+        },
+        "2,0",
+        {
+          "c": "#cccccc"
+        },
+        "2,1",
+        "2,2",
+        "2,3",
+        "2,4",
+        "2,5",
+        "2,6",
+        "2,7",
+        "2,8",
+        "2,9",
+        "2,10",
+        "2,11",
+        "2,12",
+        {
+          "w": 1.5
+        },
+        "2,13\n\n\n2,0",
+        {
+          "x": 4.5,
+          "c": "#777777"
+        },
+        "6,8",
+        "6,9",
+        "6,10",
+        {
+          "h": 2
+        },
+        "7,3\n\n\n3,0",
+        {
+          "x": 3.5
+        },
+        "6,11\n\n\n3,1"
+      ],
+      [
+        {
+          "y": -0.25,
+          "x": 24.25,
+          "c": "#cccccc"
+        },
+        "2,13\n\n\n2,1"
+      ],
+      [
+        {
+          "y": -0.75,
+          "c": "#777777",
+          "w": 1.75
+        },
+        "3,0",
+        {
+          "c": "#cccccc"
+        },
+        "3,1",
+        "3,2",
+        "3,3",
+        "3,4",
+        "3,5",
+        "3,6",
+        "3,7",
+        "3,8",
+        "3,9",
+        "3,10",
+        "3,11",
+        {
+          "c": "#777777",
+          "w": 2.25
+        },
+        "3,12\n\n\n2,0",
+        {
+          "x": 4.5
+        },
+        "7,0",
+        "7,1",
+        "7,2",
+        {
+          "x": 4.5
+        },
+        "7,3\n\n\n3,1"
+      ],
+      [
+        {
+          "w": 2.25
+        },
+        "4,0\n\n\n1,0",
+        {
+          "c": "#cccccc"
+        },
+        "4,2",
+        "4,3",
+        "4,4",
+        "4,5",
+        "4,6",
+        "4,7",
+        "4,8",
+        "4,9",
+        "4,10",
+        "4,11",
+        {
+          "c": "#777777",
+          "w": 2.75
+        },
+        "4,12\n\n\n0,0",
+        {
+          "x": 1.75
+        },
+        "4,14",
+        {
+          "x": 1.75
+        },
+        "7,4",
+        "7,5",
+        "7,6",
+        {
+          "h": 2
+        },
+        "7,11\n\n\n4,0",
+        {
+          "x": 0.5,
+          "w": 1.75
+        },
+        "4,12\n\n\n0,1",
+        "4,13\n\n\n0,1",
+        {
+          "x": 0.25
+        },
+        "7,7\n\n\n4,1"
+      ],
+      [
+        {
+          "y": -0.75,
+          "x": 16,
+          "w": 0.5,
+          "h": 0.5
+        },
+        "5,3"
+      ],
+      [
+        {
+          "y": -0.25,
+          "w": 1.5
+        },
+        "5,0",
+        {
+          "x": 1,
+          "w": 1.5
+        },
+        "5,2",
+        {
+          "c": "#cccccc",
+          "w": 7
+        },
+        "5,6",
+        {
+          "c": "#777777",
+          "w": 1.5
+        },
+        "5,11",
+        {
+          "x": 1,
+          "w": 1.5
+        },
+        "5,13",
+        {
+          "x": 0.75
+        },
+        "5,14",
+        "5,15",
+        "4,15",
+        {
+          "x": 0.75,
+          "w": 2
+        },
+        "7,8\n\n\n5,0",
+        "7,10",
+        {
+          "x": 4.5
+        },
+        "7,11\n\n\n4,1"
+      ],
+      [
+        {
+          "w": 1.25
+        },
+        "4,0\n\n\n1,1",
+        {
+          "c": "#cccccc"
+        },
+        "4,1\n\n\n1,1",
+        {
+          "x": 17.25,
+          "c": "#777777"
+        },
+        "7,8\n\n\n5,1",
+        "7,9\n\n\n5,1"
+      ]
+    ]
+  },
+  "customKeycodes": [
+    {
+      "name": "MY2K_STORAGE_TOGGLE",
+      "title": "Toggle dedicated read-only storage mode. Release, then press the same physical key to return.",
+      "shortName": "Storage",
+      "displayOrder": 0
+    },
+    {
+      "name": "MY2K_OLED_MODE_NEXT",
+      "title": "Play the next saved GIF animation; stop games and return to the saved GIFs.",
+      "shortName": "GIF Next",
+      "displayOrder": 1
+    },
+    {
+      "name": "Previous animation",
+      "title": "Play the previous saved GIF animation.",
+      "shortName": "GIF Previous",
+      "displayOrder": 2
+    },
+    {
+      "name": "Animation 1",
+      "title": "Play animation_01.CRS",
+      "shortName": "GIF 1",
+      "displayOrder": 3
+    },
+    {
+      "name": "Animation 2",
+      "title": "Play animation_02.CRS",
+      "shortName": "GIF 2",
+      "displayOrder": 4
+    },
+    {
+      "name": "Animation 3",
+      "title": "Play animation_03.CRS",
+      "shortName": "GIF 3",
+      "displayOrder": 5
+    },
+    {
+      "name": "Animation 4",
+      "title": "Play animation_04.CRS",
+      "shortName": "GIF 4",
+      "displayOrder": 6
+    },
+    {
+      "name": "Animation 5",
+      "title": "Play animation_05.CRS",
+      "shortName": "GIF 5",
+      "displayOrder": 7
+    },
+    {
+      "name": "Animation 6",
+      "title": "Play animation_06.CRS",
+      "shortName": "GIF 6",
+      "displayOrder": 8
+    },
+    {
+      "name": "Animation 7",
+      "title": "Play animation_07.CRS",
+      "shortName": "GIF 7",
+      "displayOrder": 9
+    },
+    {
+      "name": "Animation 8",
+      "title": "Play animation_08.CRS",
+      "shortName": "GIF 8",
+      "displayOrder": 10
+    },
+    {
+      "name": "Animation 9",
+      "title": "Play animation_09.CRS",
+      "shortName": "GIF 9",
+      "displayOrder": 11
+    },
+    {
+      "name": "Animation 10",
+      "title": "Play animation_10.CRS",
+      "shortName": "GIF 10",
+      "displayOrder": 12
+    },
+    {
+      "name": "MY2K_NES_TOGGLE",
+      "title": "NES mode: enter NES; press again to return to normal. Standard USB only.",
+      "shortName": "NES",
+      "displayOrder": 13
+    },
+    {
+      "name": "MY2K_DOOM_TOGGLE",
+      "title": "Doom mode: enter Doom; press again to return to normal. Standard USB only.",
+      "shortName": "Doom",
+      "displayOrder": 15
+    },
+    {
+      "name": "MY2K_NORMAL_MODE",
+      "title": "Stop games and return to normal typing and the saved GIF animation.",
+      "shortName": "OLED Default",
+      "displayOrder": 16
+    },
+    {
+      "name": "MY2K_GBC_TOGGLE",
+      "title": "Game Boy Color mode: enter GB/GBC; press again to return to normal. Standard USB only.",
+      "shortName": "GBC",
+      "displayOrder": 14
+    },
+    {
+      "name": "MY2K_OLED_MODE_TOGGLE",
+      "shortName": "OLED Mode toggle",
+      "title": "Cycle OLED Default → NES → GBC → Doom → OLED Default. Games require Standard USB (1K).",
+      "displayOrder": 17
+    }
+  ],
+  "inputPerformance": {
+    "version": 1
+  }
+}

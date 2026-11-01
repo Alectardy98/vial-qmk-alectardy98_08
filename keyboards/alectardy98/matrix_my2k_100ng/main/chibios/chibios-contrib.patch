@@ -1,0 +1,588 @@
+diff --git a/os/hal/include/usbh/dev/msd.h b/os/hal/include/usbh/dev/msd.h
+index 113f5234..d795164e 100644
+--- a/os/hal/include/usbh/dev/msd.h
++++ b/os/hal/include/usbh/dev/msd.h
+@@ -53,6 +53,14 @@ struct USBHMassStorageDriverVMT {
+ typedef struct USBHMassStorageLUNDriver USBHMassStorageLUNDriver;
+ typedef struct USBHMassStorageDriver USBHMassStorageDriver;
+ 
++#if MY2K_DEV7_PROFILE
++typedef struct {
++    uint8_t inquiry[36];
++    uint16_t vendor_id,product_id;
++    bool device_valid,inquiry_valid;
++} usbhmsd_cached_identity_t;
++#endif
++
+ struct USBHMassStorageLUNDriver {
+ 	/* inherited from abstract block driver */
+ 	const struct USBHMassStorageDriverVMT *vmt;
+@@ -65,6 +73,12 @@ struct USBHMassStorageLUNDriver {
+ 	USBHMassStorageDriver *msdp;
+ 
+ 	USBHMassStorageLUNDriver *next;
++#if MY2K_STOCK_PARITY_PROFILE
++    volatile bool my2k_write_profile;
++#endif
++#if MY2K_DEV7_PROFILE
++    usbhmsd_cached_identity_t my2k_identity;
++#endif
+ };
+ 
+ 
+@@ -91,6 +105,12 @@ extern "C" {
+ 	bool usbhmsdLUNWrite(USBHMassStorageLUNDriver *lunp, uint32_t startblk,
+ 					const uint8_t *buffer, uint32_t n);
+ 	bool usbhmsdLUNSync(USBHMassStorageLUNDriver *lunp);
++#if MY2K_STOCK_PARITY_PROFILE
++    bool usbhmsdLUNWriteProfile(USBHMassStorageLUNDriver *lunp);
++#endif
++#if MY2K_DEV7_PROFILE
++    void usbhmsdLUNCachedIdentity(USBHMassStorageLUNDriver *lunp,usbhmsd_cached_identity_t *out);
++#endif
+ 	bool usbhmsdLUNGetInfo(USBHMassStorageLUNDriver *lunp, BlockDeviceInfo *bdip);
+ 	bool usbhmsdLUNIsInserted(USBHMassStorageLUNDriver *lunp);
+ 	bool usbhmsdLUNIsProtected(USBHMassStorageLUNDriver *lunp);
+diff --git a/os/hal/include/usbh/internal.h b/os/hal/include/usbh/internal.h
+index 24737757..395c6781 100644
+--- a/os/hal/include/usbh/internal.h
++++ b/os/hal/include/usbh/internal.h
+@@ -53,6 +53,9 @@ void _usbh_port_disconnected(usbh_port_t *port);
+ void _usbh_urb_completeI(usbh_urb_t *urb, usbh_urbstatus_t status);
+ bool _usbh_urb_abortI(usbh_urb_t *urb, usbh_urbstatus_t status);
+ void _usbh_urb_abort_and_waitS(usbh_urb_t *urb, usbh_urbstatus_t status);
++#if MY2K_DEV7_PROFILE
++uint32_t _usbh_wait_host_modeS(USBHDriver *host);
++#endif
+ 
+ bool _usbh_match_vid_pid(usbh_device_t *dev, int32_t vid, int32_t pid);
+ bool _usbh_match_descriptor(const uint8_t *descriptor, uint16_t rem,
+diff --git a/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.c b/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.c
+index 94f3ad33..72a3948a 100644
+--- a/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.c
++++ b/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.c
+@@ -156,6 +156,41 @@ USBHDriver USBHD1;
+ USBHDriver USBHD2;
+ #endif
+ 
++#if MY2K_STOCK_PARITY_PROFILE
++#include "my2k_usbh_bounded.h"
++static volatile uint32_t my2k_host_fault;
++uint32_t usbh_lld_fault(USBHDriver *host) {
++    (void)host;return my2k_host_fault;
++}
++static void my2k_host_fail(USBHDriver *host,uint32_t reason) {
++    my2k_host_fault|=reason;
++    /* Fail only the internal host. Do not reset/disable the PC-device core,
++     * clocks, matrix, UART or scheduler. No automatic retry after a fault. */
++    host->otg->GINTMSK=0;
++    host->otg->GAHBCFG=0;
++    host->rootport.lld_status=0;
++    host->rootport.lld_c_status=0;
++    host->status=USBH_STATUS_STOPPED;
++}
++static bool my2k_host_wait(USBHDriver *host,uint32_t mask,uint32_t wanted,uint32_t reason) {
++    if(my2k_host_fault)return false;
++    if(my2k_usbh_wait_bits(&host->otg->GRSTCTL,mask,wanted))return true;
++    my2k_host_fail(host,reason);return false;
++}
++#if MY2K_DEV7_PROFILE
++uint32_t usbh_lld_wait_host_mode(USBHDriver *host) {
++    /* Called only with scheduler/PC interrupts unlocked, host IRQ sources
++     * masked and startup not yet published. Same1ms/50-attempt sequence as
++     * original08036C00; unlike stock, never configure a failed transition. */
++    for(unsigned attempts=0;attempts<50;attempts++){
++        if(!my2k_usbh_delay_cycles(STM32_HCLK/1000u))return 2048u;
++        if(host->otg->GINTSTS&GINTSTS_CMOD)return 0;
++    }
++    return 1024u;
++}
++#endif
++#endif
++
+ /*===========================================================================*/
+ /* Little helper functions.                                                  */
+ /*===========================================================================*/
+@@ -1097,7 +1132,13 @@ static inline void _sof_int(USBHDriver *host) {
+ 		 * layer will time-out waiting for the reset to happen, and the port will remain
+ 		 * enabled (though in a dumb state). This will be detected on the next port reset
+ 		 * request and the OTG core will be reset. */
++#if MY2K_STOCK_PARITY_PROFILE
++        unsigned activity_budget=MY2K_USBH_POLL_LIMIT;
++#endif
+ 		for (;;) {
++#if MY2K_STOCK_PARITY_PROFILE
++            if(!activity_budget--){my2k_host_fail(host,128u);return;}
++#endif
+ 			uint32_t line_status = otg->HPRT & HPRT_PLSTS_MASK;
+ 			remaining = otg->HFNUM >> 16;
+ 			if (!(otg->HPRT & HPRT_PENA)) {
+@@ -1130,8 +1171,17 @@ static inline void _rxflvl_int(USBHDriver *host) {
+ 	stm32_otg_t *const otg = host->otg;
+ 
+ 	otg->GINTMSK &= ~GINTMSK_RXFLVLM;
++#if MY2K_STOCK_PARITY_PROFILE
++    unsigned rx_budget=64;
++#endif
+ 	while (otg->GINTSTS & GINTSTS_RXFLVL) {
++#if MY2K_STOCK_PARITY_PROFILE
++        if(!rx_budget--){my2k_host_fail(host,64u);return;}
++#endif
+ 		uint32_t grxstsp = otg->GRXSTSP;
++#if MY2K_STOCK_PARITY_PROFILE
++        if((grxstsp&GRXSTSP_CHNUM_MASK)>=host->channels_number){my2k_host_fail(host,512u);return;}
++#endif
+ 		osalDbgCheck((grxstsp & GRXSTSP_CHNUM_MASK) < host->channels_number);
+ 		stm32_hc_management_t *const hcm = &host->channels[grxstsp & GRXSTSP_CHNUM_MASK];
+ 		uint32_t hctsiz = hcm->hc->HCTSIZ;
+@@ -1139,6 +1189,12 @@ static inline void _rxflvl_int(USBHDriver *host) {
+ 		if ((grxstsp & GRXSTSP_PKTSTS_MASK) == GRXSTSP_PKTSTS(2)) {
+ 			/* 0010: IN data packet received */
+ 			usbh_ep_t *const ep = hcm->ep;
++#if MY2K_STOCK_PARITY_PROFILE
++            uint32_t received=(grxstsp&GRXSTSP_BCNT_MASK)>>GRXSTSP_BCNT_OFF;
++            if(!ep || !ep->xfer.buf || ep->xfer.partial>ep->xfer.len || received>ep->xfer.len-ep->xfer.partial){
++                my2k_host_fail(host,512u);return;
++            }
++#endif
+ 			osalDbgCheck(ep);
+ 
+ 			/* restart the channel ASAP */
+@@ -1307,7 +1363,13 @@ static inline void _hprtint_int(USBHDriver *host) {
+ 
+ 			/* Make sure the FIFOs are flushed. */
+ 		    otg_txfifo_flush(host, 0x10);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 		    otg_rxfifo_flush(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 
+ 		    /* Clear all pending HC Interrupts */
+ 			uint8_t i;
+@@ -1369,11 +1431,19 @@ static inline void _hprtint_int(USBHDriver *host) {
+ }
+ 
+ static void usb_lld_serve_interrupt(USBHDriver *host) {
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	osalDbgCheck(host && (host->status != USBH_STATUS_STOPPED));
+ 
+ 	stm32_otg_t *const otg = host->otg;
+ 	uint32_t gintsts = otg->GINTSTS;
+ 
++#if MY2K_STOCK_PARITY_PROFILE
++    if(!(gintsts&GINTSTS_CMOD) || (gintsts&GINTSTS_MMIS)){
++        my2k_host_fail(host,256u);return;
++    }
++#endif
+ 	/* check host mode */
+ 	if (!(gintsts & GINTSTS_CMOD)) {
+ 		uerr("Device mode");
+@@ -1399,10 +1469,19 @@ static void usb_lld_serve_interrupt(USBHDriver *host) {
+ 
+ 	if (gintsts & GINTSTS_SOF)
+ 		_sof_int(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	if (gintsts & GINTSTS_RXFLVL)
+ 		_rxflvl_int(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	if (gintsts & GINTSTS_HPRTINT)
+ 		_hprtint_int(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	if (gintsts & GINTSTS_DISCINT)
+ 		_discint_int(host);
+ 	if (gintsts & GINTSTS_HCINT)
+@@ -1445,6 +1524,7 @@ OSAL_IRQ_HANDLER(STM32_OTG2_HANDLER) {
+ /*===========================================================================*/
+ /* Initialization functions.                                                 */
+ /*===========================================================================*/
++#if !MY2K_STOCK_PARITY_PROFILE
+ static void otg_core_reset(stm32_otg_t *const otgp) {
+ 
+   /* Wait AHB idle condition.*/
+@@ -1464,12 +1544,27 @@ static void otg_core_reset(stm32_otg_t *const otgp) {
+     ;
+ }
+ 
++#else
++static bool my2k_otg_core_reset(USBHDriver *host) {
++    if(!my2k_host_wait(host,GRSTCTL_AHBIDL,GRSTCTL_AHBIDL,1u))return false;
++    host->otg->GRSTCTL=GRSTCTL_CSRST;
++    osalSysPolledDelayX(12);
++    if(!my2k_host_wait(host,GRSTCTL_CSRST,0,2u))return false;
++    osalSysPolledDelayX(18);
++    return my2k_host_wait(host,GRSTCTL_AHBIDL,GRSTCTL_AHBIDL,4u);
++}
++#endif
++
+ static void otg_rxfifo_flush(USBHDriver *usbp) {
+   stm32_otg_t *const otgp = usbp->otg;
+ 
+   otgp->GRSTCTL = GRSTCTL_RXFFLSH;
++#if MY2K_STOCK_PARITY_PROFILE
++  if(!my2k_host_wait(usbp,GRSTCTL_RXFFLSH,0,16u))return;
++#else
+   while ((otgp->GRSTCTL & GRSTCTL_RXFFLSH) != 0)
+     ;
++#endif
+   /* Wait for 3 PHY Clocks.*/
+   osalSysPolledDelayX(18);
+ }
+@@ -1478,8 +1573,12 @@ static void otg_txfifo_flush(USBHDriver *usbp, uint32_t fifo) {
+   stm32_otg_t *const otgp = usbp->otg;
+ 
+   otgp->GRSTCTL = GRSTCTL_TXFNUM(fifo) | GRSTCTL_TXFFLSH;
++#if MY2K_STOCK_PARITY_PROFILE
++  if(!my2k_host_wait(usbp,GRSTCTL_TXFFLSH,0,8u))return;
++#else
+   while ((otgp->GRSTCTL & GRSTCTL_TXFFLSH) != 0)
+     ;
++#endif
+   /* Wait for 3 PHY Clocks.*/
+   osalSysPolledDelayX(18);
+ }
+@@ -1537,6 +1636,14 @@ void usbh_lld_init(void) {
+ 
+ void usbh_lld_start(USBHDriver *host) {
+ 	stm32_otg_t *const otgp = host->otg;
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault){my2k_host_fail(host,my2k_host_fault);return;}
++#endif
++#if MY2K_DEV7_PROFILE
++    /* Never unlock/reset a live controller with potentially borrowed URBs.
++     * A requested runtime core restart fails only this internal host. */
++    if(host->status!=USBH_STATUS_STOPPED){my2k_host_fail(host,4096u);return;}
++#endif
+ 
+ 	/* Clock activation.*/
+ #if STM32_USBH_USE_OTG1
+@@ -1603,12 +1710,27 @@ void usbh_lld_start(USBHDriver *host) {
+ #endif
+ 
+ 	/* Reset after a PHY change */
++#if MY2K_STOCK_PARITY_PROFILE
++    if(!my2k_otg_core_reset(host))return;
++#else
+    	otg_core_reset(otgp);
++#endif
+ 
+ 	otgp->GCCFG = GCCFG_PWRDWN;
+ 
+ 	/* Forced host mode. */
+ 	otgp->GUSBCFG |= GUSBCFG_FHMOD;
++#if MY2K_DEV7_PROFILE
++    otgp->GINTMSK=0;otgp->GAHBCFG=0;
++#if MY2K_DEV8_PROFILE
++    extern uint32_t my2k_dev8_host_mode(USBHDriver *host,bool final);
++    uint32_t mode_failure=my2k_dev8_host_mode(host,false);
++    if(mode_failure && mode_failure!=1024u){my2k_host_fail(host,mode_failure);return;}
++#else
++    uint32_t mode_failure=_usbh_wait_host_modeS(host);
++    if(mode_failure){my2k_host_fail(host,mode_failure);return;}
++#endif
++#endif
+ 
+ 	/* PHY enabled.*/
+ 	otgp->PCGCCTL = 0;
+@@ -1640,8 +1762,18 @@ void usbh_lld_start(USBHDriver *host) {
+ 	otgp->HPRT |= HPRT_PPWR;
+ 
+ 	otg_txfifo_flush(host, 0x10);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	otg_rxfifo_flush(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 
++#if MY2K_DEV8_PROFILE
++    mode_failure=my2k_dev8_host_mode(host,true);
++    if(mode_failure){my2k_host_fail(host,mode_failure);return;}
++#endif
+ 	otgp->GINTSTS = 0xffffffff;
+ 	otgp->GINTMSK = GINTMSK_DISCM | GINTMSK_HPRTM | GINTMSK_MMISM;
+ 
+@@ -1657,7 +1789,13 @@ void usbh_lld_stop(USBHDriver *host) {
+ 	stm32_otg_t *const otgp = host->otg;
+ 
+ 	otg_txfifo_flush(host, 0x10);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 	otg_rxfifo_flush(host);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(my2k_host_fault)return;
++#endif
+ 
+ 	/* OTG power down */
+ 	otgp->GCCFG = GCCFG_PWRDWN;
+@@ -1798,6 +1936,9 @@ usbh_urbstatus_t usbh_lld_root_hub_request(USBHDriver *host, uint8_t bmRequestTy
+ 				otg->GAHBCFG = 0;
+ 				osalThreadSleepS(OSAL_MS2I(20));
+ 				usbh_lld_start(host);				/* this effectively resets the core */
++#if MY2K_STOCK_PARITY_PROFILE
++                if(my2k_host_fault){osalSysUnlock();return USBH_URBSTATUS_ERROR;}
++#endif
+ 				osalThreadSleepS(OSAL_MS2I(100));	/* during this delay, the core generates connect ISR */
+ 				uinfo("OTG reset ended");
+ 				if (otg->HPRT & HPRT_PCSTS) {
+@@ -1809,7 +1950,13 @@ usbh_urbstatus_t usbh_lld_root_hub_request(USBHDriver *host, uint8_t bmRequestTy
+ 			}
+ 			/* note: writing PENA = 1 actually disables the port */
+ 			hprt &= ~(HPRT_PSUSP | HPRT_PENA | HPRT_PCDET | HPRT_PENCHNG | HPRT_POCCHNG);
++#if MY2K_STOCK_PARITY_PROFILE
++            if(!my2k_host_wait(host,GRSTCTL_AHBIDL,GRSTCTL_AHBIDL,32u)){
++                osalSysUnlock();return USBH_URBSTATUS_ERROR;
++            }
++#else
+ 			while ((otg->GRSTCTL & GRSTCTL_AHBIDL) == 0);
++#endif
+ 			otg->HPRT = hprt | HPRT_PRST;
+ 			osalThreadSleepS(OSAL_MS2I(15));
+ 			otg->HPRT = hprt;
+diff --git a/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.h b/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.h
+index c1568585..8c8bd42e 100644
+--- a/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.h
++++ b/os/hal/ports/STM32/LLD/USBHv1/hal_usbh_lld.h
+@@ -132,6 +132,12 @@ typedef struct stm32_hc_management {
+ 
+ void usbh_lld_init(void);
+ void usbh_lld_start(USBHDriver *usbh);
++#if MY2K_STOCK_PARITY_PROFILE
++uint32_t usbh_lld_fault(USBHDriver *usbh);
++#if MY2K_DEV7_PROFILE
++uint32_t usbh_lld_wait_host_mode(USBHDriver *usbh);
++#endif
++#endif
+ void usbh_lld_stop(USBHDriver *usbh);
+ void usbh_lld_ep_object_init(usbh_ep_t *ep);
+ void usbh_lld_ep_open(usbh_ep_t *ep);
+diff --git a/os/hal/src/hal_usbh.c b/os/hal/src/hal_usbh.c
+index ea2106c8..61746752 100644
+--- a/os/hal/src/hal_usbh.c
++++ b/os/hal/src/hal_usbh.c
+@@ -82,6 +82,19 @@ void usbhObjectInit(USBHDriver *usbh) {
+ #endif
+ }
+ 
++#if MY2K_DEV7_PROFILE
++uint32_t _usbh_wait_host_modeS(USBHDriver *host) {
++    osalDbgCheckClassS();
++    /* LLD already masks both host-core interrupt sources and has not yet
++     * touched host-only registers or published STARTED. PC USB IRQs must run
++     * during a potentially50ms mode transition. No RTOS sleep under lock. */
++    osalSysUnlock();
++    uint32_t failure=usbh_lld_wait_host_mode(host);
++    osalSysLock();
++    return failure;
++}
++#endif
++
+ void usbhStart(USBHDriver *usbh) {
+ #if USBH_DEBUG_MULTI_HOST
+ 	usbDbgInit(usbh);
+@@ -92,6 +105,9 @@ void usbhStart(USBHDriver *usbh) {
+ 	osalSysLock();
+ 	osalDbgAssert((usbh->status == USBH_STATUS_STOPPED), "invalid state");
+ 	usbh_lld_start(usbh);
++#if MY2K_STOCK_PARITY_PROFILE
++    if(usbh_lld_fault(usbh)){usbh->status=USBH_STATUS_STOPPED;osalSysUnlock();return;}
++#endif
+ 	usbh->status = USBH_STATUS_STARTED;
+ 	osalSysUnlock();
+ }
+@@ -954,6 +970,12 @@ reset:
+ 				uportwarnf("Port %d: reset timeout", port->number);
+ 				break;
+ 			}
++#if MY2K_STOCK_PARITY_PROFILE
++            if(usbh_lld_fault(port->device.host))goto abort;
++            /* Enumeration is a worker task: do not monopolize QMK's priority
++             * while a connected but unresponsive AUX is being reset. */
++            osalThreadSleepMilliseconds(1);
++#endif
+ 		}
+ 	}
+ 
+diff --git a/os/hal/src/usbh/hal_usbh_msd.c b/os/hal/src/usbh/hal_usbh_msd.c
+index 72958a5f..2912ef7b 100644
+--- a/os/hal/src/usbh/hal_usbh_msd.c
++++ b/os/hal/src/usbh/hal_usbh_msd.c
+@@ -171,6 +171,12 @@ alloc_ok:
+ 			MSBLKD[i].next = msdp->luns;
+ 			msdp->luns = &MSBLKD[i];
+ 			MSBLKD[i].msdp = msdp;
++#if MY2K_DEV7_PROFILE
++            memset(&MSBLKD[i].my2k_identity,0,sizeof MSBLKD[i].my2k_identity);
++            MSBLKD[i].my2k_identity.vendor_id=dev->devDesc.idVendor;
++            MSBLKD[i].my2k_identity.product_id=dev->devDesc.idProduct;
++            MSBLKD[i].my2k_identity.device_valid=true;
++#endif
+ 			MSBLKD[i].state = BLK_ACTIVE;
+ 			luns--;
+ 		}
+@@ -504,6 +510,22 @@ static msd_result_t _scsi_perform_transaction(USBHMassStorageLUNDriver *lunp,
+ 	return MSD_RESULT_OK;
+ }
+ 
++#if MY2K_STOCK_PARITY_PROFILE
++static bool my2k_inquiry_write_profile(const scsi_inquiry_response_t *inq) {
++    bool revision=!memcmp(inq->productRev,"0005",4);
++#if MY2K_DEV6_PROFILE
++    revision=revision || !memcmp(inq->productRev,"0006",4);
++#endif
++    return inq->peripheral==0 && !memcmp(inq->vendorID,"MY2K-EXP",8) &&
++        !memcmp(inq->productID,"Asset storage RW",16) && revision;
++}
++/* Read-only cached identity from the successful normal INQUIRY exchange.
++ * The byte flag is revoked on every disconnect/deinit/failed connect. */
++bool usbhmsdLUNWriteProfile(USBHMassStorageLUNDriver *lunp) {
++    return lunp && lunp->state==BLK_READY && lunp->my2k_write_profile;
++}
++#endif
++
+ static msd_result_t scsi_inquiry(USBHMassStorageLUNDriver *lunp, scsi_inquiry_response_t *resp) {
+ 	USBH_DEFINE_BUFFER(msd_cbw_t cbw);
+ 	msd_transaction_t transaction;
+@@ -677,6 +699,12 @@ static const struct USBHMassStorageDriverVMT blk_vmt = {
+ static void _lun_object_deinit(USBHMassStorageLUNDriver *lunp) {
+ 	osalDbgCheck(lunp != NULL);
+ 	chSemWait(&lunp->sem);
++#if MY2K_DEV7_PROFILE
++    memset(&lunp->my2k_identity,0,sizeof lunp->my2k_identity);
++#endif
++#if MY2K_STOCK_PARITY_PROFILE
++    lunp->my2k_write_profile=false;
++#endif
+ 	lunp->msdp = NULL;
+ 	lunp->next = NULL;
+ 	memset(&lunp->info, 0, sizeof(lunp->info));
+@@ -712,6 +740,9 @@ bool usbhmsdLUNConnect(USBHMassStorageLUNDriver *lunp) {
+ 		return HAL_SUCCESS;
+ 	}
+ 	lunp->state = BLK_CONNECTING;
++#if MY2K_STOCK_PARITY_PROFILE
++    lunp->my2k_write_profile=false;
++#endif
+ 
+     {
+ 		USBH_DEFINE_BUFFER(scsi_inquiry_response_t inq);
+@@ -727,6 +758,13 @@ bool usbhmsdLUNConnect(USBHMassStorageLUNDriver *lunp) {
+ 			goto failed;
+ 		}
+ 
++#if MY2K_DEV7_PROFILE
++        memcpy(lunp->my2k_identity.inquiry,&inq,sizeof inq);
++        lunp->my2k_identity.inquiry_valid=true;
++#endif
++#if MY2K_STOCK_PARITY_PROFILE
++        lunp->my2k_write_profile=my2k_inquiry_write_profile(&inq);
++#endif
+ 		uclassdrvinfof("\tPDT=%02x", inq.peripheral & 0x1f);
+ 		if (inq.peripheral != 0) {
+ 			uclassdrverr("\tUnsupported PDT");
+@@ -783,6 +821,9 @@ bool usbhmsdLUNConnect(USBHMassStorageLUNDriver *lunp) {
+ 
+   /* Connection failed, state reset to BLK_ACTIVE.*/
+ failed:
++#if MY2K_STOCK_PARITY_PROFILE
++    lunp->my2k_write_profile=false;
++#endif
+ 	uclassdrvinfo("MSD Connect failed.");
+ 	lunp->state = BLK_ACTIVE;
+ 	chSemSignal(&lunp->sem);
+@@ -793,6 +834,12 @@ bool usbhmsdLUNDisconnect(USBHMassStorageLUNDriver *lunp) {
+ 	osalDbgCheck(lunp != NULL);
+ 
+ 	chSemWait(&lunp->sem);
++#if MY2K_DEV7_PROFILE
++    lunp->my2k_identity.inquiry_valid=false;
++#endif
++#if MY2K_STOCK_PARITY_PROFILE
++    lunp->my2k_write_profile=false;
++#endif
+ 	osalDbgAssert((lunp->state == BLK_READY) || (lunp->state == BLK_ACTIVE), "invalid state");
+ 	if (lunp->state == BLK_ACTIVE) {
+ 		chSemSignal(&lunp->sem);
+@@ -863,7 +910,11 @@ bool usbhmsdLUNWrite(USBHMassStorageLUNDriver *lunp, uint32_t startblk,
+ 	uint32_t actual_len;
+ 
+ 	chSemWait(&lunp->sem);
+-	if (lunp->state != BLK_READY) {
++	if (lunp->state != BLK_READY
++#if MY2K_STOCK_PARITY_PROFILE
++        || !lunp->my2k_write_profile
++#endif
++    ) {
+ 		chSemSignal(&lunp->sem);
+ 		return ret;
+ 	}
+@@ -885,6 +936,9 @@ bool usbhmsdLUNWrite(USBHMassStorageLUNDriver *lunp, uint32_t startblk,
+ 			//retry?
+ 			goto exit;
+ 		}
++#if MY2K_STOCK_PARITY_PROFILE
++        if(actual_len!=(uint32_t)blocks*lunp->info.blk_size)goto exit;
++#endif
+ 		n -= blocks;
+ 		startblk += blocks;
+ 		buffer += blocks * lunp->info.blk_size;
+@@ -900,9 +954,32 @@ exit:
+ 
+ bool usbhmsdLUNSync(USBHMassStorageLUNDriver *lunp) {
+ 	osalDbgCheck(lunp != NULL);
++#if MY2K_STOCK_PARITY_PROFILE
++	/* MY2K asset writes require a real successful SYNCHRONIZE CACHE CSW.
++	 * The existing read-only profiles retain their previous behavior. */
++	chSemWait(&lunp->sem);
++	if (lunp->state != BLK_READY) {
++		chSemSignal(&lunp->sem);
++		return HAL_FAILED;
++	}
++	lunp->state = BLK_WRITING;
++	USBH_DEFINE_BUFFER(msd_cbw_t cbw);
++	msd_transaction_t transaction;
++	memset(cbw.CBWCB, 0, sizeof(cbw.CBWCB));
++	cbw.dCBWDataTransferLength = 0;
++	cbw.bmCBWFlags = MSD_CBWFLAGS_H2D;
++	cbw.bCBWCBLength = 10;
++	cbw.CBWCB[0] = 0x35;
++	transaction.cbw = &cbw;
++	msd_result_t result = _scsi_perform_transaction(lunp, &transaction, NULL);
++	lunp->state = BLK_READY;
++	chSemSignal(&lunp->sem);
++	return result == MSD_RESULT_OK && transaction.data_processed == 0 ? HAL_SUCCESS : HAL_FAILED;
++#else
+ 	(void)lunp;
+ 	//TODO: Do SCSI Sync
+ 	return HAL_SUCCESS;
++#endif
+ }
+ 
+ bool usbhmsdLUNGetInfo(USBHMassStorageLUNDriver *lunp, BlockDeviceInfo *bdip) {
+@@ -949,4 +1026,14 @@ static void _msd_init(void) {
+ 		_lun_object_init(&MSBLKD[i]);
+ 	}
+ }
++#if MY2K_DEV7_PROFILE
++/* RAM snapshot only. Caller holds the scheduler lock; never waits on a LUN
++ * semaphore, sends INQUIRY or dereferences a potentially detached USB object. */
++void usbhmsdLUNCachedIdentity(USBHMassStorageLUNDriver *lunp,usbhmsd_cached_identity_t *out) {
++    if(!out)return;
++    if(lunp)*out=lunp->my2k_identity;
++    else memset(out,0,sizeof *out);
++}
+ #endif
++
++#endif /* HAL_USBH_USE_MSD */
