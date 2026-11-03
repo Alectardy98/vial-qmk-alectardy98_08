@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Independent ELF/UF2/default-layout checks; no device access."""
 import hashlib
+import argparse
 import json
 import lzma
 from pathlib import Path
@@ -37,8 +38,8 @@ def load_elf(path):
     return loads, symbols, symbol
 
 
-def check(mcu, start, end, family):
-    prefix = REPO / f"alectardy98_matrix_my2k_100ng_{'main_vial' if mcu == 'main' else 'aux_aux'}"
+def check(mcu, start, end, family, keymap="vial"):
+    prefix = REPO / f"alectardy98_matrix_my2k_100ng_{'main_' + keymap if mcu == 'main' else 'aux_aux'}"
     uf2 = prefix.with_suffix(".uf2").read_bytes()
     blocks = (end - start) // 256
     assert len(uf2) == blocks * 512
@@ -66,7 +67,7 @@ def check(mcu, start, end, family):
     if mcu == "main":
         assert symbol("my2k_factory_image") == (BOARD / "defaults/factory.bin").read_bytes()
         definition = json.loads(lzma.decompress(symbol("keyboard_definition")))
-        assert definition == json.loads((BOARD / "keymaps/vial/vial.json").read_text())
+        assert definition == json.loads((BOARD / "keymaps" / keymap / "vial.json").read_text())
         assert definition["name"] == NAME
         assert symbol("ProductString")[2:].decode("utf-16le").rstrip("\0") == NAME
         assert symbol("ManufacturerString")[2:].decode("utf-16le").rstrip("\0") == "Matrix"
@@ -80,7 +81,15 @@ def check(mcu, start, end, family):
                 stack=hex(sp), reset=hex(reset), ELF_loads_match=True)
 
 
-results = {"main": check("main", 0x08020000, 0x08060000, 0x57755a57),
-           "aux": check("aux", 0x08000000, 0x08080000, 0x53b80f00)}
-results["hardware_accessed"] = False
-print(json.dumps(results, indent=2))
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--keymap", choices=["vial", "vial_alec"], default="vial")
+    parser.add_argument("--mcu", choices=["main", "aux", "both"], default="both")
+    args = parser.parse_args()
+    results = {}
+    if args.mcu in ("main", "both"):
+        results["main"] = check("main", 0x08020000, 0x08060000, 0x57755a57, args.keymap)
+    if args.mcu in ("aux", "both"):
+        results["aux"] = check("aux", 0x08000000, 0x08080000, 0x53b80f00)
+    results["hardware_accessed"] = False
+    print(json.dumps(results, indent=2))

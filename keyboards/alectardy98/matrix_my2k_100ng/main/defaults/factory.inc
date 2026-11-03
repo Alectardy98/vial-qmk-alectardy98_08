@@ -1,4 +1,4 @@
-/* Generated from defaults/capture.json; regenerate with scripts/generate-defaults.py. */
+/* Generated from defaults/capture.json; regenerate with keyboards/alectardy98/matrix_my2k_100ng/tools/generate-defaults.py. */
 const uint8_t my2k_factory_image[MY2K_NV_BYTES] = {
  [0] = 0xe3,
  [1] = 0xfe,

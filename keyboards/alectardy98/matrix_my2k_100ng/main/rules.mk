@@ -134,5 +134,5 @@ OPT_DEFS += -DMY2K_GAMES_PROFILE=1
 SRC += $(MY2K_MAIN)/src/main_games.c
 endif
 
-# Both user-facing targets package ASTRO-compatible UF2 locally.
+# Main keymaps package ASTRO-compatible UF2 locally.
 include $(MY2K_MAIN)/build.mk

@@ -29,6 +29,11 @@ make alectardy98/matrix_my2k_100ng/aux:aux
 
 Both commands build only. They never flash, reset, or access a keyboard.
 
+For the [Alec personal-macro keymap](main/keymaps/vial_alec/readme.md), build Main
+with `make alectardy98/matrix_my2k_100ng/main:vial_alec`. It adds 39 macros to
+Vial's User picker while retaining all 18 existing board controls. Its separate
+output is `alectardy98_matrix_my2k_100ng_main_vial_alec.uf2`; AUX is unchanged.
+
 Build prerequisites are GNU Make, Python 3 with QMK's Python dependencies and
 the `qmk_cli` package, and ARM GNU GCC/binutils (`arm-none-eabi-*`) on `PATH`.
 The offline C tests also require a native `cc` compiler. Initialize the pinned
@@ -44,6 +49,7 @@ stock firmware dumps, or the archived development directory.
 
 ```text
 alectardy98/matrix_my2k_100ng/
+├── build.mk          Board-local routing for the three supported build commands
 ├── main/
 │   ├── src/          Main application and peripheral integration
 │   ├── drivers/      RGB, USB host and storage transport drivers
@@ -81,8 +87,11 @@ required USB adaptations only to private generated copies in
 `.build/my2k-chibios/`. The build checks pinned source/patch hashes, and never
 modifies either submodule. Keep `main/chibios/` as part of the board source.
 
-The root `GNUmakefile` routes these two commands; other keyboards still use
-QMK's original Makefile. The Python compatibility launcher supports Manjaro's
+The board-local `build.mk` routes Main (`vial` and `vial_alec`) and AUX builds.
+The root `GNUmakefile` is only a one-line include so the same commands work from
+the repository root; GNU Make does not discover makefiles inside keyboard
+folders automatically. Keep both files. Other keyboards still use QMK's original,
+unchanged `Makefile`. The Python compatibility launcher supports Manjaro's
 Python 3.14. Tool and source paths are relative to this checkout.
 
 ## Finding and extending the code
@@ -158,6 +167,7 @@ SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/validate-artifacts.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_package.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_chibios.py
+SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_vial_alec.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
 SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
 SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_startup.py

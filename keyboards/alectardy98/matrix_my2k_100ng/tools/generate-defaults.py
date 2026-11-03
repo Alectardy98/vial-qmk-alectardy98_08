@@ -7,10 +7,122 @@ core fields use QMK defaults. Assets and AUX OLED files are not Main EEPROM.
 import hashlib
 import json
 from pathlib import Path
+import re
 import struct
 import zlib
 
 BOARD = Path(__file__).resolve().parents[1] / "main"
+REPO = next(path for path in BOARD.parents if (path / "quantum").is_dir())
+
+
+def render_keymap(keymap):
+    """Name captured keycodes without changing any electrical matrix entries."""
+    header = (REPO / "quantum/keycodes.h").read_text()
+    constants = {name: int(value, 0) for name, value in re.findall(
+        r"^\s*(\w+)\s*=\s*(0x[0-9A-Fa-f]+|[0-9]+)\s*,", header, re.MULTILINE)}
+    for name, target in re.findall(r"^\s*(\w+)\s*=\s*(\w+)\s*,", header, re.MULTILINE):
+        if target in constants:
+            constants[name] = constants[target]
+    names = {value: name for name, value in constants.items()
+             if name.startswith("KC_") and value <= 255}
+    # Prefer familiar QMK spellings that keep all sixteen columns readable.
+    for name in ("KC_ENT", "KC_ESC", "KC_BSPC", "KC_TAB", "KC_SPC", "KC_MINS", "KC_EQL",
+                 "KC_LBRC", "KC_RBRC", "KC_BSLS", "KC_SCLN", "KC_QUOT", "KC_GRV",
+                 "KC_COMM", "KC_DOT", "KC_SLSH", "KC_CAPS", "KC_PSCR", "KC_INS",
+                 "KC_DEL", "KC_PGUP", "KC_PGDN", "KC_RGHT", "KC_NUM", "KC_PSLS",
+                 "KC_PAST", "KC_PMNS", "KC_PPLS", "KC_PENT", "KC_PDOT", "KC_NUBS",
+                 "KC_LCTL", "KC_LSFT", "KC_LALT", "KC_LGUI", "KC_RCTL", "KC_RSFT",
+                 "KC_RALT", "KC_RGUI", *[f"KC_P{i}" for i in range(10)]):
+        names[constants[name]] = name
+    names.update({0: "KC_NO", 1: "_______"})
+
+    # Resolve the board enum against QMK's actual base, preserving its stored ABI.
+    declarations = re.search(r"enum my2k_keycodes\s*\{(.*?)\};",
+                             (BOARD / "src/main_keycodes.h").read_text(), re.DOTALL).group(1)
+    custom = {}
+    value = 0
+    for declaration in declarations.split(","):
+        declaration = declaration.strip()
+        if not declaration:
+            continue
+        name, separator, initial = declaration.partition("=")
+        if separator:
+            value = constants[initial.strip()]
+        custom[name.strip()] = value
+        value += 1
+    labels = {
+        "MY2K_STORAGE_TOGGLE": ("STORAGE", "Enter or leave USB storage mode"),
+        "MY2K_ANIMATION_NEXT": ("GIF_NEXT", "Play the next saved GIF"),
+        "MY2K_ANIMATION_PREVIOUS": ("GIF_PREV", "Play the previous saved GIF"),
+        **{f"MY2K_ANIMATION_{i:02d}": (f"GIF_{i:02d}", f"Play GIF slot {i}") for i in range(1, 11)},
+        "MY2K_NES_TOGGLE": ("NES_MODE", "Enter or leave NES mode"),
+        "MY2K_DOOM_TOGGLE": ("DOOM_MODE", "Enter or leave Doom mode"),
+        "MY2K_NORMAL_MODE": ("OLED_DFLT", "Return to the normal animation display"),
+        "MY2K_GBC_TOGGLE": ("GBC_MODE", "Enter or leave Game Boy Color mode"),
+        "MY2K_OLED_MODE_TOGGLE": ("OLED_MODE", "Cycle normal display, NES, GBC and Doom"),
+    }
+    # Preserve the shared enum's order, including custom keys not used by this
+    # captured keymap. A sequential QK_KB_0 enum must match every stored value.
+    assert set(custom) == set(labels), "Add a readable label for each board custom keycode"
+    for index, value in enumerate(custom.values()):
+        assert value == constants["QK_KB_0"] + index, "Custom keycode enum is no longer sequential"
+    codes = struct.unpack(">512H", keymap)
+    names.update({value: labels[name][0] for name, value in custom.items()})
+    names[constants["QK_BOOTLOADER"]] = "QK_BOOT"
+    layers = ("_BASE", "_FN", "_LAYER2", "_LAYER3")
+    for layer, name in enumerate(layers):
+        names[constants["QK_MOMENTARY"] + layer] = f"MO({name})"
+    expressions = [names.get(code, f"0x{code:04X}") for code in codes]
+    width = max(map(len, expressions))
+    text = ["""/* Copyright 2026 Alectardy98
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include QMK_KEYBOARD_H
+#include "main_keycodes.h"
+
+/* Generated from the verified defaults/capture.json; regenerate with
+ * tools/generate-defaults.py from this board directory.
+ */
+enum layer_names {  // Define layers
+    _BASE,
+    _FN,
+    _LAYER2,
+    _LAYER3
+};
+
+/* Keep this order aligned with main_keycodes.h: Vial stores these values. */
+enum custom_keycodes {"""]
+    for index, name in enumerate(custom):
+        alias, description = labels[name]
+        declaration = alias + (" = QK_KB_0," if index == 0 else ",")
+        text.append(f"    {declaration:<23} // {description}")
+    text += ["};", "", "/* _______ = transparent; KC_NO = no key action.",
+             " * Keep the full 8x16 matrix: LAYOUT_capture omits some saved entries.",
+             " * Rows 6 and 7 contain the additional numpad keys.", " */",
+             "// clang-format off", "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {"]
+    for layer, name in enumerate(layers):
+        text.append(f"    [{name}] = {{")
+        for row in range(8):
+            first = layer * 128 + row * 16
+            text.append("        { " + ", ".join(f"{code:>{width}}" for code in expressions[first:first + 16]) + " },")
+        text.append("    },")
+        if layer != len(layers) - 1:
+            text.append("")
+    text += ["};", "// clang-format on", ""]
+    return "\n".join(text)
 
 
 def build_image(capture, layout):
@@ -104,16 +216,7 @@ def main():
     lines += [f" [{i}] = 0x{value:02x}," for i, value in enumerate(image) if value]
     lines += ["};", ""]
     (BOARD / "defaults/factory.inc").write_text("\n".join(lines))
-    text = ["/* Saved four-layer keymap: generated from the verified live GET capture. */", "#include QMK_KEYBOARD_H",
-            "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {"]
-    codes = struct.unpack(">512H", keymap)
-    for layer in range(4):
-        text.append(f" [{layer}] = {{")
-        for row in range(8):
-            text.append("  {" + ",".join(f"0x{v:04x}" for v in codes[layer * 128 + row * 16:layer * 128 + row * 16 + 16]) + "},")
-        text.append(" },")
-    text += ["};", ""]
-    (BOARD / "keymaps/vial/keymap.c").write_text("\n".join(text))
+    (BOARD / "keymaps/vial/keymap.c").write_text(render_keymap(keymap))
     (BOARD / "defaults/factory.sha256").write_text(hashlib.sha256(image).hexdigest() + "  factory.bin\n")
     print("Encoded saved settings:", len(image), "logical bytes; no additional RAM mirror")
 

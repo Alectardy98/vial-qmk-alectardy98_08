@@ -8,3 +8,8 @@
 #define SPI_MISO_PIN NO_PIN
 
 #define SPI_SELECT_MODE SPI_SELECT_MODE_NONE
+
+// The display uses a fixed five-second average with a separate idle timeout.
+// Keep QMK's underlying WPM tracker at its normal five-second window too.
+#define WPM_SAMPLE_SECONDS 5
+#define WPM_SAMPLE_PERIODS 25

@@ -16,6 +16,12 @@ The Vial keymap enables VIA/Vial and includes `features.mk`, which holds the
 Release 1 board feature profile at its original point in QMK's build sequence.
 Use that file when adding a Main module; do not put application logic into
 `keymaps/vial/keymap.c`. That keymap is generated from the saved factory capture.
+It uses named layers (`_BASE`, `_FN`, `_LAYER2`, `_LAYER3`), QMK keycode names
+and aligned matrix rows. The full 8x16 matrix preserves captured values that
+`LAYOUT_capture` does not expose. `_______` is transparent and `KC_NO` has no key
+action. A commented custom-keycode enum names the storage, GIF and game actions
+in their existing numeric order. Regenerating defaults retains this readable
+format.
 
 Read `main.c` in lifecycle order: startup hooks, Main/AUX receive dispatch,
 housekeeping services, key processing, then suspend/resume. Its helpers live in
@@ -40,6 +46,11 @@ driver ABI are preserved exactly.
 The normal output is `alectardy98_matrix_my2k_100ng_main_vial.uf2`. `rules.mk` optionally
 allows final BIN, JSON and SHA256 files; all three default to `no`. Build
 intermediates remain in `.build/`.
+
+`main:vial_alec` selects the [personal-macro variant](keymaps/vial_alec/readme.md).
+It shares this board runtime and settings layout, keeps the original control
+keycodes, and appends 39 macros with matching Vial labels. Its configuration
+inherits `vial/config.h`; its separate UID prevents definition-cache confusion.
 
 ## Saved factory settings
 

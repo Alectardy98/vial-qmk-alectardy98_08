@@ -1,4 +1,4 @@
-# Standalone Cortex-M7 AUX build, integrated by the repository GNUmakefile.
+# Standalone Cortex-M7 AUX build, routed by the board-level build.mk.
 # No QMK Main sources or dummy keyboard objects are compiled into AUX.
 .DEFAULT_GOAL := all
 AUX_DIR := keyboards/alectardy98/matrix_my2k_100ng/aux
