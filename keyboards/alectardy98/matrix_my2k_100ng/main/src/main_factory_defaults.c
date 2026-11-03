@@ -1,7 +1,10 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 #include "main_factory_defaults.h"
 #include <string.h>
-#include "defaults/factory.inc"
+#ifndef MY2K_FACTORY_IMAGE_INCLUDE
+#    define MY2K_FACTORY_IMAGE_INCLUDE "defaults/factory.inc"
+#endif
+#include MY2K_FACTORY_IMAGE_INCLUDE
 
 bool my2k_factory_seed(my2k_nv32 *store) {
     uint8_t magic[2];

@@ -65,7 +65,8 @@ def check(mcu, start, end, family, keymap="vial"):
         assert start <= pa < pa + len(value) <= end
         assert binary[pa - start:pa - start + len(value)] == value
     if mcu == "main":
-        assert symbol("my2k_factory_image") == (BOARD / "defaults/factory.bin").read_bytes()
+        defaults = BOARD / ("defaults" if keymap == "vial" else "keymaps/vial_alec/defaults")
+        assert symbol("my2k_factory_image") == (defaults / "factory.bin").read_bytes()
         definition = json.loads(lzma.decompress(symbol("keyboard_definition")))
         assert definition == json.loads((BOARD / "keymaps" / keymap / "vial.json").read_text())
         assert definition["name"] == NAME
@@ -74,7 +75,7 @@ def check(mcu, start, end, family, keymap="vial"):
         device = symbol("DeviceDescriptor")
         assert struct.unpack_from("<HH", device, 8) == (0x4d58, 0xf103)
         # Actual compiled QMK defaults, not just the source JSON.
-        assert symbol("keymaps") == bytes(b for i in range(0, 1024, 2) for b in (BOARD / "defaults/factory.bin").read_bytes()[633+i:635+i][::-1])
+        assert symbol("keymaps") == bytes(b for i in range(0, 1024, 2) for b in (defaults / "factory.bin").read_bytes()[633+i:635+i][::-1])
         assert symbols["my2k_factory_image"][0] >= start  # Read-only flash, not SRAM.
     return dict(BIN_SHA256=hashlib.sha256(binary).hexdigest(), UF2_SHA256=hashlib.sha256(uf2).hexdigest(),
                 flash_start=hex(start), flash_end_exclusive=hex(end), blocks=blocks,

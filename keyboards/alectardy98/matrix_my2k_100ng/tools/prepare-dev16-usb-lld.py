@@ -96,7 +96,10 @@ bool my2k_hs2_usb_start_failed(void) {
 #endif'''
     after = '''      /* Embedded Geehy HS2 shares the HS controller/pins/IRQ; it is not
        * an external ULPI PHY and must not enable the ULPI clock. */
-      my2k_hs2 = my2k_performance_hs_requested();
+      /* The legacy serial FS PHY fails control transfers behind tested
+       * USB-A hubs. Use the proven embedded HS2 PHY in both profiles;
+       * Standard still forces 12 Mb/s and 1 ms HID polling. */
+      my2k_hs2 = true;
       if (my2k_hs2) {
         otgp->DCTL |= DCTL_SDIS;
         my2k_hs2_phy_prepare(MY2K_HS2_SHADOW_WINDOW);
@@ -149,7 +152,9 @@ bool my2k_hs2_usb_start_failed(void) {
                       ~(GUSBCFG_PHYSEL | GUSBCFG_TRDT_MASK |
                         GUSBCFG_TOCAL_MASK | GUSBCFG_FHMOD)) |
                       GUSBCFG_FDMOD | (9u << 10) | GUSBCFG_TOCAL(7u);
-      otgp->DCFG = 0x02200000 | DCFG_DSPD_HS | DCFG_NZLSOHSK;
+      otgp->DCFG = 0x02200000 | DCFG_NZLSOHSK |
+                   (my2k_performance_hs_requested() ? DCFG_DSPD_HS
+                                                     : DCFG_DSPD_HS_FS);
     }''')
     text = replace_once(text, '''  if (sts & GINTSTS_ENUMDNE) {
     /* Full or High speed timing selection.*/''', '''  if (sts & GINTSTS_ENUMDNE) {

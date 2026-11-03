@@ -4,6 +4,7 @@
 capture.json contains GET responses, not a raw flash dump. Unexposed/reserved
 core fields use QMK defaults. Assets and AUX OLED files are not Main EEPROM.
 """
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -15,7 +16,7 @@ BOARD = Path(__file__).resolve().parents[1] / "main"
 REPO = next(path for path in BOARD.parents if (path / "quantum").is_dir())
 
 
-def render_keymap(keymap):
+def render_keymap(keymap, extra_names=None):
     """Name captured keycodes without changing any electrical matrix entries."""
     header = (REPO / "quantum/keycodes.h").read_text()
     constants = {name: int(value, 0) for name, value in re.findall(
@@ -68,6 +69,7 @@ def render_keymap(keymap):
         assert value == constants["QK_KB_0"] + index, "Custom keycode enum is no longer sequential"
     codes = struct.unpack(">512H", keymap)
     names.update({value: labels[name][0] for name, value in custom.items()})
+    names.update(extra_names or {})
     names[constants["QK_BOOTLOADER"]] = "QK_BOOT"
     layers = ("_BASE", "_FN", "_LAYER2", "_LAYER3")
     for layer, name in enumerate(layers):
@@ -207,17 +209,40 @@ def build_image(capture, layout):
 
 
 def main():
-    capture = json.loads((BOARD / "defaults/capture.json").read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--keymap", choices=("vial", "vial_alec"), default="vial")
+    parser.add_argument("--capture", type=Path, help="Verified GET capture; never reads hardware")
+    args = parser.parse_args()
+    destination = BOARD / ("defaults" if args.keymap == "vial" else "keymaps/vial_alec/defaults")
+    source = args.capture or destination / "capture.json"
+    capture = json.loads(source.read_text())
     layout = json.loads((BOARD / "defaults/layout.json").read_text())
     image, keymap = build_image(capture, layout)
-    (BOARD / "defaults/factory.bin").write_bytes(image)
-    lines = ["/* Generated from defaults/capture.json; regenerate with keyboards/alectardy98/matrix_my2k_100ng/tools/generate-defaults.py. */",
+    assert (image, keymap) == build_image(dict(capture, first=capture["second"]), layout), \
+        "Saved settings differ between the two readbacks"
+    destination.mkdir(parents=True, exist_ok=True)
+    if source.resolve() != (destination / "capture.json").resolve():
+        (destination / "capture.json").write_text(json.dumps(capture, indent=2) + "\n")
+    (destination / "factory.bin").write_bytes(image)
+    lines = [f"/* Generated from {destination.relative_to(BOARD)}/capture.json; regenerate with tools/generate-defaults.py --keymap {args.keymap}. */",
              "const uint8_t my2k_factory_image[MY2K_NV_BYTES] = {"]
     lines += [f" [{i}] = 0x{value:02x}," for i, value in enumerate(image) if value]
     lines += ["};", ""]
-    (BOARD / "defaults/factory.inc").write_text("\n".join(lines))
-    (BOARD / "keymaps/vial/keymap.c").write_text(render_keymap(keymap))
-    (BOARD / "defaults/factory.sha256").write_text(hashlib.sha256(image).hexdigest() + "  factory.bin\n")
+    (destination / "factory.inc").write_text("\n".join(lines))
+    target = BOARD / "keymaps" / args.keymap / "keymap.c"
+    if args.keymap == "vial":
+        target.write_text(render_keymap(keymap))
+    else:
+        definition = json.loads((target.parent / "vial.json").read_text())
+        personal = {0x7e00+i: entry["shortName"] for i, entry in enumerate(definition["customKeycodes"]) if i >= 18}
+        assert all(re.fullmatch(r"[A-Z][A-Z0-9_]*", name) for name in personal.values())
+        rendered = render_keymap(keymap, personal)
+        pattern = r"const uint16_t PROGMEM keymaps\[\]\[MATRIX_ROWS\]\[MATRIX_COLS\] = \{.*?\n\};"
+        array = re.search(pattern, rendered, re.DOTALL).group(0)
+        text, count = re.subn(pattern, lambda _: array, target.read_text(), count=1, flags=re.DOTALL)
+        assert count == 1, "Personal keymap array not found; no keymap written"
+        target.write_text(text)
+    (destination / "factory.sha256").write_text(hashlib.sha256(image).hexdigest() + "  factory.bin\n")
     print("Encoded saved settings:", len(image), "logical bytes; no additional RAM mirror")
 
 

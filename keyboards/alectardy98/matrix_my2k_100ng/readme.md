@@ -167,6 +167,7 @@ SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/validate-artifacts.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_package.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_chibios.py
+SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_usb_phy.py
 SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/test_vial_alec.py
 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
 SANITIZE=1 python3 keyboards/alectardy98/matrix_my2k_100ng/main/tests/run_presentation.py
@@ -195,6 +196,12 @@ update, install AUX first, wait for normal reconnection, then enter BOOT again
 to install Main.
 Do not copy both UF2s into one BOOT session. Keep known-working Main and AUX UF2s
 outside the build output directory for independent rollback.
+
+The custom application uses the embedded HS2 PHY for Standard and High
+Performance USB. The unchanged ASTRO BOOT image can still fail enumeration
+through some USB-A hub paths that the application now supports. If BOOT does
+not appear, use the known-working USB-C/direct connection for the update;
+changing the application does not update or repair the original bootloader.
 
 In the controlled stock/custom flash cycle, the custom AUX UF2 took about
 28 seconds and Main about 4.3 seconds. AUX's 1 MiB UF2 carries a 512 KiB flash

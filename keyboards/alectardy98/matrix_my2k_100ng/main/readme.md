@@ -43,6 +43,17 @@ clean. Source and output hashes are pinned so an incompatible library update
 fails before compilation. The existing USB safeguards, identity gates and
 driver ABI are preserved exactly.
 
+External USB uses the Geehy embedded HS2 PHY in both performance profiles.
+Standard forces full speed (12 Mb/s), retaining 1 ms HID intervals and scans;
+High Performance retains 480 Mb/s and 125 µs HID intervals. Selecting the
+legacy serial FS PHY for Standard caused descriptor/configuration failures
+behind tested USB-A hubs, despite working through a different USB-C hub path.
+The board-local generator in `../tools/prepare-dev16-usb-lld.py` selects the
+working PHY independently of the requested polling profile. Its bounded
+startup-failure fallback is retained; that legacy fallback may still have the
+same hub limitation. This does not modify the ASTRO bootloader: use the known
+working USB-C/direct connection for flashing if BOOT fails through a USB-A hub.
+
 The normal output is `alectardy98_matrix_my2k_100ng_main_vial.uf2`. `rules.mk` optionally
 allows final BIN, JSON and SHA256 files; all three default to `no`. Build
 intermediates remain in `.build/`.

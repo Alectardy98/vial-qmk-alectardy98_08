@@ -17,8 +17,9 @@
 #include QMK_KEYBOARD_H
 #include "main_keycodes.h"
 
-/* Same captured four-layer defaults as vial, with additional Alec macros.
- * This keymap is maintained independently; generate-defaults.py updates vial only.
+/* Personal defaults from keymaps/vial_alec/defaults/capture.json.
+ * Regenerate the array with tools/generate-defaults.py --keymap vial_alec;
+ * the personal macros and their process_record_user implementation are retained.
  */
 enum layer_names { // Define layers
     _BASE,
@@ -105,24 +106,24 @@ _Static_assert(THUM - QK_KB_0 < 64, "VialAstro supports at most 64 custom keycod
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = {
         {    KC_ESC,     KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,    KC_F10,    KC_F11,    KC_F12,   KC_PSCR,   KC_PSCR,    KC_INS },
-        {    KC_GRV,      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,   KC_MINS,    KC_EQL,   KC_BSPC,   KC_HOME,    KC_DEL },
-        {    KC_TAB,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_LBRC,   KC_RBRC,   KC_BSLS,   KC_PGUP,   KC_PGDN },
+        {    KC_GRV,      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,   KC_MINS,    KC_EQL,   KC_BSPC,      COPY,    KC_DEL },
+        {    KC_TAB,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_LBRC,   KC_RBRC,   KC_BSLS,      PAST,      EXPL },
         {   KC_CAPS,      KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,    KC_ENT,     KC_NO,     KC_NO,     KC_NO },
         {   KC_LSFT,   KC_NUBS,      KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      KC_N,      KC_M,   KC_COMM,    KC_DOT,   KC_SLSH,   KC_RSFT,   MO(_FN),     KC_UP,   KC_RGHT },
-        {   KC_LCTL,     KC_NO,   KC_LALT, OLED_MODE,     KC_NO,     KC_NO,    KC_SPC,     KC_NO,     KC_NO,     KC_NO,     KC_NO,   KC_RALT,     KC_NO,   KC_RCTL,   KC_LEFT,   KC_DOWN },
-        {     KC_NO,     KC_NO,     KC_NO,   MO(_FN),    KC_NUM,   KC_PSLS,   KC_PAST,   KC_PMNS,     KC_P7,     KC_P8,     KC_P9,   KC_PPLS,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
+        {   MO(_FN),     KC_NO,   KC_LALT, OLED_MODE,     KC_NO,     KC_NO,    KC_SPC,     KC_NO,     KC_NO,     KC_NO,     KC_NO,   KC_RALT,     KC_NO,   KC_RCTL,   KC_LEFT,   KC_DOWN },
+        {     KC_NO,     KC_NO,     KC_NO,      TASK,    KC_NUM,   KC_PSLS,   KC_PAST,   KC_PMNS,     KC_P7,     KC_P8,     KC_P9,   KC_PPLS,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
         {     KC_P4,     KC_P5,     KC_P6,   KC_PPLS,     KC_P1,     KC_P2,     KC_P3,   KC_PENT,     KC_P0,     KC_P0,   KC_PDOT,   KC_PENT,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
     },
 
     [_FN] = {
-        {   QK_BOOT,    GIF_01,    GIF_02,    GIF_03,    GIF_04,    GIF_05,    GIF_06,    GIF_07,    GIF_08,    GIF_09,    GIF_10,    GIF_10,   _______,   _______,  NES_MODE,  GBC_MODE },
+        {   QK_BOOT,    GIF_01,    GIF_02,    GIF_03,    GIF_04,    GIF_05,    GIF_06,    GIF_07,    GIF_08,    GIF_09,    GIF_10,  GIF_PREV,  GIF_NEXT,   _______,  NES_MODE,  GBC_MODE },
         {   _______,     KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,    KC_F10,    KC_F11,    KC_F12,    KC_DEL,   _______, DOOM_MODE },
-        {   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______ },
-        {   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,     KC_NO,     KC_NO,     KC_NO },
-        {   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______ },
-        {   _______,     KC_NO,   _______,  GIF_NEXT,     KC_NO,     KC_NO,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO,   _______,     KC_NO,   _______,   _______,   _______ },
-        {     KC_NO,     KC_NO,     KC_NO,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
-        {   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
+        {      SNIP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______ },
+        {   KC_LCTL,    0x0104,    0x0116,    0x0107,    0x0109,   _______,   _______,   _______,   _______,   _______,   KC_VOLD,   KC_VOLU,   _______,     KC_NO,     KC_NO,     KC_NO },
+        {   _______,   _______,    0x011D,    0x011B,    0x0106,    0x0119,   _______,   _______,   _______,   KC_MPRV,   KC_MNXT,   KC_MPLY,   _______,   _______,      VDUP,      VDRT },
+        {   _______,     KC_NO,   KC_LGUI,  GIF_NEXT,     KC_NO,     KC_NO,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO,   _______,     KC_NO,   _______,      VDLT,      VDDN },
+        {     KC_NO,     KC_NO,     KC_NO,   STORAGE,   _______,   _______,   _______,   _______,   _______,      VDUP,   _______,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
+        {      VDLT,   _______,      VDRT,   _______,   _______,      VDDN,   _______,   _______,   _______,   _______,   _______,   _______,     KC_NO,     KC_NO,     KC_NO,     KC_NO },
     },
 
     [_LAYER2] = {
