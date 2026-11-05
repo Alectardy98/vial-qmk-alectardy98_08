@@ -1,0 +1,32 @@
+{
+  "keyboards/alectardy98_ec/ec_virgo/config.h": {
+    "before": "1c4e49910c4dfac28c32a9d33e2f21931cd3821bc53abeff85c5cd39b812764d",
+    "after": "39db587fc6a06ea130367b71959d3c63e85dd1c6fa6fe421c56b9c862207847a",
+    "reason": "STM32F411CCU6 256 KiB flash correction"
+  },
+  "keyboards/alectardy98_ec/ec_virgo/clean_install.py": {
+    "before": "f1042c0ec338e53c7ffa0729fdcc0521ea047be4f600fc0d81a019e87e3c8520",
+    "after": "166e16d8b3cf32483b5561bee455edf083407957f9e292dd68590e03417ba194",
+    "reason": "STM32F411CCU6 256 KiB flash correction"
+  },
+  "keyboards/alectardy98_ec/ec_virgo/tests/host_harness.c": {
+    "before": "0f908fd4d6c3b0da9afb9e4c200a6b295d9f6b2664869161269c0ef9bfbcffe7",
+    "after": "47ffd67ffededf7169ddecf3be0d9345df5c7bfc971031a54b60cfa5d76eeb21",
+    "reason": "STM32F411CCU6 256 KiB flash correction"
+  },
+  "keyboards/alectardy98_ec/ec_virgo/tests/verify_images.py": {
+    "before": "1cb7ae56cef34f358d9496a83a029d7e6265b8d6e96033ec790b2b8cd72b8cf0",
+    "after": "e02e150b8b7e43f9ddcea16b25ec4c8cd06046d17e735c5817aff0897087eb13",
+    "reason": "STM32F411CCU6 256 KiB flash correction"
+  },
+  "keyboards/alectardy98_ec/ec_virgo/ld/ec_virgo_ec42.ld": {
+    "before": "77d3bbc0b3f9f499d2ef75ad9a3597d3fb9ca2391fd4b338ec71b3e5233a796b",
+    "after": "88395420d0041c173726f9ed87ac8c1c06279536288e6e6b1910ec66109b336b",
+    "reason": "STM32F411CCU6 256 KiB flash correction"
+  },
+  "keyboards/alectardy98_ec/ec_virgo/readme.md": {
+    "before": "bb47230ceedeeaa741e463b3c19a33227cc156957ef831625cb00aba00b3b17a",
+    "after": "02fc6b7841da7af0ac5591febd441a7991c070acd609e91a8911ee337ee17cd8",
+    "reason": "Document identified STM32F411CCU6 capacity and corrected limits"
+  }
+}
