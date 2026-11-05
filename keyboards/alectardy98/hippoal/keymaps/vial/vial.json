@@ -2,7 +2,7 @@
   "name": "Hippoal",
   "vendorId": "0x6776",
   "productId": "0x414E",
-  "lighting": "none",
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 19

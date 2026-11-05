@@ -69,7 +69,7 @@
 
 // New explicit EC profile; old EC/Vial settings are intentionally not migrated.
 #define A98_RECORD_MAGIC 0xa975
-#define A98_FIRMWARE_ID "A98-prox-UF2-2.9"
+#define A98_FIRMWARE_ID "A98-prox-UF2-2.9g"
 #define EECONFIG_KB_DATA_SIZE (17+3*5*15)
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
 #define WEAR_LEVELING_BACKING_SIZE 8192 // Original Prox QMK journal; erase unit is all of sector 2.

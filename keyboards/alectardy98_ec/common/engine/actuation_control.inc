@@ -48,7 +48,7 @@ bool ec_cal_restore_record(const eeprom_ec_config_t *record){
     ec_cal_abort();return store_raw(record);
 }
 bool ec_va_protocol(uint8_t op,const uint8_t *p,uint8_t n,uint8_t *out,uint8_t *length,uint8_t *error){
-    if(op!=0x28&&op!=0x29&&op!=0x2a)return false;
+    if(op!=0x28&&op!=0x29&&op!=0x2a&&op!=EC42_ACTUATION_GLOBAL_RESET)return false;
     *length=0;*error=1;
     if(op==0x28){
         if(n!=2)return true;
@@ -61,6 +61,11 @@ bool ec_va_protocol(uint8_t op,const uint8_t *p,uint8_t n,uint8_t *out,uint8_t *
         uint32_t crc=checksum(&saved);p16(out+14,crc>>16);p16(out+16,crc);p16(out+18,i);*length=20;*error=0;return true;
     }
     if(ec_cal_state||!ec_record_storage_ready()||va_status==3){*error=3;return true;}
+    // The new opcode stages a global value and clears every override as one
+    // validated RAM transaction. The existing 0x29 command keeps its old ABI.
+    bool reset_all=op==EC42_ACTUATION_GLOBAL_RESET;
+    bool overrides_cleared=false;
+    uint8_t saved_overrides[CELLS];
     if(op==0x2a){
         if(n!=5||g16(p+3)!=va_revision){*error=4;return true;}
         if(p[0]>1||!p[1]||!p[2]){*error=3;return true;}
@@ -71,11 +76,17 @@ bool ec_va_protocol(uint8_t op,const uint8_t *p,uint8_t n,uint8_t *out,uint8_t *
     }else{
         if(n!=5||g16(p+3)!=va_revision){*error=4;return true;}
         unsigned i=g16(p);uint8_t value=p[2];
+        if(reset_all&&i!=65535){*error=3;return true;}
         if((i!=65535&&(i>=CELLS||!sampled(i)))||value>99||(i==65535&&!value)){*error=3;return true;}
         candidate=eeprom_ec_config;
         uint8_t old=0;
         if(i==65535){unsigned gap=candidate.mode_0_actuation_threshold-candidate.mode_0_release_threshold;unsigned q=value==99?1022:((unsigned)value*1023+50)/100;if(q<=gap){*error=3;return true;}candidate.mode_0_actuation_threshold=q;candidate.mode_0_release_threshold=q-gap;}
         else{if(value&&(value==99?1022:((unsigned)value*1023+50)/100)<=candidate.mode_0_actuation_threshold-candidate.mode_0_release_threshold){*error=3;return true;}old=va_overrides[i];va_overrides[i]=value;}
+        if(reset_all){
+            memcpy(saved_overrides,va_overrides,CELLS);
+            memset(va_overrides,0,CELLS);
+            overrides_cleared=true;
+        }
         bool ok=va_released();
         // Initial VA and fixed hysteresis do not set RT movement sensitivity.
         // Clamp only offsets that cannot fit the new released-floor active window.
@@ -93,9 +104,16 @@ bool ec_va_protocol(uint8_t op,const uint8_t *p,uint8_t n,uint8_t *out,uint8_t *
                 if(candidate.mode_1_release_offset>hi)candidate.mode_1_release_offset=hi;
             }
         }
-        if(!ok){if(i<CELLS)va_overrides[i]=old;*error=3;return true;}
+        if(!ok){
+            if(overrides_cleared)memcpy(va_overrides,saved_overrides,CELLS);
+            else if(i<CELLS)va_overrides[i]=old;
+            *error=3;return true;
+        }
     }
-    if(!va_released()){*error=3;return true;}
+    if(!va_released()){
+        if(overrides_cleared)memcpy(va_overrides,saved_overrides,CELLS);
+        *error=3;return true;
+    }
     candidate.mode_1_initial_deadzone_offset=candidate.mode_0_actuation_threshold;
     memcpy(candidate.overrides,va_overrides,CELLS);
     seal(&candidate,EC_CAL_PARTIAL);eeprom_ec_config=candidate;ec_cal_runtime();

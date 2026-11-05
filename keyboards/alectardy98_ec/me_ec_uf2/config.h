@@ -93,7 +93,7 @@
 
 // New explicit EC profile; old EC/Vial settings are intentionally not migrated.
 #define A98_RECORD_MAGIC 0xa996
-#define A98_FIRMWARE_ID "A98-me_ec-EC42-2.9"
+#define A98_FIRMWARE_ID "A98-me_ec-EC42-2.9g"
 #define EECONFIG_KB_DATA_SIZE (17+3*6*16)
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
 #define WEAR_LEVELING_BACKING_SIZE 131072

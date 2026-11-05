@@ -9,7 +9,7 @@
 #include <string.h>
 _Static_assert(sizeof(A98_FIRMWARE_ID)-1<=EC42_PAYLOAD_BYTES,"Firmware identity exceeds one response");
 
-#define A98_EC_CAPABILITIES 0x66 // telemetry, metadata, restore, explicit control
+#define A98_EC_CAPABILITIES (0x66 | EC42_CAP_GLOBAL_RESET)
 #define CELLS (MATRIX_ROWS * MATRIX_COLS)
 #define RECORD_BYTES sizeof(eeprom_ec_config_t)
 static uint16_t raw_values[CELLS], minima[CELLS], maxima[CELLS];

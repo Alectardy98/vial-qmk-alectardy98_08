@@ -101,7 +101,7 @@
 /* Canonical EC42 record: preserve the old 219-byte KB reservation and every
  * Vial address. Only the record tail uses the final 113 logical EEPROM bytes. */
 #define A98_RECORD_MAGIC 0xa105
-#define A98_FIRMWARE_ID "A98-0413-EC42-2.9"
+#define A98_FIRMWARE_ID "A98-0413-EC42-2.9g"
 #define EC_RECORD_SPLIT
 #define EC_RECORD_TAIL_ADDR 3983U
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 3982
