@@ -1,31 +1,38 @@
 {
     "keyboard_name": "IBM Beamspring 3276",
-    "manufacturer": "IBM/Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei",
+    "manufacturer": "IBM/Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei/Alectardy98",
     "maintainer": "Purdea Andrei",
     "url": "",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+
+    "matrix_size": {
+        "rows": 4,
+        "cols": 20
+    },
+
     "usb": {
         "vid": "0x16C0",
         "pid": "0x27DB",
         "device_version": "0.0.1"
-    }
-  "features": {
-    "bootmagic": false,
-    "mousekey": false,
-    "extrakey": true,
-    "console": true,
-    "command": true,
-    "nkro": true,
-    "raw": true,
+    },
 
-  },
-  "qmk": {
-    "locking": {
-      "enabled": true,
-      "resync": true
-    }
-  },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "raw": true
+    },
+
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
 
   "layouts": {
     "LAYOUT": {

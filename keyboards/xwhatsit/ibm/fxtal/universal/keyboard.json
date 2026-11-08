@@ -1,31 +1,38 @@
 {
     "keyboard_name": "FXTal",
-    "manufacturer": "IBM/Alectardy98/Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei",
+    "manufacturer": "IBM/Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei/Alectardy98",
     "maintainer": "Purdea Andrei",
     "url": "https://github.com/Alectardy98/pcb_FXTal_Rev1",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+
+    "matrix_size": {
+        "rows": 8,
+        "cols": 12
+    },
+
     "usb": {
         "vid": "0x16C0",
         "pid": "0x27DB",
         "device_version": "0.0.1"
-    }
-  "features": {
-    "bootmagic": false,
-    "mousekey": false,
-    "extrakey": true,
-    "console": true,
-    "command": true,
-    "nkro": true,
-    "raw": true,
+    },
 
-  },
-  "qmk": {
-    "locking": {
-      "enabled": true,
-      "resync": true
-    }
-  },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "raw": true
+    },
+
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
 
   "layouts": {
     "LAYOUT": {

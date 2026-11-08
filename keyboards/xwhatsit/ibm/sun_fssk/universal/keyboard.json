@@ -1,31 +1,38 @@
 {
-  "keyboard_name": "IBM SSK - SUN PCB",
-  "manufacturer": "Alectardy98/Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei",
-  "url": "https://keebal.com",
-  "maintainer": "Alectardy98",
-  "processor": "atmega32u4",
-  "usb": {
-      "device_version": "0.0.1",
-      "pid": "0x27DC",
-      "vid": "0x16C0"
-  },
-  "bootloader": "caterina",
-  "features": {
-    "bootmagic": false,
-    "mousekey": false,
-    "extrakey": true,
-    "console": true,
-    "command": true,
-    "nkro": true,
-    "raw": true,
+    "keyboard_name": "IBM SSK - SUN PCB",
+    "manufacturer": "Tom Wong-Cornall/listofoptions/kmnov2017/Purdea Andrei/Alectardy98",
+    "url": "https://keebal.com",
+    "maintainer": "Alectardy98",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
 
-  },
-  "qmk": {
-    "locking": {
-      "enabled": true,
-      "resync": true
-    }
-  },
+    "matrix_size": {
+        "rows": 8,
+        "cols": 16
+    },
+
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x27DC",
+        "vid": "0x16C0"
+    },
+
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "raw": true
+    },
+
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
 
   "layouts": {
     "LAYOUT": {

@@ -22,6 +22,22 @@ These are IBM Model M SSK keyboards modified with a "Sun FSSK" sense pcb, and Mo
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xwhatsit/ibm/sun_fssk/universal:default
+    make xwhatsit/ibm/sun_fssk/universal:vial
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Vi_al calibration
+
+Build from the QMK repository root:
+
+```sh
+make xwhatsit/ibm/sun_fssk/universal:vial
+```
+
+The existing personal keymap is also available as `xwhatsit/ibm/sun_fssk/universal:vial_alec`.
+
+This target uses the shared xwhatsit scan/utility protocol and the capability-checked XCAL live calibration settings. The build rule is local to this controller folder. `XWHATSIT_RUNTIME_CALIBRATION=no` selects the original constant-calibration path for the Vial keymaps.
+
+Use the Universal controller wiring in `config.h`; this image is not for the older xwhatsit/WCASS controller revisions. No bootloader is included. Back up Vial settings before changing targets.
+
+Developer tests, port metadata and memory/build notes are maintained on Vi_al’s `dev` branch under `util/dev/xwhatsit_firmware/`; they are not needed to compile this keyboard.

@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 7
 // Note: there is a column that is only used for calibration pads. That one is not included here.
 
 #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) ((col)+3)

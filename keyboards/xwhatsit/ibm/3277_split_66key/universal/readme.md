@@ -1,26 +1,17 @@
-# xwhatsit/ibm/3277_split_66key/universal
+# IBM Beamspring 3277 (split 66-key) — Universal controller
 
-![xwhatsit/ibm/3277_split_66key/universal](https://i.imgur.com/CzZI5Inh.jpg)
+Build from the QMK repository root:
 
-A short description of the keyboard/project
+```sh
+make xwhatsit/ibm/3277_split_66key/universal:vial
+```
 
-* Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
-* Hardware Supported: Supports the IBM Beamspring 3277 (split 66-key) keyboards, using one of the xwhatsit controller PCBs supported by the 'universal' driver: the TH_XWhatsIt controller, or the Compact Beamspring controller.
+This target uses the shared xwhatsit scan/utility protocol and the capability-checked XCAL live calibration settings. The build rule is local to this controller folder. `XWHATSIT_RUNTIME_CALIBRATION=no` selects the original constant-calibration path for the Vial keymaps.
 
-  The open hardware controllers supported by this firmware are published here:
-    https://github.com/listofoptions/TH-XWhatsIt
-    https://github.com/purdeaandrei/CompactBeamSpring
-    https://github.com/purdeaandrei/CompactBeamSpringAdditionalExpansion
-  And they have been discussed in the following threads:
-    https://deskthority.net/viewtopic.php?f=7&t=23406
-    https://deskthority.net/viewtopic.php?f=50&t=24512
+Use the Universal controller wiring in `config.h`; this image is not for the older xwhatsit/WCASS controller revisions. No bootloader is included. Back up Vial settings before changing targets.
 
-* Hardware Availability: Rare collector's item
+This Vial keymap provides **3 remappable layer(s)**. It omits Tap Dance, combos, key overrides and QMK settings to fit AVR flash/EEPROM; existing mouse/media/solenoid configuration is retained.
 
-This keyboard uses [emdude's sense PCB](https://github.com/emdude/XWhatsit-CommonSense-Compatible-IBM-3277-PCB)
+Compile/layout verification is recorded with Vi_al’s `dev` tools; physical acceptance remains board-specific.
 
-Make example for this keyboard (after setting up your build environment):
-
-    make xwhatsit/ibm/3277_split_66key/universal:default
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+Developer tests, port metadata and memory/build notes are maintained on Vi_al’s `dev` branch under `util/dev/xwhatsit_firmware/`; they are not needed to compile this keyboard.

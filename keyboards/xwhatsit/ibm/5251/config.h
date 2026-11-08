@@ -16,6 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 23

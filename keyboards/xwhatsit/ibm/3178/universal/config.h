@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#undef MATRIX_ROWS
-#undef MATRIX_COLS
-#define MATRIX_ROWS 9      // 8 capsense + 1 extra-direct row
-#define MATRIX_COLS 13     // keep your board’s 13 columns
+
 
 // — Extra direct row (GPIO keys) —
 #define MATRIX_EXTRA_DIRECT_ROWS 1

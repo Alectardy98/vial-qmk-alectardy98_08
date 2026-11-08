@@ -16,8 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-#define MATRIX_COLS 13
-
-// Make this a plain number:
-#define MATRIX_ROWS 9   // 8 capsense + 1 extra-direct

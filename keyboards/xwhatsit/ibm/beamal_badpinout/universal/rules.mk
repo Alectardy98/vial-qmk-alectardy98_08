@@ -1,3 +1,13 @@
+# Keep the extension local to the requested Vial keymaps. Other xwhatsit builds
+# retain their original utility protocol and constant calibration path.
+ifneq ($(filter vial vial_alec,$(KEYMAP)),)
+XWHATSIT_RUNTIME_CALIBRATION ?= yes
+ifeq ($(XWHATSIT_RUNTIME_CALIBRATION),yes)
+OPT_DEFS += -DXWHATSIT_RUNTIME_CALIBRATION
+SRC += keyboards/xwhatsit/calibration_config.c
+endif
+endif
+
 # Copyright 2020 Purdea Andrei
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,15 +26,12 @@
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes         # Console for debug
-COMMAND_ENABLE = yes        # Commands for debug and configuration
-NKRO_ENABLE = no            # USB Nkey Rollover
-RAW_ENABLE = yes
 
 CUSTOM_MATRIX=lite
 SRC += keyboards/xwhatsit/matrix.c keyboards/xwhatsit/util_comm.c
 HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = SOLENOID
+HAPTIC_DRIVER = solenoid
+
+# Required by QMK AVR send_string timer entropy helper.
+OPT_DEFS += -include avr/io.h
+OPT_DEFS += -Wno-error=unused-but-set-variable
