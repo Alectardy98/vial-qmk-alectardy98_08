@@ -18,6 +18,7 @@
 #include "capsense.h"
 #include "keymap_introspection.h"
 #include "matrix_manipulate.h"
+#include "calibration_config.h"
 #include <string.h>
 
 /* Notes on Expansion Header:
@@ -89,7 +90,7 @@ void dac_write_threshold(uint16_t value)
         writePin(CAPSENSE_DAC_SCK, 0);
     }
     writePin(CAPSENSE_DAC_NCS, 1);
-    wait_us(CAPSENSE_DAC_SETTLE_TIME_US);
+    wait_us(XCAL_SETTLE);
 }
 
 #else
@@ -120,7 +121,7 @@ void dac_write_threshold(uint16_t value)
     writePin(CAPSENSE_DAC_SYNC_N, 1);
     writePin(CAPSENSE_DAC_SCLK, 1);
     writePin(CAPSENSE_DAC_SCLK, 0);
-    wait_us(CAPSENSE_DAC_SETTLE_TIME_US);
+    wait_us(XCAL_SETTLE);
 }
 
 #endif
@@ -568,19 +569,21 @@ uint16_t cal_tr_allzero;
 uint16_t cal_tr_allone;
 void calibration(void)
 {
+    // Boot used zeroed BSS; runtime recalibration must clear old assignments.
+    memset(assigned_to_threshold, 0, sizeof(assigned_to_threshold));
     uint16_t cal_thresholds_max[CAPSENSE_CAL_BINS];
     uint16_t cal_thresholds_min[CAPSENSE_CAL_BINS];
     memset(cal_thresholds_max, 0xff, sizeof(cal_thresholds_max));
     memset(cal_thresholds_min, 0xff, sizeof(cal_thresholds_min));
-    cal_tr_allzero = calibration_measure_all_valid_keys(CAPSENSE_HARDCODED_SAMPLE_TIME, CAPSENSE_CAL_INIT_REPS, true);
-    cal_tr_allone = calibration_measure_all_valid_keys(CAPSENSE_HARDCODED_SAMPLE_TIME, CAPSENSE_CAL_INIT_REPS, false);
+    cal_tr_allzero = calibration_measure_all_valid_keys(XCAL_SAMPLE, XCAL_INIT_REPS, true);
+    cal_tr_allone = calibration_measure_all_valid_keys(XCAL_SAMPLE, XCAL_INIT_REPS, false);
     uint16_t max = (cal_tr_allzero == 0) ? 0 : (cal_tr_allzero - 1);
     uint16_t min = cal_tr_allone + 1;
     if (max < min) max = min;
     uint16_t d = max - min;
     uint8_t i;
-    for (i=0;i<CAPSENSE_CAL_BINS;i++) {
-        cal_thresholds[i] = min + (d * (2 * i + 1)) / 2 / CAPSENSE_CAL_BINS;
+    for (i=0;i<XCAL_BINS;i++) {
+        cal_thresholds[i] = min + (d * (2 * i + 1)) / 2 / XCAL_BINS;
     }
     uint8_t col;
     for (col = 0; col < MATRIX_COLS; col++) {
@@ -588,10 +591,10 @@ void calibration(void)
         uint8_t row;
         for (row = 0; row < MATRIX_CAPSENSE_ROWS; row++) {
             if (keycode_at_keymap_location_raw(0, row, col) != KC_NO) {
-                uint16_t threshold = measure_middle(physical_col, CAPSENSE_KEYMAP_ROW_TO_GPIO_ROW(row), CAPSENSE_HARDCODED_SAMPLE_TIME, CAPSENSE_CAL_EACHKEY_REPS);
+                uint16_t threshold = measure_middle(physical_col, CAPSENSE_KEYMAP_ROW_TO_GPIO_ROW(row), XCAL_SAMPLE, XCAL_KEY_REPS);
                 uint8_t besti = 0;
                 uint16_t best_diff = (uint16_t)abs(threshold - cal_thresholds[besti]);
-                for (i=1;i<CAPSENSE_CAL_BINS;i++) {
+                for (i=1;i<XCAL_BINS;i++) {
                     uint16_t this_diff = (uint16_t)abs(threshold - cal_thresholds[i]);
                     if (this_diff < best_diff)
                     {
@@ -605,7 +608,7 @@ void calibration(void)
             }
         }
     }
-    for (i=0;i<CAPSENSE_CAL_BINS;i++) {
+    for (i=0;i<XCAL_BINS;i++) {
         uint16_t bin_signal_level;
         if ((cal_thresholds_max[i] == 0xFFFFU) || (cal_thresholds_min[i] == 0xFFFFU)) {
             bin_signal_level = cal_thresholds[i];
@@ -613,18 +616,18 @@ void calibration(void)
             bin_signal_level = (cal_thresholds_max[i] + cal_thresholds_min[i]) / 2;
         }
         #ifdef CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
-        if ((bin_signal_level + CAPSENSE_CAL_THRESHOLD_OFFSET) > CAPSENSE_DAC_MAX)
+        if ((bin_signal_level + XCAL_OFFSET) > CAPSENSE_DAC_MAX)
         {
             cal_thresholds[i] = CAPSENSE_DAC_MAX;
         } else {
-            cal_thresholds[i] = bin_signal_level + CAPSENSE_CAL_THRESHOLD_OFFSET;
+            cal_thresholds[i] = bin_signal_level + XCAL_OFFSET;
         }
         #else
-        if (bin_signal_level < CAPSENSE_CAL_THRESHOLD_OFFSET)
+        if (bin_signal_level < XCAL_OFFSET)
         {
             cal_thresholds[i] = 0;
         } else {
-            cal_thresholds[i] = bin_signal_level - CAPSENSE_CAL_THRESHOLD_OFFSET;
+            cal_thresholds[i] = bin_signal_level - XCAL_OFFSET;
         }
         #endif
     }
@@ -687,6 +690,9 @@ uint16_t cal_time;
 
 void real_keyboard_init_basic(void)
 {
+#ifdef XWHATSIT_RUNTIME_CALIBRATION
+    xcal_load();
+#endif
     SETUP_UNUSED_PINS();
 
     #if defined(LED_NUM_LOCK_PIN)
@@ -803,7 +809,7 @@ void matrix_print_stats(void)
             uprintf("Calibration took: %u ms\n", cal_time);
             uprintf("Stack used: %d bytes\n", stack_used());
             uprintf("Cal All Zero = %u, Cal All Ones = %u\n", cal_tr_allzero, cal_tr_allone);
-            for (cal=0;cal<CAPSENSE_CAL_BINS;cal++)
+            for (cal=0;cal<XCAL_BINS;cal++)
             {
                 uprintf("Cal bin %u, Threshold=%u Assignments:\n", cal, cal_thresholds[cal]);
                 for (row=0;row<MATRIX_CAPSENSE_ROWS;row++)
@@ -829,7 +835,7 @@ void matrix_scan_raw(matrix_row_t current_matrix[]) {
     memset(current_matrix, 0, sizeof(matrix_row_t) * MATRIX_ROWS);
     #if CAPSENSE_CAL_ENABLED
     uint8_t cal;
-    for (cal=0;cal<CAPSENSE_CAL_BINS;cal++) {
+    for (cal=0;cal<XCAL_BINS;cal++) {
         dac_write_threshold(cal_thresholds[cal]);
         for (col=0;col<MATRIX_COLS;col++) {
             uint8_t real_col = CAPSENSE_KEYMAP_COL_TO_GPIO_COL(col);
@@ -840,7 +846,7 @@ void matrix_scan_raw(matrix_row_t current_matrix[]) {
                 {
                     if (!d_tested)
                     {
-                        d = test_single(real_col, CAPSENSE_HARDCODED_SAMPLE_TIME, &interference);
+                        d = test_single(real_col, XCAL_SAMPLE, &interference);
                         #ifdef CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS
                             d = ~d;
                         #endif
@@ -860,7 +866,7 @@ void matrix_scan_raw(matrix_row_t current_matrix[]) {
     {
         uint8_t real_col = CAPSENSE_KEYMAP_COL_TO_GPIO_COL(col);
         uint8_t interference;
-        uint8_t d = test_single(real_col, CAPSENSE_HARDCODED_SAMPLE_TIME, &interference);
+        uint8_t d = test_single(real_col, XCAL_SAMPLE, &interference);
         #ifdef CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS
             d = ~d;
         #endif

@@ -18,6 +18,7 @@
 #include "raw_hid.h"
 #include "util_comm.h"
 #include "matrix_manipulate.h"
+#include "calibration_config.h"
 #include <string.h>
 #include "eeprom.h"
 #include <progmem.h>
@@ -37,10 +38,11 @@ extern const char PROGMEM KEYBOARD_FILENAME[]; // This must be defined in keyboa
 static const uint8_t magic[] = UTIL_COMM_MAGIC;
 
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    if (0 != memcmp(data, magic, sizeof(magic))) {
+    if (length != RAW_EPSIZE || 0 != memcmp(data, magic, sizeof(magic))) {
         return;
     }
     uint8_t response[RAW_EPSIZE];
+    memset(response, 0, sizeof(response));
     memcpy(response, magic, sizeof(magic));
     response[2] = UTIL_COMM_RESPONSE_ERROR;
     switch (data[2])
@@ -66,9 +68,6 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
             keyboard_scan_enabled = 0;
             wait_ms(10);
             bootloader_jump();
-            // we should not be reaching the following:
-            wait_ms(10);
-            response[2] = UTIL_COMM_RESPONSE_OK;
             break;
         case UTIL_COMM_GET_KEYSTATE:
             response[2] = UTIL_COMM_RESPONSE_OK;
@@ -80,6 +79,10 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 if (sizeof(current_matrix) > 32-3)
                 {
                     offset = data[3];
+                    if (offset >= sizeof(current_matrix)) {
+                        response[2] = UTIL_COMM_RESPONSE_ERROR;
+                        break;
+                    }
                     current_matrix_ptr += offset;
                 }
                 memcpy(&response[3], current_matrix_ptr, min(32-3, sizeof(current_matrix)-offset));
@@ -88,9 +91,13 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
         case UTIL_COMM_GET_THRESHOLDS:
             response[2] = UTIL_COMM_RESPONSE_OK;
             #if CAPSENSE_CAL_ENABLED
-            response[3] = CAPSENSE_CAL_BINS;
+            response[3] = XCAL_BINS;
             {
                 const uint8_t cal_bin = data[3];
+                if (cal_bin >= XCAL_BINS || (sizeof(assigned_to_threshold[cal_bin]) > 26 && data[4] >= sizeof(assigned_to_threshold[cal_bin]))) {
+                    response[2] = UTIL_COMM_RESPONSE_ERROR;
+                    break;
+                }
                 response[4] = cal_thresholds[cal_bin] & 0xff;
                 response[5] = (cal_thresholds[cal_bin] >> 8) & 0xff;
                 char *assigned_to_threshold_ptr = (char *)assigned_to_threshold[cal_bin];
@@ -108,6 +115,7 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
             response[5] = ((CAPSENSE_HARDCODED_THRESHOLD) >> 8) & 0xff;
             #endif
             break;
+#ifndef XWHATSIT_RUNTIME_CALIBRATION
         case UTIL_COMM_GET_KEYBOARD_FILENAME:
             {
                 int string_length = strlen_P(KEYBOARD_FILENAME) + 1;
@@ -125,13 +133,14 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 }
                 break;
             }
+#endif
         case UTIL_COMM_ERASE_EEPROM:
             {
                 response[2] = UTIL_COMM_RESPONSE_OK;
                 uint16_t addr;
-                for (addr=0; addr<E2END; addr += 1)
+                for (addr=0; addr<=E2END; addr += 1)
                 {
-                    eeprom_update_byte((uint8_t*)addr, 0xff);
+                    eeprom_update_byte((uint8_t *)(uintptr_t)addr, 0xff);
                 }
                 break;
             }
@@ -141,10 +150,14 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 uint8_t col = data[3];
                 uint8_t row = data[4];
                 uint8_t count = data[5];
+                if (col >= MATRIX_COLS || row >= MATRIX_CAPSENSE_ROWS || count == 0 || count > 14) {
+                    response[2] = UTIL_COMM_RESPONSE_ERROR;
+                    break;
+                }
                 int i;
                 for (i=0;i<count;i++)
                 {
-                    uint16_t value = measure_middle_keymap_coords(col, row, CAPSENSE_HARDCODED_SAMPLE_TIME, 8);
+                    uint16_t value = measure_middle_keymap_coords(col, row, XCAL_SAMPLE, 8);
                     response[3+i*2] = value & 0xff;
                     response[3+i*2+1] = (value >> 8) & 0xff;
                     col += 1;
@@ -176,8 +189,8 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 response[5] = 0;
                 #endif
                 response[6] = CAPSENSE_KEYBOARD_SETTLE_TIME_US;
-                response[7] = CAPSENSE_DAC_SETTLE_TIME_US;
-                response[8] = CAPSENSE_HARDCODED_SAMPLE_TIME;
+                response[7] = XCAL_SETTLE;
+                response[8] = XCAL_SAMPLE;
                 response[9] = CAPSENSE_CAL_ENABLED;
                 response[10] = CAPSENSE_DAC_MAX & 0xFF;
                 response[11] = (CAPSENSE_DAC_MAX >> 8) & 0xFF;
@@ -187,6 +200,42 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 response[15] = 0; // reserved for future
                 break;
             }
+#ifdef XWHATSIT_RUNTIME_CALIBRATION
+        case UTIL_COMM_CAL_CAPS:
+            response[2] = UTIL_COMM_RESPONSE_OK;
+            response[3] = 'X'; response[4] = 'C'; response[5] = 'A'; response[6] = 'L';
+            response[7] = 1;
+            response[8] = CAPSENSE_CAL_BINS;
+            response[9] = CAPSENSE_CAL_ENABLED | (CAPSENSE_CAL_DEBUG << 1);
+            response[10] = CAPSENSE_DAC_MAX & 255;
+            response[11] = CAPSENSE_DAC_MAX >> 8;
+            xcal_get_defaults(response + 12);
+            break;
+        case UTIL_COMM_CAL_SETTINGS:
+            goto settings_reply;
+        case UTIL_COMM_CAL_APPLY_SAVE:
+        case UTIL_COMM_CAL_DEFAULTS:
+        case UTIL_COMM_CAL_RUN:
+            // A held key must never become the released calibration reference.
+            response[2] = 0x24;
+            if (data[2] != UTIL_COMM_CAL_DEFAULTS) {
+                for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+                    if (matrix_get_row(row)) goto calibration_reply;
+                }
+            }
+            response[2] = UTIL_COMM_RESPONSE_ERROR;
+            if (data[2] == UTIL_COMM_CAL_APPLY_SAVE) {
+                if (!xcal_valid(data + 3)) break;
+                memcpy(xcal_settings, data + 3, 8);
+            } else if (data[2] == UTIL_COMM_CAL_DEFAULTS) xcal_defaults();
+            calibration();
+            if (data[2] != UTIL_COMM_CAL_RUN) xcal_save();
+        settings_reply:
+            response[2] = UTIL_COMM_RESPONSE_OK;
+            memcpy(response + 3, xcal_settings, 8);
+        calibration_reply:
+            break;
+#else
         case UTIL_COMM_SHIFT_DATA:
         case UTIL_COMM_SHIFT_DATA_EXT:
             {
@@ -223,6 +272,7 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 response[3] = test_single(255, 0, NULL);
                 break;
             }
+#endif
         default:
             break;
     }
