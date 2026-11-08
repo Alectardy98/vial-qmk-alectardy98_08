@@ -1,0 +1,13 @@
+#define VIAL_KEYBOARD_UID {0xF8, 0x83, 0x31, 0x73, 0xBC, 0x98, 0xD7, 0x48}
+
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 4
+
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define VIAL_TAP_DANCE_ENTRIES 2
+#define VIAL_COMBO_ENTRIES 2
+#define VIAL_KEY_OVERRIDE_ENTRIES 2
+
+
+
+#include "calibration.h"

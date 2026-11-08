@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 int  io_expander_init(void);
 void io_expander_update_state(void);
 void io_expander_set_led0_status(bool enable);

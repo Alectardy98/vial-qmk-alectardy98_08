@@ -45,6 +45,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
 
         leyden_jar_update();
+    } else {
+        /* Disabling output while a key is held must emit its release once. */
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+            matrix_has_changed |= current_matrix[row] != 0;
+            current_matrix[row] = 0;
+            s_previous_matrix[row] = 0;
+        }
     }
 
     return matrix_has_changed;
