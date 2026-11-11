@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "quantum.h"
 #include "i2c_master.h"
 #include "io_expander.h"
 
@@ -65,6 +66,11 @@ int io_expander_init()
     uint8_t write_data[2];
     write_data[0] = 0x03;
     write_data[1] = 0x00;
+#ifdef LEYDEN_JAR_IO_EXPANDER_INPUT_MASK
+    /* Board-owned unused pins remain high-impedance. */
+    _Static_assert(LEYDEN_JAR_IO_EXPANDER_INPUT_MASK <= 0xffu, "Expander input mask exceeds eight pins");
+    write_data[1] = LEYDEN_JAR_IO_EXPANDER_INPUT_MASK;
+#endif
     ret = i2c_transmit(IO_EXPANDER_I2C_WRITE, write_data, 2, IO_EXPANDER_I2C_TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         return 0;

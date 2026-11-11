@@ -45,3 +45,6 @@ bool leyden_jar_get_matrix_to_controller_cols(uint8_t* matrix_to_controller_cols
 bool leyden_jar_get_matrix_to_controller_rows(uint8_t* matrix_to_controller_rows, uint8_t buffer_size);
 uint8_t leyden_jar_get_matrix_to_controller_type(void);
 bool leyden_jar_is_beamspring(void);
+bool leyden_jar_get_calibration_preference(uint8_t bin, int16_t *offset, int16_t *default_offset, bool *saved);
+bool leyden_jar_save_calibration_offset(uint8_t bin, int16_t offset);
+bool leyden_jar_restore_calibration_defaults(void);

@@ -19,3 +19,7 @@
 void pio_matrix_scan_init(bool enable_extra_cols);
 void pio_raw_scan(void);
 const uint8_t* pio_get_scan_vals(void);
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+bool pio_gpio_columns_ready(void);
+void pio_gpio_columns_status(uint8_t payload[28]);
+#endif

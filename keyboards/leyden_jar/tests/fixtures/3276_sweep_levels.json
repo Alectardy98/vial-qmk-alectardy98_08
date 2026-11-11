@@ -1,0 +1,1138 @@
+{
+  "source": "Physical 75-key sweep, key-sweep-20261111T015950Z",
+  "physical_order_matches": true,
+  "released": {
+    "0,0": 448,
+    "1,0": 450,
+    "2,0": 453,
+    "3,0": 470,
+    "0,1": 436,
+    "1,1": 443,
+    "2,1": 444,
+    "3,1": 448,
+    "0,2": 445,
+    "1,2": 438,
+    "2,2": 383,
+    "3,2": 383,
+    "0,3": 450,
+    "1,3": 437,
+    "2,3": 443,
+    "3,3": 439,
+    "0,4": 448,
+    "1,4": 449,
+    "2,4": 450,
+    "3,4": 448,
+    "0,5": 452,
+    "1,5": 440,
+    "2,5": 442,
+    "3,5": 439,
+    "0,6": 450,
+    "1,6": 444,
+    "2,6": 447,
+    "3,6": 437,
+    "0,7": 440,
+    "1,7": 446,
+    "2,7": 450,
+    "3,7": 444,
+    "0,8": 444,
+    "1,8": 444,
+    "2,8": 448,
+    "3,8": 438,
+    "0,9": 444,
+    "1,9": 444,
+    "2,9": 446,
+    "3,9": 437,
+    "0,10": 444,
+    "1,10": 443,
+    "2,10": 445,
+    "3,10": 439,
+    "0,11": 441,
+    "1,11": 444,
+    "2,11": 445,
+    "3,11": 440,
+    "0,12": 436,
+    "1,12": 440,
+    "2,12": 444,
+    "3,12": 440,
+    "0,13": 435,
+    "1,13": 442,
+    "2,13": 446,
+    "3,13": 439,
+    "0,14": 444,
+    "1,14": 448,
+    "2,14": 448,
+    "3,14": 442,
+    "0,15": 448,
+    "1,15": 442,
+    "2,15": 447,
+    "3,15": 440,
+    "0,16": 455,
+    "1,16": 446,
+    "2,16": 448,
+    "3,16": 440,
+    "0,17": 448,
+    "1,17": 443,
+    "2,17": 442,
+    "3,17": 383,
+    "0,18": 463,
+    "1,18": 473,
+    "2,18": 475,
+    "3,18": 474,
+    "0,19": 439,
+    "1,19": 443,
+    "2,19": 444,
+    "3,19": 440
+  },
+  "keys": [
+    {
+      "logical": [
+        0,
+        0
+      ],
+      "physical": [
+        3,
+        19
+      ],
+      "pressed_min": 396,
+      "pressed_max": 397,
+      "released_min": 436,
+      "released_max": 442
+    },
+    {
+      "logical": [
+        0,
+        1
+      ],
+      "physical": [
+        3,
+        18
+      ],
+      "pressed_min": 431,
+      "pressed_max": 432,
+      "released_min": 472,
+      "released_max": 477
+    },
+    {
+      "logical": [
+        0,
+        3
+      ],
+      "physical": [
+        3,
+        16
+      ],
+      "pressed_min": 396,
+      "pressed_max": 397,
+      "released_min": 435,
+      "released_max": 443
+    },
+    {
+      "logical": [
+        0,
+        4
+      ],
+      "physical": [
+        3,
+        15
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 437,
+      "released_max": 443
+    },
+    {
+      "logical": [
+        0,
+        5
+      ],
+      "physical": [
+        3,
+        14
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 438,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        0,
+        6
+      ],
+      "physical": [
+        3,
+        13
+      ],
+      "pressed_min": 395,
+      "pressed_max": 397,
+      "released_min": 434,
+      "released_max": 440
+    },
+    {
+      "logical": [
+        0,
+        7
+      ],
+      "physical": [
+        3,
+        12
+      ],
+      "pressed_min": 396,
+      "pressed_max": 397,
+      "released_min": 436,
+      "released_max": 442
+    },
+    {
+      "logical": [
+        0,
+        8
+      ],
+      "physical": [
+        3,
+        11
+      ],
+      "pressed_min": 395,
+      "pressed_max": 395,
+      "released_min": 436,
+      "released_max": 442
+    },
+    {
+      "logical": [
+        0,
+        9
+      ],
+      "physical": [
+        3,
+        10
+      ],
+      "pressed_min": 395,
+      "pressed_max": 396,
+      "released_min": 434,
+      "released_max": 440
+    },
+    {
+      "logical": [
+        0,
+        10
+      ],
+      "physical": [
+        3,
+        9
+      ],
+      "pressed_min": 395,
+      "pressed_max": 396,
+      "released_min": 433,
+      "released_max": 439
+    },
+    {
+      "logical": [
+        0,
+        11
+      ],
+      "physical": [
+        3,
+        8
+      ],
+      "pressed_min": 396,
+      "pressed_max": 398,
+      "released_min": 434,
+      "released_max": 441
+    },
+    {
+      "logical": [
+        0,
+        12
+      ],
+      "physical": [
+        3,
+        7
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 439,
+      "released_max": 446
+    },
+    {
+      "logical": [
+        0,
+        13
+      ],
+      "physical": [
+        3,
+        6
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 433,
+      "released_max": 440
+    },
+    {
+      "logical": [
+        0,
+        14
+      ],
+      "physical": [
+        3,
+        5
+      ],
+      "pressed_min": 397,
+      "pressed_max": 399,
+      "released_min": 435,
+      "released_max": 441
+    },
+    {
+      "logical": [
+        0,
+        15
+      ],
+      "physical": [
+        3,
+        4
+      ],
+      "pressed_min": 400,
+      "pressed_max": 401,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        0,
+        16
+      ],
+      "physical": [
+        3,
+        3
+      ],
+      "pressed_min": 392,
+      "pressed_max": 394,
+      "released_min": 435,
+      "released_max": 441
+    },
+    {
+      "logical": [
+        0,
+        18
+      ],
+      "physical": [
+        3,
+        1
+      ],
+      "pressed_min": 405,
+      "pressed_max": 406,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        0,
+        19
+      ],
+      "physical": [
+        3,
+        0
+      ],
+      "pressed_min": 431,
+      "pressed_max": 431,
+      "released_min": 467,
+      "released_max": 473
+    },
+    {
+      "logical": [
+        1,
+        0
+      ],
+      "physical": [
+        2,
+        19
+      ],
+      "pressed_min": 403,
+      "pressed_max": 405,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        1,
+        1
+      ],
+      "physical": [
+        2,
+        18
+      ],
+      "pressed_min": 437,
+      "pressed_max": 438,
+      "released_min": 472,
+      "released_max": 479
+    },
+    {
+      "logical": [
+        1,
+        3
+      ],
+      "physical": [
+        2,
+        16
+      ],
+      "pressed_min": 404,
+      "pressed_max": 406,
+      "released_min": 443,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        1,
+        4
+      ],
+      "physical": [
+        2,
+        15
+      ],
+      "pressed_min": 403,
+      "pressed_max": 405,
+      "released_min": 443,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        1,
+        5
+      ],
+      "physical": [
+        2,
+        14
+      ],
+      "pressed_min": 403,
+      "pressed_max": 404,
+      "released_min": 443,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        1,
+        6
+      ],
+      "physical": [
+        2,
+        13
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 442,
+      "released_max": 449
+    },
+    {
+      "logical": [
+        1,
+        7
+      ],
+      "physical": [
+        2,
+        12
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        1,
+        8
+      ],
+      "physical": [
+        2,
+        11
+      ],
+      "pressed_min": 401,
+      "pressed_max": 402,
+      "released_min": 441,
+      "released_max": 448
+    },
+    {
+      "logical": [
+        1,
+        9
+      ],
+      "physical": [
+        2,
+        10
+      ],
+      "pressed_min": 403,
+      "pressed_max": 403,
+      "released_min": 441,
+      "released_max": 448
+    },
+    {
+      "logical": [
+        1,
+        10
+      ],
+      "physical": [
+        2,
+        9
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 442,
+      "released_max": 449
+    },
+    {
+      "logical": [
+        1,
+        11
+      ],
+      "physical": [
+        2,
+        8
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        1,
+        12
+      ],
+      "physical": [
+        2,
+        7
+      ],
+      "pressed_min": 404,
+      "pressed_max": 405,
+      "released_min": 445,
+      "released_max": 452
+    },
+    {
+      "logical": [
+        1,
+        13
+      ],
+      "physical": [
+        2,
+        6
+      ],
+      "pressed_min": 403,
+      "pressed_max": 404,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        1,
+        14
+      ],
+      "physical": [
+        2,
+        5
+      ],
+      "pressed_min": 404,
+      "pressed_max": 405,
+      "released_min": 438,
+      "released_max": 444
+    },
+    {
+      "logical": [
+        1,
+        15
+      ],
+      "physical": [
+        2,
+        4
+      ],
+      "pressed_min": 408,
+      "pressed_max": 409,
+      "released_min": 446,
+      "released_max": 452
+    },
+    {
+      "logical": [
+        1,
+        16
+      ],
+      "physical": [
+        2,
+        3
+      ],
+      "pressed_min": 396,
+      "pressed_max": 398,
+      "released_min": 439,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        1,
+        18
+      ],
+      "physical": [
+        2,
+        1
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 439,
+      "released_max": 446
+    },
+    {
+      "logical": [
+        1,
+        19
+      ],
+      "physical": [
+        2,
+        0
+      ],
+      "pressed_min": 413,
+      "pressed_max": 414,
+      "released_min": 449,
+      "released_max": 456
+    },
+    {
+      "logical": [
+        2,
+        0
+      ],
+      "physical": [
+        1,
+        19
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 439,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        2,
+        1
+      ],
+      "physical": [
+        1,
+        18
+      ],
+      "pressed_min": 435,
+      "pressed_max": 436,
+      "released_min": 469,
+      "released_max": 477
+    },
+    {
+      "logical": [
+        1,
+        2
+      ],
+      "physical": [
+        2,
+        17
+      ],
+      "pressed_min": 398,
+      "pressed_max": 399,
+      "released_min": 439,
+      "released_max": 444
+    },
+    {
+      "logical": [
+        2,
+        4
+      ],
+      "physical": [
+        1,
+        15
+      ],
+      "pressed_min": 403,
+      "pressed_max": 404,
+      "released_min": 438,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        2,
+        5
+      ],
+      "physical": [
+        1,
+        14
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        2,
+        6
+      ],
+      "physical": [
+        1,
+        13
+      ],
+      "pressed_min": 401,
+      "pressed_max": 402,
+      "released_min": 437,
+      "released_max": 444
+    },
+    {
+      "logical": [
+        2,
+        7
+      ],
+      "physical": [
+        1,
+        12
+      ],
+      "pressed_min": 401,
+      "pressed_max": 402,
+      "released_min": 436,
+      "released_max": 443
+    },
+    {
+      "logical": [
+        2,
+        8
+      ],
+      "physical": [
+        1,
+        11
+      ],
+      "pressed_min": 400,
+      "pressed_max": 401,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        2,
+        9
+      ],
+      "physical": [
+        1,
+        10
+      ],
+      "pressed_min": 401,
+      "pressed_max": 402,
+      "released_min": 438,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        2,
+        10
+      ],
+      "physical": [
+        1,
+        9
+      ],
+      "pressed_min": 400,
+      "pressed_max": 402,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        2,
+        11
+      ],
+      "physical": [
+        1,
+        8
+      ],
+      "pressed_min": 403,
+      "pressed_max": 403,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        2,
+        12
+      ],
+      "physical": [
+        1,
+        7
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 442,
+      "released_max": 449
+    },
+    {
+      "logical": [
+        2,
+        13
+      ],
+      "physical": [
+        1,
+        6
+      ],
+      "pressed_min": 403,
+      "pressed_max": 404,
+      "released_min": 438,
+      "released_max": 446
+    },
+    {
+      "logical": [
+        2,
+        14
+      ],
+      "physical": [
+        1,
+        5
+      ],
+      "pressed_min": 403,
+      "pressed_max": 404,
+      "released_min": 435,
+      "released_max": 442
+    },
+    {
+      "logical": [
+        2,
+        15
+      ],
+      "physical": [
+        1,
+        4
+      ],
+      "pressed_min": 406,
+      "pressed_max": 407,
+      "released_min": 444,
+      "released_max": 451
+    },
+    {
+      "logical": [
+        2,
+        16
+      ],
+      "physical": [
+        1,
+        3
+      ],
+      "pressed_min": 396,
+      "pressed_max": 397,
+      "released_min": 434,
+      "released_max": 440
+    },
+    {
+      "logical": [
+        2,
+        18
+      ],
+      "physical": [
+        1,
+        1
+      ],
+      "pressed_min": 399,
+      "pressed_max": 400,
+      "released_min": 439,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        2,
+        19
+      ],
+      "physical": [
+        1,
+        0
+      ],
+      "pressed_min": 407,
+      "pressed_max": 409,
+      "released_min": 446,
+      "released_max": 453
+    },
+    {
+      "logical": [
+        3,
+        0
+      ],
+      "physical": [
+        0,
+        19
+      ],
+      "pressed_min": 399,
+      "pressed_max": 399,
+      "released_min": 434,
+      "released_max": 441
+    },
+    {
+      "logical": [
+        3,
+        1
+      ],
+      "physical": [
+        0,
+        18
+      ],
+      "pressed_min": 425,
+      "pressed_max": 425,
+      "released_min": 460,
+      "released_max": 466
+    },
+    {
+      "logical": [
+        2,
+        2
+      ],
+      "physical": [
+        1,
+        17
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 438,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        2,
+        3
+      ],
+      "physical": [
+        1,
+        16
+      ],
+      "pressed_min": 404,
+      "pressed_max": 405,
+      "released_min": 443,
+      "released_max": 449
+    },
+    {
+      "logical": [
+        3,
+        4
+      ],
+      "physical": [
+        0,
+        15
+      ],
+      "pressed_min": 399,
+      "pressed_max": 400,
+      "released_min": 444,
+      "released_max": 451
+    },
+    {
+      "logical": [
+        3,
+        5
+      ],
+      "physical": [
+        0,
+        14
+      ],
+      "pressed_min": 400,
+      "pressed_max": 401,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        3,
+        6
+      ],
+      "physical": [
+        0,
+        13
+      ],
+      "pressed_min": 398,
+      "pressed_max": 398,
+      "released_min": 430,
+      "released_max": 436
+    },
+    {
+      "logical": [
+        3,
+        7
+      ],
+      "physical": [
+        0,
+        12
+      ],
+      "pressed_min": 398,
+      "pressed_max": 399,
+      "released_min": 432,
+      "released_max": 439
+    },
+    {
+      "logical": [
+        3,
+        8
+      ],
+      "physical": [
+        0,
+        11
+      ],
+      "pressed_min": 396,
+      "pressed_max": 398,
+      "released_min": 438,
+      "released_max": 445
+    },
+    {
+      "logical": [
+        3,
+        9
+      ],
+      "physical": [
+        0,
+        10
+      ],
+      "pressed_min": 398,
+      "pressed_max": 399,
+      "released_min": 439,
+      "released_max": 446
+    },
+    {
+      "logical": [
+        3,
+        10
+      ],
+      "physical": [
+        0,
+        9
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 440,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        3,
+        11
+      ],
+      "physical": [
+        0,
+        8
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 439,
+      "released_max": 447
+    },
+    {
+      "logical": [
+        3,
+        12
+      ],
+      "physical": [
+        0,
+        7
+      ],
+      "pressed_min": 398,
+      "pressed_max": 400,
+      "released_min": 437,
+      "released_max": 444
+    },
+    {
+      "logical": [
+        3,
+        13
+      ],
+      "physical": [
+        0,
+        6
+      ],
+      "pressed_min": 397,
+      "pressed_max": 399,
+      "released_min": 445,
+      "released_max": 452
+    },
+    {
+      "logical": [
+        2,
+        17
+      ],
+      "physical": [
+        1,
+        2
+      ],
+      "pressed_min": 396,
+      "pressed_max": 397,
+      "released_min": 434,
+      "released_max": 441
+    },
+    {
+      "logical": [
+        3,
+        18
+      ],
+      "physical": [
+        0,
+        1
+      ],
+      "pressed_min": 395,
+      "pressed_max": 396,
+      "released_min": 431,
+      "released_max": 439
+    },
+    {
+      "logical": [
+        3,
+        19
+      ],
+      "physical": [
+        0,
+        0
+      ],
+      "pressed_min": 402,
+      "pressed_max": 403,
+      "released_min": 445,
+      "released_max": 451
+    },
+    {
+      "logical": [
+        3,
+        2
+      ],
+      "physical": [
+        0,
+        17
+      ],
+      "pressed_min": 399,
+      "pressed_max": 399,
+      "released_min": 444,
+      "released_max": 450
+    },
+    {
+      "logical": [
+        3,
+        14
+      ],
+      "physical": [
+        0,
+        5
+      ],
+      "pressed_min": 400,
+      "pressed_max": 401,
+      "released_min": 449,
+      "released_max": 455
+    },
+    {
+      "logical": [
+        3,
+        17
+      ],
+      "physical": [
+        0,
+        2
+      ],
+      "pressed_min": 397,
+      "pressed_max": 398,
+      "released_min": 441,
+      "released_max": 449
+    },
+    {
+      "logical": [
+        3,
+        15
+      ],
+      "physical": [
+        0,
+        4
+      ],
+      "pressed_min": 400,
+      "pressed_max": 401,
+      "released_min": 444,
+      "released_max": 450
+    }
+  ]
+}

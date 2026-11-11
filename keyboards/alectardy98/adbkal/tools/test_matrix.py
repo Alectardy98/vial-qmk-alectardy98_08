@@ -36,6 +36,7 @@ bool readPin(pin_t pin);
     (work / "timer.h").write_text("""
 #include <stdint.h>
 typedef uint16_t fast_timer_t;
+#define TIMER_DIFF_FAST(a, b) ((uint16_t)((a) - (b)))
 uint16_t timer_read_fast(void);
 uint16_t timer_elapsed_fast(uint16_t then);
 """)
@@ -95,8 +96,10 @@ int main(void) {
         ++tested;
     }
     // Simultaneous matrix keys and direct modifiers must share one debounce pass.
-    switches[2][1]=switches[4][0]=switches[10][1]=true; scan_for(20);
-    if (check(2,1,true)||check(4,0,true)||check(10,1,true)) return 1;
+    switches[2][1]=switches[4][0]=true;
+    switches[10][0]=switches[10][1]=switches[10][3]=switches[11][0]=true;
+    scan_for(20);
+    if (check(2,1,true)||check(4,0,true)||check(10,0,true)||check(10,1,true)||check(10,3,true)||check(11,0,true)) return 1;
     memset(switches,0,sizeof(switches)); scan_for(20);
     for (int r=0;r<12;++r) if (cooked[r]) return 1;
     // A short bounce must not emit a key; a subsequent stable press must arrive.
@@ -106,12 +109,29 @@ int main(void) {
     if (check(0,1,false)) return 1;
     switches[0][1]=true; scan_for(20);
     if (check(0,1,true)) return 1;
-    printf("PASS: %d switch positions press/release, simultaneous modifiers, and bounce filtering\\n",tested);
+    memset(switches,0,sizeof(switches)); scan_for(20);
+    // Chatter on one key must not suppress the direct modifiers or a letter.
+    switches[4][0]=switches[10][0]=switches[10][1]=switches[10][3]=true;
+    for (int t=0;t<100;t++) {
+        switches[11][0]=(t%4)<2;
+        scan_for(1);
+    }
+    if (check(4,0,true)||check(10,0,true)||check(10,1,true)||check(10,3,true)) return 1;
+    // A noisy matrix key must not suppress a stable Caps switch either.
+    switches[11][0]=true;
+    for (int t=0;t<100;t++) {
+        switches[0][0]=(t%4)<2;
+        scan_for(1);
+    }
+    if (check(11,0,true)) return 1;
+    memset(switches,0,sizeof(switches)); scan_for(20);
+    for (int r=0;r<12;++r) if (cooked[r]) return 1;
+    printf("PASS: %d switch positions press/release, simultaneous modifiers, bounce filtering, and isolation from unrelated chatter\\n",tested);
     return 0;
 }
 """)
     subprocess.run(["cc", "-std=c11", "-Wall", "-Wextra", "-Wno-unused-parameter",
                     "-I", str(work), "-I", str(repo / "quantum"),
-                    str(scanner), str(repo / "quantum/debounce/sym_defer_g.c"),
+                    str(scanner), str(repo / "quantum/debounce/sym_defer_pk.c"),
                     str(work / "main.c"), "-o", str(work / "test")], check=True)
     subprocess.run([str(work / "test")], check=True)

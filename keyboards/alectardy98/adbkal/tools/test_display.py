@@ -28,6 +28,11 @@ typedef struct { struct { struct { uint8_t row, col; } key; bool pressed; } even
 #define ADBK_DISPLAY_CS_PIN 1
 #define NO_PIN 255
 #define ADBK_SCREEN 0x7e00
+#define KC_LCAP 0x82
+#define KC_CAPS 0x39
+#define TAP_HOLD_CAPS_DELAY 80
+void register_code(uint8_t code);
+void unregister_code(uint8_t code);
 led_t host_keyboard_led_state(void);
 uint8_t get_current_wpm(void);
 bool wpm_keycode(uint16_t keycode);
@@ -67,6 +72,8 @@ static uint8_t speed;
 static led_t leds;
 static bool cs, started, fail_spi;
 static unsigned packets, user_pre, user_process;
+static unsigned caps_presses, caps_releases;
+static bool reported_caps;
 static uint8_t packet[FRAME_LEN];
 led_t host_keyboard_led_state(void) { return leds; }
 uint8_t get_current_wpm(void) { return speed; }
@@ -76,6 +83,14 @@ bool pre_process_record_user(uint16_t code, keyrecord_t *record) { (void)code; (
 bool process_record_user(uint16_t code, keyrecord_t *record) { (void)code; (void)record; ++user_process; return true; }
 void keyboard_post_init_user(void) {}
 void housekeeping_task_user(void) {}
+void register_code(uint8_t code) {
+    assert(code == KC_CAPS && !reported_caps);
+    reported_caps = true; ++caps_presses;
+}
+void unregister_code(uint8_t code) {
+    assert(code == KC_CAPS && reported_caps);
+    reported_caps = false; ++caps_releases;
+}
 void wait_us(unsigned us) { (void)us; }
 void setPinOutput(unsigned pin) { assert(pin == 1); }
 void writePinLow(unsigned pin) { assert(pin == 1); cs = false; }
@@ -169,6 +184,56 @@ int main(void) {
     bool phase = vcom; fail_spi = true; dirty = true; advance(50);
     assert(dirty && vcom == phase); fail_spi = false; advance(50);
     assert(!dirty && vcom != phase);
+    // Locking Caps must leave the scan loop free during both timed pulses.
+    leds.raw = 0;
+    keyrecord_t caps = {.event = {.key = {11,0}, .pressed = true}};
+    uint32_t before_caps = now;
+    assert(!process_record_kb(KC_LCAP, &caps));
+    caps_lock_task();
+    assert(now == before_caps && caps_presses == 1 && reported_caps);
+    key.event.pressed = true;
+    assert(pre_process_record_kb(4, &key) && process_record_kb(4, &key));
+    assert(now == before_caps); // an ordinary key can run while Caps is down
+    now += 79; caps_lock_task(); assert(reported_caps);
+    now += 1; caps_lock_task(); assert(!reported_caps && caps_releases == 1);
+    leds.caps_lock = true; caps_lock_task();
+    caps.event.pressed = false;
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    assert(reported_caps && caps_presses == 2);
+    now += 79; caps_lock_task(); assert(reported_caps);
+    now += 1; caps_lock_task(); assert(!reported_caps && caps_releases == 2);
+    leds.caps_lock = false; caps_lock_task();
+    // A reversal during a pulse waits for the first host LED acknowledgement.
+    caps.event.pressed = true;
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    caps.event.pressed = false;
+    assert(!process_record_kb(KC_LCAP, &caps));
+    now += 80; caps_lock_task(); caps_lock_task();
+    assert(caps_presses == 3 && caps_pending && !reported_caps);
+    now += 20; leds.caps_lock = true; caps_lock_task();
+    assert(caps_presses == 4 && reported_caps);
+    now += 80; caps_lock_task();
+    leds.caps_lock = false; caps_lock_task();
+    // Already matching host state needs no pulse.
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    assert(caps_presses == 4 && !reported_caps);
+    // Missing host feedback cannot block later switch events indefinitely.
+    caps.event.pressed = true;
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    now += 80; caps_lock_task();
+    now += 499; caps_lock_task(); assert(caps_waiting);
+    now += 1; caps_lock_task(); assert(!caps_waiting && caps_presses == 5);
+    now += 1000; caps_lock_task(); assert(caps_presses == 5); // no retry storm
+    caps.event.pressed = false;
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    assert(!reported_caps);
+    // Pulse timing also survives the 32-bit timer wrapping.
+    now = UINT32_MAX - 40;
+    caps.event.pressed = true;
+    assert(!process_record_kb(KC_LCAP, &caps)); caps_lock_task();
+    now += 80; caps_lock_task(); assert(!reported_caps && caps_releases == 6);
+    assert(caps_presses == caps_releases);
+    puts("PASS: nonblocking locking Caps on/off timing, concurrent key processing, queued reversals, host feedback timeout, and timer wrap");
     puts("PASS: boot default, mode/button handling, five-second WPM normalization (5 taps=12 WPM; sustained 5 chars/sec=60 WPM), one-second idle clear, WPM/locks, animation, 180-degree SPI output/VCOM and retry; ASan/UBSan clean");
     return 0;
 }

@@ -17,6 +17,9 @@
 #include "quantum.h"
 #include "util_protocol.h"
 #include "common.h"
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+#include "pio_matrix_scan.h"
+#endif
 
 #ifdef VIA_ENABLE
 
@@ -43,6 +46,34 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
         switch ( command_get_set ) {
             case id_get_keyboard_value: {
                 switch( command_id ) {
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+                    case id_leyden_jar_scan_status: {
+                        pio_gpio_columns_status(command_payload);
+                        protocol_answer_ok = true;
+                        break;
+                    }
+#endif
+                    case id_leyden_jar_calibration_capabilities: {
+                        memset(command_payload, 0, length - 4);
+                        command_payload[0] = 1; // Extension schema.
+                        command_payload[1] = 3; // Persistent offsets and restore defaults.
+                        command_payload[2] = 16; // Maximum supported groups.
+                        protocol_answer_ok = true;
+                        break;
+                    }
+                    case id_leyden_jar_calibration_preference: {
+                        uint16_t bin;
+                        int16_t offset, default_offset;
+                        bool saved;
+                        memcpy(&bin, command_payload, sizeof(bin));
+                        if (bin < NB_CAL_BINS && leyden_jar_get_calibration_preference(bin, &offset, &default_offset, &saved)) {
+                            memcpy(command_payload + 2, &offset, sizeof(offset));
+                            memcpy(command_payload + 4, &default_offset, sizeof(default_offset));
+                            command_payload[6] = saved;
+                            protocol_answer_ok = true;
+                        }
+                        break;
+                    }
                     case id_leyden_jar_protocol_version: {
                         uint8_t* major_ptr = command_payload;
                         uint8_t* mid_ptr = command_payload + 1;
@@ -54,16 +85,39 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                         break;
                     }
                     case id_leyden_jar_details: {
+                        memset(command_payload, 0, length - 4);
                         command_payload[0] = MATRIX_ROWS;
                         command_payload[1] = MATRIX_COLS;
                         command_payload[2] = CONTROLLER_ROWS;
                         command_payload[3] = CONTROLLER_COLS;
                         command_payload[4] = (leyden_jar_is_beamspring() == true) ? 1 : 0;
                         command_payload[5] = NB_CAL_BINS;
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+                        /* Existing 0.10.2 clients identify the 4x20 packet by
+                         * these fixed markers. Actual GPIOs follow below. */
+                        command_payload[6] = 2;
+                        command_payload[10] = 31;
+                        command_payload[11] = 32;
+                        command_payload[12] = 4; // Four GPIO drives, sixteen native drives.
+                        command_payload[13] = 4;
+                        command_payload[14] = 7;
+#endif
+#ifdef LEYDEN_JAR_DIRECT_KEY_PIN
+                        /* 0.10.1 optional direct-switch descriptor. Capacitive
+                         * mapping and level replies retain their old format.
+                         */
+                        command_payload[6] = 1;
+                        command_payload[7] = LEYDEN_JAR_DIRECT_KEY_ROW;
+                        command_payload[8] = LEYDEN_JAR_DIRECT_KEY_COL;
+                        command_payload[9] = LEYDEN_JAR_DIRECT_KEY_PIN;
+#endif
                         protocol_answer_ok = true;
                         break;
                     }
                     case id_leyden_jar_matrix_mapping: {
+                        if (1 + CONTROLLER_COLS + CONTROLLER_ROWS > length - 4) {
+                            break;
+                        }
                         command_payload[0] = leyden_jar_get_matrix_to_controller_type();
                         leyden_jar_get_matrix_to_controller_cols(command_payload + 1, CONTROLLER_COLS);
                         leyden_jar_get_matrix_to_controller_rows(command_payload + 1 + CONTROLLER_COLS, CONTROLLER_ROWS);
@@ -122,6 +176,16 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
             }
             case id_set_keyboard_value: {
                 switch( command_id ) {
+                    case id_leyden_jar_calibration_preference: {
+                        int16_t offset;
+                        memcpy(&offset, command_payload, sizeof(offset));
+                        protocol_answer_ok = leyden_jar_save_calibration_offset(command_payload[2], offset);
+                        break;
+                    }
+                    case id_leyden_jar_calibration_defaults: {
+                        protocol_answer_ok = leyden_jar_restore_calibration_defaults();
+                        break;
+                    }
                     case id_leyden_jar_dac_threshold: {
                         uint16_t threshold = *(uint16_t *)command_payload;
                         uint8_t bin_number = *(command_payload + 2);

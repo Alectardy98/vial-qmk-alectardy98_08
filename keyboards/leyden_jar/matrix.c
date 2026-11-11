@@ -58,7 +58,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 }
 
 /*
- * This empty function disables bootmagic lite feature, were plugging in the keyboard while a particuliar key is pressed
+ * This empty hook disables the startup bootmagic scan, where plugging in the keyboard while a particular key is pressed
  * allows the MCU to go to the bootloader.
  * We do that because when VIA/Vial features are activated this also activate the bootmagic lite feature, even if the
  * value of "bootmagic" field in info.json has the value false.
@@ -72,4 +72,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
  * - Use the Leyden Jar Diagnostic Tool.
  */
 
-void bootmagic_lite(void){}
+/* Current QMK calls bootmagic_scan(); the old bootmagic_lite() name no longer
+ * overrides it. Keep the native safeguard even when VIA enables bootmagic.
+ */
+void bootmagic_scan(void) {}

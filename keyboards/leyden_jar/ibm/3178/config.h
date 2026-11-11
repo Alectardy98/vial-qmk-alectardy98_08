@@ -6,10 +6,14 @@
 #define I2C1_SCL_PIN GP17
 #define I2C1_CLOCK_SPEED 400000
 #define CONTROLLER_ROWS 8
-#define CONTROLLER_COLS 18
-#define LEYDEN_JAR_MATRIX_ROWS {7, 6, 5, 4, 3, 2, 1, 0}
+#define CONTROLLER_COLS 16
+#define LEYDEN_JAR_MATRIX_ROWS {7, 6, 5, 4, 3, 2, 1, 0, 255}
 #define LEYDEN_JAR_MATRIX_COLS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 255, 255, 255, 255, 255}
-#define LEYDEN_JAR_ACTIVE_PADS {0x6a, 0xff, 0xff, 0xbf, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xaa, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}
+#define LEYDEN_JAR_ACTIVE_PADS {0x6a, 0xff, 0xff, 0xbf, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xaa, 0x0, 0x0, 0x0, 0x0}
+#define LEYDEN_JAR_DIRECT_KEY_PIN GP27
+#define LEYDEN_JAR_DIRECT_KEY_ROW 8
+#define LEYDEN_JAR_DIRECT_KEY_COL 12
+#define LEYDEN_JAR_LEVEL_SCAN_MAX 900
 #define NB_CAL_BINS 1
 #define ACTIVATION_OFFSETS {10}
 #define HAPTIC_ENABLE_PIN GP28

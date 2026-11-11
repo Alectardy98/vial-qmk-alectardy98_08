@@ -21,6 +21,7 @@
 #include "dac.h"
 #include "io_expander.h"
 #include "pio_matrix_scan.h"
+#include "calibration_store.h"
 
 typedef struct {
     uint8_t bin;
@@ -34,6 +35,12 @@ typedef struct {
 } key_with_level_info_t;
 
 #define UNCONNECTED_LEVEL 380
+
+#ifndef LEYDEN_JAR_LEVEL_SCAN_MAX
+#define LEYDEN_JAR_LEVEL_SCAN_MAX 500
+#endif
+_Static_assert(LEYDEN_JAR_LEVEL_SCAN_MAX > 350 && LEYDEN_JAR_LEVEL_SCAN_MAX <= 1024,
+               "Level sweep must fit the ten-bit DAC range");
 
 #ifndef NB_CAL_BINS
 #define NB_CAL_BINS 1
@@ -50,6 +57,7 @@ static uint8_t s_bin_map[CONTROLLER_COLS][CONTROLLER_ROWS];
 static uint16_t s_dac_thresholds[NB_CAL_BINS];
 static uint16_t s_dac_ref_level[NB_CAL_BINS];
 static size_t s_sorted_level_count;
+static bool s_calibration_ready;
 
 /* IBM ports exclude unwired pads from both calibration and key reporting.
  * Existing Model F Labs boards retain their original full-matrix behaviour. */
@@ -68,10 +76,13 @@ static bool leyden_jar_pad_is_active(uint8_t row, uint8_t col) {
 #endif
 }
 static bool s_is_keyboard_enabled;
-static uint8_t s_RawMergedBinsMatrixScanValues[18];
+static uint8_t s_RawMergedBinsMatrixScanValues[CONTROLLER_COLS];
 static matrix_row_t s_logical_matrix_scan[MATRIX_ROWS];
 
-static int16_t s_bin_activation_offsets[] = ACTIVATION_OFFSETS;
+static const int16_t s_bin_activation_offsets[] = ACTIVATION_OFFSETS;
+_Static_assert(NB_CAL_BINS <= LEYDEN_JAR_MAX_CAL_BINS, "Too many calibration bins");
+_Static_assert(sizeof(s_bin_activation_offsets) / sizeof(s_bin_activation_offsets[0]) == NB_CAL_BINS,
+               "Every calibration bin needs a default offset");
 
 #ifdef CUSTOM_CAL_BIN_KEYS
     static key_info_t s_custom_cal_bin_key_elems[] = CUSTOM_CAL_BIN_KEYS;
@@ -81,11 +92,23 @@ static int16_t s_bin_activation_offsets[] = ACTIVATION_OFFSETS;
 
 #if defined(LEYDEN_JAR_MATRIX_ROWS) && defined(LEYDEN_JAR_MATRIX_COLS)
     /* Explicit connector translation; no AVR GPIO names enter these ports. */
-    static const uint8_t s_matrixToControllerCol[18] = LEYDEN_JAR_MATRIX_COLS;
-    static const uint8_t s_matrixToControllerRow[8] = LEYDEN_JAR_MATRIX_ROWS;
+    static const uint8_t s_matrixToControllerCol[(CONTROLLER_COLS > 18) ? CONTROLLER_COLS : 18] = LEYDEN_JAR_MATRIX_COLS;
+    static const uint8_t s_matrixToControllerRow[(MATRIX_ROWS > 8) ? MATRIX_ROWS : 8] = LEYDEN_JAR_MATRIX_ROWS;
     static const uint8_t s_matrixLayout = MATRIX_LAYOUT_IS_XWHATSIT;
+#ifdef LEYDEN_JAR_DIRECT_KEY_PIN
+    /* The ninth logical row is a switch, never a comparator/sense channel. */
+    _Static_assert(MATRIX_ROWS == 9 && LEYDEN_JAR_DIRECT_KEY_ROW == 8,
+                   "Only the explicit extra direct-switch row may exceed eight");
+    _Static_assert(LEYDEN_JAR_DIRECT_KEY_COL < MATRIX_COLS, "Direct switch column out of bounds");
+    _Static_assert(LEYDEN_JAR_DIRECT_KEY_PIN == 27 && CONTROLLER_COLS == 16,
+                   "Reserve GPIO27 by disabling the extra PIO column pair");
+#else
     _Static_assert(MATRIX_ROWS <= 8, "Leyden Jar Rev 3 has eight sense inputs");
-    _Static_assert(MATRIX_COLS <= 18, "Leyden Jar Rev 3 has eighteen drive outputs");
+#endif
+    _Static_assert(MATRIX_COLS <= CONTROLLER_COLS, "Logical columns exceed the configured scanner");
+#ifndef LEYDEN_JAR_GPIO_COLUMNS
+    _Static_assert(CONTROLLER_COLS <= 18, "Additional columns need an explicit scanner implementation");
+#endif
 #elif defined(MATRIX_FORMAT_XWHATSIT)
 
     #if defined(BOARD_MODEL_IS_F77) || defined(BOARD_MODEL_IS_F62)
@@ -118,19 +141,92 @@ static int16_t s_bin_activation_offsets[] = ACTIVATION_OFFSETS;
 #define MATRIX_TO_CONTROLLER_COL(col) s_matrixToControllerCol[col]
 #define MATRIX_TO_CONTROLLER_ROW(row) s_matrixToControllerRow[row]
 
-static void leyden_jar_detect_levels(void) {
+static const uint8_t *leyden_jar_acquire_scan(void) {
+    pio_raw_scan();
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+    if (!pio_gpio_columns_ready()) {
+        s_is_keyboard_enabled = false;
+        s_calibration_ready = false;
+        return NULL;
+    }
+#endif
+    return pio_get_scan_vals();
+}
+
+static bool leyden_jar_detect_levels(void) {
     for (int col = 0; col < CONTROLLER_COLS; col++) {
         for (int row=0; row<CONTROLLER_ROWS; row++) {
             s_matrix_levels[col][row] = 0;
         }
     }
 
-    for (uint16_t dac_val=350; dac_val < 500; dac_val++) {
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+    /* A full-range linear sweep takes too long at startup.
+     * A scan at one DAC value compares every active pad at once. Maintain a
+     * true/false interval per pad and share each successive comparison across
+     * all intervals. This searches the full ten-bit range without a clipped
+     * calibration or a heap allocation; ordinary native boards keep their
+     * original sweep below. -1/1024 are the out-of-range sentinels. */
+    int16_t low[CONTROLLER_COLS][CONTROLLER_ROWS];
+    int16_t high[CONTROLLER_COLS][CONTROLLER_ROWS];
+    for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
+        for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
+            low[col][row] = -1;
+            high[col][row] = 1024;
+        }
+    }
+    for (unsigned comparisons = 0; comparisons < 1024; ++comparisons) {
+        int width = 1, probe = 0;
+        for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
+            for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
+                int span = high[col][row] - low[col][row];
+                if (leyden_jar_pad_is_active(row, col) && span > width) {
+                    width = span;
+                    probe = low[col][row] + span / 2;
+                }
+            }
+        }
+        if (width == 1) {
+            for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
+                for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
+                    s_matrix_levels[col][row] = low[col][row] < 0 ? 0 : low[col][row];
+                }
+            }
+            return true;
+        }
+        if (!dac_write_val(probe)) {
+            s_is_keyboard_enabled = false;
+            s_calibration_ready = false;
+            return false;
+        }
+        wait_us(100);
+        const uint8_t *raw = leyden_jar_acquire_scan();
+        if (!raw) {
+            return false;
+        }
+        for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
+            for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
+                if (probe > low[col][row] && probe < high[col][row]) {
+                    if (raw[col] & (1u << row)) {
+                        low[col][row] = probe;
+                    } else {
+                        high[col][row] = probe;
+                    }
+                }
+            }
+        }
+    }
+    s_is_keyboard_enabled = false;
+    s_calibration_ready = false;
+    return false;
+#else
+    for (uint16_t dac_val=350; dac_val < LEYDEN_JAR_LEVEL_SCAN_MAX; dac_val++) {
         dac_write_val(dac_val);
         wait_us(100);
-        pio_raw_scan();
-
-        const uint8_t* p_raw_vals = pio_get_scan_vals();
+        const uint8_t* p_raw_vals = leyden_jar_acquire_scan();
+        if (!p_raw_vals) {
+            return false;
+        }
 
         for (int col = 0; col < CONTROLLER_COLS; col++) {
             for (int row = 0; row < CONTROLLER_ROWS; row++) {
@@ -140,6 +236,8 @@ static void leyden_jar_detect_levels(void) {
             }
         }
     }
+    return true;
+#endif
 }
 
 static size_t leyden_jar_get_nb_custom_cal_bin_key_elems(void) {
@@ -264,7 +362,35 @@ static void leyden_jar_compute_dac_thresholds(int bin_number, int16_t activation
     }
 }
 
-static void leyden_jar_raw_matrix_scan(void) {
+/* Tie preferences to the compiled wiring and bin configuration. Different
+ * keymaps/firmware must not silently inherit an incompatible calibration.
+ * Sorted bins still regroup by released level on every startup, as before.
+ */
+static uint32_t calibration_signature(void) {
+    uint32_t value = 2166136261u;
+#define HASH_CONFIG(array) do { \
+    const uint8_t *bytes = (const uint8_t *)(array); \
+    for (size_t i = 0; i < sizeof(array); ++i) value = (value ^ bytes[i]) * 16777619u; \
+} while (0)
+    const uint8_t dimensions[] = {MATRIX_ROWS, MATRIX_COLS, CONTROLLER_ROWS, CONTROLLER_COLS,
+                                 NB_CAL_BINS, NB_CUSTOM_CAL_BINS, leyden_jar_is_beamspring()};
+    HASH_CONFIG(dimensions);
+    HASH_CONFIG(s_matrixToControllerRow);
+    HASH_CONFIG(s_matrixToControllerCol);
+    HASH_CONFIG(s_bin_activation_offsets);
+    HASH_CONFIG(s_custom_cal_bin_key_elems);
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+    const uint8_t drive_pins[] = {4, 5, 6, 7};
+    HASH_CONFIG(drive_pins);
+#endif
+#ifdef LEYDEN_JAR_ACTIVE_PADS
+    HASH_CONFIG(s_active_pads);
+#endif
+#undef HASH_CONFIG
+    return value;
+}
+
+static bool leyden_jar_raw_matrix_scan(void) {
 
     memset(s_RawMergedBinsMatrixScanValues, 0, sizeof(s_RawMergedBinsMatrixScanValues));
 
@@ -272,8 +398,13 @@ static void leyden_jar_raw_matrix_scan(void) {
         dac_write_val(s_dac_thresholds[bin_number]);
         wait_us(100);
 
-        pio_raw_scan();
-        const uint8_t* p_raw_vals = pio_get_scan_vals();
+        const uint8_t* p_raw_vals = leyden_jar_acquire_scan();
+        if (!p_raw_vals) {
+            /* Never report an I2C/capture failure as all beamspring keys down. */
+            memset(s_RawMergedBinsMatrixScanValues, leyden_jar_is_beamspring() ? 0xff : 0,
+                   sizeof(s_RawMergedBinsMatrixScanValues));
+            return false;
+        }
 
         for (int col = 0; col < CONTROLLER_COLS; col++) {
             for (int row = 0; row < CONTROLLER_ROWS; row++) {
@@ -283,6 +414,7 @@ static void leyden_jar_raw_matrix_scan(void) {
             }
         }
     }
+    return true;
 }
 
 static const uint8_t* leyden_jar_get_scan_vals(void) {
@@ -292,14 +424,23 @@ static const uint8_t* leyden_jar_get_scan_vals(void) {
 void leyden_jar_init(void) {
     dac_init();
     io_expander_init();
-    pio_matrix_scan_init(CONTROLLER_COLS == 18);
+    pio_matrix_scan_init(CONTROLLER_COLS >= 18);
+#ifdef LEYDEN_JAR_DIRECT_KEY_PIN
+    /* GPIO27 is not claimed by either of the two 16-column PIO programs.
+     * J2.30/COL17 reaches it through R47 (1k); the button closes to GND.
+     */
+    setPinInputHigh(LEYDEN_JAR_DIRECT_KEY_PIN);
+#endif
 
     s_is_keyboard_enabled = true;
 }
 
 void leyden_jar_calibrate(void) {
-    leyden_jar_detect_levels();
+    if (!leyden_jar_detect_levels()) {
+        return;
+    }
     leyden_jar_sort_level_values();
+    leyden_jar_calibration_store_load(calibration_signature(), NB_CAL_BINS, s_bin_activation_offsets);
 
     size_t nb_custom_cal_bin_key_elems = leyden_jar_get_nb_custom_cal_bin_key_elems();
 
@@ -346,7 +487,14 @@ void leyden_jar_calibrate(void) {
     for (size_t bin_number = 0; bin_number < NB_CAL_BINS; bin_number++) {
         size_t last_elem_offset = first_elem_offset + bin_size_array[bin_number] - 1;
 
-        leyden_jar_compute_dac_thresholds(bin_number, s_bin_activation_offsets[bin_number], first_elem_offset, last_elem_offset);
+        int16_t offset = leyden_jar_calibration_offset(bin_number);
+        uint16_t reference = s_sorted_levels[first_elem_offset + (last_elem_offset + 1 - first_elem_offset) / 2].level;
+        int32_t trigger = (int32_t)reference + offset;
+        if (trigger < 0 || trigger > 1023 ||
+            (leyden_jar_is_beamspring() ? offset >= 0 : offset <= 0)) {
+            offset = s_bin_activation_offsets[bin_number];
+        }
+        leyden_jar_compute_dac_thresholds(bin_number, offset, first_elem_offset, last_elem_offset);
 
         for (size_t bin_elem = first_elem_offset; bin_elem <= last_elem_offset; bin_elem++) {
             s_bin_map[s_sorted_levels[bin_elem].key_info.col][s_sorted_levels[bin_elem].key_info.row] = bin_number;
@@ -354,6 +502,7 @@ void leyden_jar_calibrate(void) {
 
         first_elem_offset += bin_size_array[bin_number];
     }
+    s_calibration_ready = true;
 }
 
 void leyden_jar_update(void) {
@@ -361,6 +510,11 @@ void leyden_jar_update(void) {
 }
 
 void leyden_jar_enable(bool enable) {
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+    if (enable && (!s_calibration_ready || !pio_gpio_columns_ready())) {
+        return;
+    }
+#endif
     s_is_keyboard_enabled = enable;
 }
 
@@ -369,12 +523,13 @@ bool leyden_jar_is_enabled() {
 }
 
 void leyden_jar_logical_matrix_scan(matrix_row_t current_matrix[]) {
-    leyden_jar_raw_matrix_scan();
-    const uint8_t* p_raw_vals = leyden_jar_get_scan_vals();
-
     for (int row = 0; row < MATRIX_ROWS; row++) {
         current_matrix[row] = 0;
     }
+    if (!leyden_jar_raw_matrix_scan()) {
+        return;
+    }
+    const uint8_t* p_raw_vals = leyden_jar_get_scan_vals();
 
     for (int col = 0; col < MATRIX_COLS; col++) {
         int physCol = (int)MATRIX_TO_CONTROLLER_COL(col);
@@ -391,6 +546,11 @@ void leyden_jar_logical_matrix_scan(matrix_row_t current_matrix[]) {
             current_matrix[row] |= rowVal;
         }
     }
+#ifdef LEYDEN_JAR_DIRECT_KEY_PIN
+    if (!readPin(LEYDEN_JAR_DIRECT_KEY_PIN)) {
+        current_matrix[LEYDEN_JAR_DIRECT_KEY_ROW] |= (matrix_row_t)1u << LEYDEN_JAR_DIRECT_KEY_COL;
+    }
+#endif
 }
 
 bool leyden_jar_get_column_bin_map(uint16_t col_index, uint8_t* bin_map_ptr, uint16_t bin_map_buffer_size) {
@@ -406,9 +566,7 @@ bool leyden_jar_get_column_bin_map(uint16_t col_index, uint8_t* bin_map_ptr, uin
 }
 
 bool leyden_jar_set_detect_levels() {
-    leyden_jar_detect_levels();
-
-    return true;
+    return leyden_jar_detect_levels();
 }
 
 bool leyden_jar_get_column_levels(uint16_t col_index, uint16_t* level_buffer_ptr, uint16_t level_buffer_size) {
@@ -454,10 +612,69 @@ bool leyden_jar_set_dac_threshold(uint16_t dac_threshold, uint8_t bin_number) {
     return true;
 }
 
+bool leyden_jar_get_calibration_preference(uint8_t bin, int16_t *offset, int16_t *default_offset, bool *saved) {
+    if (bin >= NB_CAL_BINS) {
+        return false;
+    }
+    *offset = leyden_jar_calibration_offset(bin);
+    *default_offset = s_bin_activation_offsets[bin];
+    *saved = leyden_jar_calibration_is_saved(bin);
+    return true;
+}
+
+bool leyden_jar_save_calibration_offset(uint8_t bin, int16_t offset) {
+    if (!s_calibration_ready || !leyden_jar_is_controller_soldered() || bin >= NB_CAL_BINS ||
+        (leyden_jar_is_beamspring() ? offset >= 0 : offset <= 0)) {
+        return false;
+    }
+    int32_t trigger = (int32_t)s_dac_ref_level[bin] + offset;
+    if (trigger < 0 || trigger > 1023) {
+        return false;
+    }
+    uint16_t previous = s_dac_thresholds[bin];
+    if (!leyden_jar_set_dac_threshold(trigger, bin)) {
+        return false;
+    }
+    if (!leyden_jar_calibration_store_save(bin, offset)) {
+        s_dac_thresholds[bin] = previous;
+        return false;
+    }
+    return true;
+}
+
+bool leyden_jar_restore_calibration_defaults(void) {
+    if (!leyden_jar_calibration_store_reset()) {
+        return false;
+    }
+    /* Restore only calibration preferences, using the existing references.
+     * Never reboot/recalibrate with a held key or erase QMK/Vial settings.
+     */
+    for (uint8_t bin = 0; bin < NB_CAL_BINS; ++bin) {
+        int32_t trigger = (int32_t)s_dac_ref_level[bin] + s_bin_activation_offsets[bin];
+        if (!leyden_jar_is_controller_soldered()) {
+            s_dac_thresholds[bin] = leyden_jar_is_beamspring() ? 300 : 1023;
+        } else if (trigger >= 0 && trigger <= 1023) {
+            s_dac_thresholds[bin] = trigger;
+        }
+    }
+    return true;
+}
+
+void eeconfig_init_kb(void) {
+    /* QMK's EEPROM clear has already erased the block. Refresh RAM too, so
+     * the old offsets cannot survive until the next restart. This hook also
+     * runs before matrix initialization on a first boot, when refs are unset.
+     */
+    if (s_calibration_ready) {
+        leyden_jar_calibration_store_load(calibration_signature(), NB_CAL_BINS, s_bin_activation_offsets);
+        leyden_jar_restore_calibration_defaults();
+    }
+    eeconfig_init_user();
+}
+
 bool leyden_jar_set_enable_keyboard(uint8_t enable) {
     leyden_jar_enable(enable != 0);
-
-    return true;
+    return leyden_jar_is_enabled() == (enable != 0);
 }
 
 bool leyden_jar_get_enable_keyboard(uint8_t* is_enabled) {
@@ -468,14 +685,15 @@ bool leyden_jar_get_enable_keyboard(uint8_t* is_enabled) {
 
 bool leyden_jar_set_scan_logical_matrix() {
     leyden_jar_logical_matrix_scan(s_logical_matrix_scan);
-
+#ifdef LEYDEN_JAR_GPIO_COLUMNS
+    return pio_gpio_columns_ready();
+#else
     return true;
+#endif
 }
 
 bool leyden_jar_set_scan_physical_matrix(void) {
-    leyden_jar_raw_matrix_scan();
-
-    return true;
+    return leyden_jar_raw_matrix_scan();
 }
 
 bool leyden_jar_get_logical_matrix_row(uint32_t* logical_row_ptr, uint8_t row_index) {

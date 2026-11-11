@@ -3,12 +3,79 @@
 See [the matrix audit](MATRIX-AUDIT.md) for the corrected controller-family
 translation, physical FAT results and regression gate.
 
+Each board's README includes an ASCII Rev 3 controller reference, every J2/J3/J4
+pin, and its own logical row/column assignments. Blocked ports show their missing
+connections explicitly; these are not complete soldering guides. QMK coordinates
+are not original IBM ribbon pin numbers. Follow the board links in the table below.
+
+The separate Model F Labs reproduction targets have their own references:
+[B104](../b104/README.md), [B122](../b122/README.md),
+[F104](../f104/README.md), [F122](../f122/README.md),
+[F62](../f62/README.md), [F77](../f77/README.md), and the legacy
+[Beamspring Full](../brand_new_beamspring_full/README.md) /
+[Beamspring SSK](../brand_new_beamspring_ssk/README.md) targets.
+The legacy entries have unverified mappings and existing build issues.
+
+**Connector capacity is not a blanket support verdict.** The populated-signal
+[audit](DRIVE-CAPACITY.md) now counts actual layout positions and independent
+column signals, rather than rejecting boards by their inherited column numbers.
+The 17-column `3277_66key` and 18-column `3277_split_66key` have compact Rev 3
+adapter maps and compile. Wider matrices need additional drive support; spare
+I/O-expander outputs provide a possible route, not yet a validated scanner.
+Displaywriter and TEST-controller definitions remain separate wiring families.
+
+Refresh these documentation sections after changing mappings with
+`python3 keyboards/leyden_jar/ibm/tools/update_pin_readmes.py`; use `--check` to
+check for stale references without writing files. The tool does not build or flash firmware.
+
+The [3276 port](3276_3278_75key/README.md) uses GPIO4-7 after
+removal of U6. J4 remains available for the solenoid. The installed two-bin profile passed a full
+75-key physical sweep.
+
 These are **development candidates**, derived from the IBM layouts in
 `keyboards/xwhatsit/ibm` and the native Leyden Jar PIO/DAC/IO-expander implementation.
 They do not use the AVR scanner. Original IBM and Model F Labs reproduction
 boards are separate targets; matching product names do not prove matching wiring.
 
 ## Build and compatibility
+
+All Leyden Jar Vial variants now include `keyboards/leyden_jar/vial_features.mk`:
+four dynamic layers and Vial's normal EEPROM-dependent feature capacities replace
+the AVR-era layer/entry limits. QMK settings/Auto Shift, tap dance, combos, key
+overrides, repeat/alternate repeat, Caps Word, layer lock, dynamic macros,
+mouse keys, NKRO, Unicode and tri-layer support are compiled in. Features such
+as Auto Shift still follow their normal settings rather than being forced active.
+Console/command debugging and unsupported hardware drivers are not enabled.
+
+**Export your Vial configuration before upgrading or rolling back.** Four layers,
+expanded tables and the new keyboard data block change the EEPROM layout; QMK
+may initialize its settings on the first boot. Restore the exported configuration
+afterward. Never reinterpret an old EEPROM image as the new layout.
+
+Protocol 0.10.0 adds persistent calibration offsets in a versioned, checksummed
+48-byte keyboard data block within the existing 4096-byte logical EEPROM. The
+underlying RP2040 wear-levelled flash allocation stays unchanged. Startup auto
+calibration still measures references; saved offsets are relative to those
+references and tied to the compiled wiring/bin configuration. Bad or mismatched
+records fall back to defaults. GUI **Restore calibration defaults** clears only
+the overrides; QMK EEPROM clear also restores calibration defaults in RAM.
+The legacy native threshold command remains RAM-only for compatibility.
+
+Host regressions: `python3 keyboards/leyden_jar/tests/test_calibration.py`.
+
+The board overrides current QMK's weak `bootmagic_scan()` hook to keep the
+native startup safeguard active. The former `bootmagic_lite()` override did
+not disable the current upstream check. Software BOOT, mapped `QK_BOOT` and
+physical RP2040 BOOTSEL recovery remain available. Regression:
+`python3 keyboards/leyden_jar/tests/test_bootmagic.py`.
+
+Alec's F122 `vial_alec` has a keymap-local +16 startup offset: a released
+capture had a median of 379 and two pads near 390, above the prior +10 trigger
+of 389. This leaves at least five counts of released margin on that capture
+without adding scan passes or changing the connector map. Standard `vial`
+keeps its original default. Regression with the recorded F122 fixture:
+`python3 keyboards/leyden_jar/tests/test_f122_calibration.py`. Physical held-key
+and chord margins still require acceptance testing on the installed assembly.
 
 From the QMK repository root:
 
@@ -19,40 +86,40 @@ make leyden_jar/ibm/fat:vial_alec
 
 Replace `fat` and the keymap with a supported row below. Normal QMK compilation
 produces an RP2040 UF2. There are 29 imported board definitions and 38 retained
-keymap variants. **16 boards / 23 variants build; 13 boards are deliberately
-blocked.** A successful build does not verify an IBM connector or calibration.
+keymap variants. **20 boards / 29 variants build; 9 boards remain blocked by the current
+scanner or missing direct-key wiring.** A successful build does not verify an IBM connector or calibration.
 
 | Source board | Logical matrix | Keymaps | Rev 3 status |
 |---|---:|---|---|
-| `3101_3727_3278_87key` | 4×23 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `3178` | 9×13 | `vial`, `vial_alec` | **Blocked:** Logical rows exceed eight; extra direct keys or custom sense wiring need an adapter mapping; AVR direct-key GPIO wiring has no verified Rev 3 equivalent |
-| `3276_3278_75key` | 4×20 | `vial`, `vial_alec` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `3277_66key` | 4×17 | `vial` | **Blocked:** Source connector column numbering needs a verified compact Rev 3 adapter mapping |
-| `3277_78key` | 4×20 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `3277_split_66key` | 4×18 | `vial` | **Blocked:** Source connector column numbering needs a verified compact Rev 3 adapter mapping |
-| `3278_3279_led_78key` | 5×20 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector; AVR direct-key GPIO wiring has no verified Rev 3 equivalent |
-| `4978` | 8×22 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `5251` | 4×23 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `5251_hebrew` | 4×23 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `beamal` | 8×12 | `vial`, `vial_alec` | Candidate; physical validation needed |
-| `beamal_badpinout` | 16×16 | `vial` | **Blocked:** Logical rows exceed eight; extra direct keys or custom sense wiring need an adapter mapping |
-| `bigfoot_fxt_type_1` | 4×23 | `vial` | **Blocked:** Required drive columns exceed the Rev 3 eighteen-column connector |
-| `displaywriter` | 8×12 | `vial` | Candidate; physical validation needed |
-| `f104` | 8×14 | `vial` | Candidate; physical validation needed |
-| `f107` | 8×15 | `vial` | Candidate; physical validation needed |
-| `f122` | 8×16 | `vial`, `vial_alec` | Candidate; physical validation needed |
-| `f50` | 8×7 | `vial` | Candidate; physical validation needed |
-| `f62` | 8×8 | `vial` | Candidate; physical validation needed |
-| `fat` | 8×16 | `vial`, `vial_alec`, `vial_finley` | Candidate; physical validation needed |
-| `fext` | 8×15 | `vial` | Candidate; physical validation needed |
-| `fssk` | 8×12 | `vial` | Candidate; physical validation needed |
-| `fssk_v1_0b` | 8×12 | `vial` | Candidate; physical validation needed |
-| `fxt_type_2` | 8×12 | `vial` | Candidate; physical validation needed |
-| `fxtal` | 8×12 | `vial`, `vial_Karolus`, `vial_alec` | Candidate; physical validation needed |
-| `sun_fssk` | 8×16 | `vial`, `vial_alec` | Candidate; physical validation needed |
-| `test` | 16×16 | `vial` | **Blocked:** Logical rows exceed eight; extra direct keys or custom sense wiring need an adapter mapping |
-| `test2` | 8×12 | `vial` | Candidate; physical validation needed |
-| `xtant` | 8×12 | `vial` | Candidate; physical validation needed |
+| [3101_3727_3278_87key](3101_3727_3278_87key/README.md) | 4×23 | `vial` | **Blocked by current support:** 23 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [3178](3178/README.md) | 9×13 logical; 8×12 capacitive + switch | `vial`, `vial_alec` | Builds; GPIO27/J2.30 blue switch; physical acceptance required |
+| [3276_3278_75key](3276_3278_75key/README.md) | 4×20 | `vial`, `vial_alec` | GPIO4-7 modified header after U6 removal. 75-key physical sweep passed on the installed modified header |
+| [3277_66key](3277_66key/README.md) | 4×17 | `vial` | Builds; compact wiring adapter required; physical test pending |
+| [3277_78key](3277_78key/README.md) | 4×20 | `vial` | **Blocked by current support:** 20 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [3277_split_66key](3277_split_66key/README.md) | 4×18 | `vial` | Builds; compact wiring adapter required; physical test pending |
+| [3278_3279_led_78key](3278_3279_led_78key/README.md) | 5×20 | `vial` | **Blocked by current support:** 20 populated drive signals exceed the Rev 3 eighteen-column scanner; AVR direct-key GPIO wiring has no verified Rev 3 equivalent |
+| [4978](4978/README.md) | 8×22 | `vial` | **Blocked by current support:** 22 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [5251](5251/README.md) | 4×23 | `vial` | **Blocked by current support:** 22 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [5251_hebrew](5251_hebrew/README.md) | 4×23 | `vial` | **Blocked by current support:** 23 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [beamal](beamal/README.md) | 8×12 | `vial`, `vial_alec` | Builds; physical validation required |
+| [beamal_badpinout](beamal_badpinout/README.md) | 16×16 | `vial` | **Blocked by current support:** Logical rows exceed eight; extra direct keys or custom sense wiring need an adapter mapping |
+| [bigfoot_fxt_type_1](bigfoot_fxt_type_1/README.md) | 4×23 | `vial` | **Blocked by current support:** 23 populated drive signals exceed the Rev 3 eighteen-column scanner |
+| [displaywriter](displaywriter/README.md) | 8×12 | `vial` | Builds; physical validation required |
+| [f104](f104/README.md) | 8×14 | `vial` | Builds; physical validation required |
+| [f107](f107/README.md) | 8×15 | `vial` | Builds; physical validation required |
+| [f122](f122/README.md) | 8×16 | `vial`, `vial_alec` | Builds; physical validation required |
+| [f50](f50/README.md) | 8×7 | `vial` | Builds; physical validation required |
+| [f62](f62/README.md) | 8×8 | `vial` | Builds; physical validation required |
+| [fat](fat/README.md) | 8×16 | `vial`, `vial_alec`, `vial_finley` | Builds; physical validation required |
+| [fext](fext/README.md) | 8×15 | `vial` | Builds; physical validation required |
+| [fssk](fssk/README.md) | 8×12 | `vial` | Builds; physical validation required |
+| [fssk_v1_0b](fssk_v1_0b/README.md) | 8×12 | `vial` | Builds; physical validation required |
+| [fxt_type_2](fxt_type_2/README.md) | 8×12 | `vial` | Builds; physical validation required |
+| [fxtal](fxtal/README.md) | 8×12 | `vial`, `vial_Karolus`, `vial_alec` | Builds; physical validation required |
+| [sun_fssk](sun_fssk/README.md) | 8×16 | `vial`, `vial_alec` | Builds; physical validation required |
+| [test](test/README.md) | 16×16 | `vial` | **Blocked by current support:** Logical rows exceed eight; extra direct keys or custom sense wiring need an adapter mapping |
+| [test2](test2/README.md) | 8×12 | `vial` | Builds; physical validation required |
+| [xtant](xtant/README.md) | 8×12 | `vial` | Builds; physical validation required |
 
 Blocked targets fail in `rules.mk`, before a misleading partial firmware can be
 produced. Direct keys need a verified hardware input; matrices exceeding eight

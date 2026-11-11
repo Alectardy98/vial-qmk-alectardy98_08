@@ -8,8 +8,9 @@
 #define CONTROLLER_ROWS 8
 #define CONTROLLER_COLS 18
 #define LEYDEN_JAR_MATRIX_ROWS {0, 1, 2, 3, 4, 5, 6, 7}
-#define LEYDEN_JAR_MATRIX_COLS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 255, 255, 255, 255, 255, 255}
-#define LEYDEN_JAR_ACTIVE_PADS {0xff, 0xff, 0xff, 0xf6, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}
+/* Physical key sweep: J2 COL0..11 carry source columns 11..0. */
+#define LEYDEN_JAR_MATRIX_COLS {11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 255, 255, 255, 255, 255, 255}
+#define LEYDEN_JAR_ACTIVE_PADS {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf6, 0xff, 0xff, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}
 #define NB_CAL_BINS 1
 #define ACTIVATION_OFFSETS {-30}
 #define BEAMSPRING_KEYBOARD
