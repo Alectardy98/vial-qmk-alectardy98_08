@@ -58,6 +58,9 @@ static uint16_t s_dac_thresholds[NB_CAL_BINS];
 static uint16_t s_dac_ref_level[NB_CAL_BINS];
 static size_t s_sorted_level_count;
 static bool s_calibration_ready;
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+static bool s_live_level_capture;
+#endif
 
 /* IBM ports exclude unwired pads from both calibration and key reporting.
  * Existing Model F Labs boards retain their original full-matrix behaviour. */
@@ -141,6 +144,7 @@ _Static_assert(sizeof(s_bin_activation_offsets) / sizeof(s_bin_activation_offset
 #define MATRIX_TO_CONTROLLER_COL(col) s_matrixToControllerCol[col]
 #define MATRIX_TO_CONTROLLER_ROW(row) s_matrixToControllerRow[row]
 
+
 static const uint8_t *leyden_jar_acquire_scan(void) {
     pio_raw_scan();
 #ifdef LEYDEN_JAR_GPIO_COLUMNS
@@ -160,15 +164,22 @@ static bool leyden_jar_detect_levels(void) {
         }
     }
 
-#ifdef LEYDEN_JAR_GPIO_COLUMNS
+#if defined(LEYDEN_JAR_GPIO_COLUMNS) || defined(LEYDEN_JAR_RANGE_CALIBRATION)
     /* A full-range linear sweep takes too long at startup.
      * A scan at one DAC value compares every active pad at once. Maintain a
      * true/false interval per pad and share each successive comparison across
      * all intervals. This searches the full ten-bit range without a clipped
-     * calibration or a heap allocation; ordinary native boards keep their
+     * calibration or a heap allocation; other native boards keep their
      * original sweep below. -1/1024 are the out-of-range sentinels. */
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+    /* Live captures service keyboard_task() below. Keep its working buffers
+     * off the small main-thread stack while QMK processes keys and macros. */
+    static int16_t low[CONTROLLER_COLS][CONTROLLER_ROWS];
+    static int16_t high[CONTROLLER_COLS][CONTROLLER_ROWS];
+#else
     int16_t low[CONTROLLER_COLS][CONTROLLER_ROWS];
     int16_t high[CONTROLLER_COLS][CONTROLLER_ROWS];
+#endif
     for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
         for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
             low[col][row] = -1;
@@ -180,7 +191,12 @@ static bool leyden_jar_detect_levels(void) {
         for (unsigned col = 0; col < CONTROLLER_COLS; ++col) {
             for (unsigned row = 0; row < CONTROLLER_ROWS; ++row) {
                 int span = high[col][row] - low[col][row];
-                if (leyden_jar_pad_is_active(row, col) && span > width) {
+                bool measure = leyden_jar_pad_is_active(row, col);
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+                /* Preserve native diagnostics for unassigned connector pads. */
+                measure = true;
+#endif
+                if (measure && span > width) {
                     width = span;
                     probe = low[col][row] + span / 2;
                 }
@@ -215,6 +231,19 @@ static bool leyden_jar_detect_levels(void) {
                 }
             }
         }
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+        /* raw_hid_task() invokes the native utility command from the main
+         * loop, outside keyboard_task(). Service the actual QMK scanner,
+         * debounce, key actions, reports and solenoid task between probes.
+         * Consume the PIO result above first: a keyboard scan reuses it.
+         * The next probe writes its own DAC value again. Do not recursively
+         * poll Raw HID, and never run keyboard_task during startup calibration.
+         * The utility still receives its one reply after levels are complete.
+         */
+        if (s_live_level_capture) {
+            keyboard_task();
+        }
+#endif
     }
     s_is_keyboard_enabled = false;
     s_calibration_ready = false;
@@ -314,6 +343,61 @@ static bool leyden_jar_is_controller_soldered(void) {
     }
 }
 
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+/* Opt-in Model F calibration for assemblies with widely separated baselines.
+ * Equal-population bins can put a high released outlier above their median
+ * threshold. Minimise the widest level range instead, without adding bins at
+ * runtime or changing the native scanner. Only startup uses this search.
+ */
+static size_t leyden_jar_range_bin_count(size_t first, size_t end, uint16_t width) {
+    size_t count = 0;
+    while (first < end) {
+        uint16_t limit = s_sorted_levels[first++].level + width;
+        ++count;
+        while (first < end && s_sorted_levels[first].level <= limit) {
+            ++first;
+        }
+    }
+    return count;
+}
+
+static void leyden_jar_partition_ranges(size_t first, size_t end, size_t *sizes) {
+    const size_t count = NB_CAL_BINS - NB_CUSTOM_CAL_BINS;
+    uint16_t low = 0;
+    uint16_t high = s_sorted_levels[end - 1].level - s_sorted_levels[first].level;
+    while (low < high) {
+        uint16_t width = low + (high - low) / 2;
+        if (leyden_jar_range_bin_count(first, end, width) <= count) {
+            high = width;
+        } else {
+            low = width + 1;
+        }
+    }
+    for (size_t bin = NB_CUSTOM_CAL_BINS; bin < NB_CAL_BINS; ++bin) {
+        size_t next = first + 1;
+        /* Reserve one position for every remaining bin, including ties. */
+        size_t limit = end - (NB_CAL_BINS - bin - 1);
+        while (next < limit && s_sorted_levels[next].level - s_sorted_levels[first].level <= low) {
+            ++next;
+        }
+        sizes[bin] = next - first;
+        first = next;
+    }
+}
+#endif
+
+static uint16_t leyden_jar_bin_reference(size_t bin, size_t first, size_t last) {
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+    if (bin >= NB_CUSTOM_CAL_BINS) {
+        /* Every released pad in an automatic bin must be below its threshold. */
+        return s_sorted_levels[last].level;
+    }
+#else
+    (void)bin;
+#endif
+    return s_sorted_levels[first + (last + 1 - first) / 2].level;
+}
+
 /* We compute the threshold to were we consider that a key has been pressed.
  *
  * First step:
@@ -345,10 +429,10 @@ static bool leyden_jar_is_controller_soldered(void) {
  *     - Consequently allows to use QMK BOOT_MAGIC lite feature. */
 
 static void leyden_jar_compute_dac_thresholds(int bin_number, int16_t activation_offset, int first_elem_offset, int last_elem_offset) {
-    uint16_t median_val = s_sorted_levels[first_elem_offset + ((last_elem_offset + 1) - first_elem_offset) / 2].level;
+    uint16_t reference = leyden_jar_bin_reference(bin_number, first_elem_offset, last_elem_offset);
     bool is_controller_soldered = leyden_jar_is_controller_soldered();
 
-    s_dac_ref_level[bin_number] = median_val;
+    s_dac_ref_level[bin_number] = reference;
 
     if (is_controller_soldered == false) {
         if (activation_offset > 0) {
@@ -358,7 +442,12 @@ static void leyden_jar_compute_dac_thresholds(int bin_number, int16_t activation
         }
 
     } else {
-        s_dac_thresholds[bin_number] = (uint16_t)((int16_t)median_val + activation_offset);
+        int32_t threshold = (int32_t)reference + activation_offset;
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+        /* A saturated pad must not wrap the ten-bit DAC back to a low value. */
+        if (threshold > 1023) threshold = 1023;
+#endif
+        s_dac_thresholds[bin_number] = (uint16_t)threshold;
     }
 }
 
@@ -379,6 +468,10 @@ static uint32_t calibration_signature(void) {
     HASH_CONFIG(s_matrixToControllerCol);
     HASH_CONFIG(s_bin_activation_offsets);
     HASH_CONFIG(s_custom_cal_bin_key_elems);
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+    const uint16_t range_calibration[] = {1, LEYDEN_JAR_LEVEL_SCAN_MAX};
+    HASH_CONFIG(range_calibration);
+#endif
 #ifdef LEYDEN_JAR_GPIO_COLUMNS
     const uint8_t drive_pins[] = {4, 5, 6, 7};
     HASH_CONFIG(drive_pins);
@@ -469,6 +562,13 @@ void leyden_jar_calibrate(void) {
 
     int nb_standard_bins = (NB_CAL_BINS - NB_CUSTOM_CAL_BINS);
     if (nb_standard_bins > 0) {
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+        if (leyden_jar_is_beamspring() || end_offset - start_offset < (size_t)nb_standard_bins) {
+            s_is_keyboard_enabled = false;
+            return;
+        }
+        leyden_jar_partition_ranges(start_offset, end_offset, bin_size_array);
+#else
         int standard_bin_size = (end_offset - start_offset) / nb_standard_bins;
 
         while (bin_size_index < NB_CAL_BINS) {
@@ -481,6 +581,7 @@ void leyden_jar_calibrate(void) {
             start_offset += bin_size_array[bin_size_index];
             bin_size_index++;
         }
+#endif
     }
 
     size_t first_elem_offset = 0;
@@ -488,7 +589,7 @@ void leyden_jar_calibrate(void) {
         size_t last_elem_offset = first_elem_offset + bin_size_array[bin_number] - 1;
 
         int16_t offset = leyden_jar_calibration_offset(bin_number);
-        uint16_t reference = s_sorted_levels[first_elem_offset + (last_elem_offset + 1 - first_elem_offset) / 2].level;
+        uint16_t reference = leyden_jar_bin_reference(bin_number, first_elem_offset, last_elem_offset);
         int32_t trigger = (int32_t)reference + offset;
         if (trigger < 0 || trigger > 1023 ||
             (leyden_jar_is_beamspring() ? offset >= 0 : offset <= 0)) {
@@ -566,7 +667,17 @@ bool leyden_jar_get_column_bin_map(uint16_t col_index, uint8_t* bin_map_ptr, uin
 }
 
 bool leyden_jar_set_detect_levels() {
+#ifdef LEYDEN_JAR_RANGE_CALIBRATION
+    if (!s_calibration_ready || s_live_level_capture) {
+        return false;
+    }
+    s_live_level_capture = true;
+    bool result = leyden_jar_detect_levels();
+    s_live_level_capture = false;
+    return result;
+#else
     return leyden_jar_detect_levels();
+#endif
 }
 
 bool leyden_jar_get_column_levels(uint16_t col_index, uint16_t* level_buffer_ptr, uint16_t level_buffer_size) {

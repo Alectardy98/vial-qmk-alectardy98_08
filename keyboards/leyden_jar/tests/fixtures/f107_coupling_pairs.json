@@ -1,0 +1,1028 @@
+{
+  "description": "2026-11-23 separate held-key native DAC captures for KP8/KP9 and 3/R. Controller coordinates; last-active DAC counts, 499 clipped. Tests overlay each measured pair on released boot fixtures to isolate coupling. Host-only tests reproduced KP9 triggering KP8 on three presses and a 22 ms R event during a 3 press.",
+  "cases": [
+    {
+      "time_seconds": 16.7759,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 446
+      }
+    },
+    {
+      "time_seconds": 16.9771,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 434
+      }
+    },
+    {
+      "time_seconds": 17.18,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 433
+      }
+    },
+    {
+      "time_seconds": 17.3841,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 432
+      }
+    },
+    {
+      "time_seconds": 17.5852,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 433
+      }
+    },
+    {
+      "time_seconds": 17.7871,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 434
+      }
+    },
+    {
+      "time_seconds": 17.9881,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 432
+      }
+    },
+    {
+      "time_seconds": 18.1902,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 431
+      }
+    },
+    {
+      "time_seconds": 18.3933,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 430
+      }
+    },
+    {
+      "time_seconds": 18.595,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 433
+      }
+    },
+    {
+      "time_seconds": 18.7969,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 431
+      }
+    },
+    {
+      "time_seconds": 18.9982,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 499,
+        "6,13": 432
+      }
+    },
+    {
+      "time_seconds": 19.201,
+      "held_controller": [
+        5,
+        13
+      ],
+      "levels": {
+        "5,13": 490,
+        "6,13": 434
+      }
+    },
+    {
+      "time_seconds": 20.6149,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 437,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 20.816,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 438,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 21.0171,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 445,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 21.2191,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 435,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 21.4213,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 435,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 21.623,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 434,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 21.824,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 443,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 22.0251,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 437,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 22.2261,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 445,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 22.4272,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 443,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 22.6303,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 440,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 22.832,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 446,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 23.0332,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 436,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 23.2354,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 435,
+        "6,13": 499
+      }
+    },
+    {
+      "time_seconds": 23.4383,
+      "held_controller": [
+        6,
+        13
+      ],
+      "levels": {
+        "5,13": 440,
+        "6,13": 488
+      }
+    },
+    {
+      "time_seconds": 68.9318,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 416,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 69.1328,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 431,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 69.3351,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 69.5368,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 69.7428,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 69.9451,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 70.1467,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 432,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 70.349,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 432,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 70.5498,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 70.753,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 70.955,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 433,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 71.1568,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 440,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 71.3591,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 428,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 71.5608,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 436,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 71.7618,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 434,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 71.9631,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 431,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 72.1659,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 432,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 72.3678,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 72.569,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 72.7718,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 72.9729,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 433,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 73.1848,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 428,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 73.387,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 73.5888,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 73.8,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 432,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 74.006,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 438,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 74.2162,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 440,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 74.4199,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 431,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 74.6209,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 74.8312,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 429,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 75.0449,
+      "held_controller": [
+        6,
+        4
+      ],
+      "levels": {
+        "5,4": 430,
+        "6,4": 499
+      }
+    },
+    {
+      "time_seconds": 76.2631,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 76.4639,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 76.665,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 76.8679,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 431
+      }
+    },
+    {
+      "time_seconds": 77.071,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 77.273,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 77.475,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 77.6772,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 432
+      }
+    },
+    {
+      "time_seconds": 77.881,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 428
+      }
+    },
+    {
+      "time_seconds": 78.0831,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 432
+      }
+    },
+    {
+      "time_seconds": 78.2872,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 430
+      }
+    },
+    {
+      "time_seconds": 78.4889,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 78.6901,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 425
+      }
+    },
+    {
+      "time_seconds": 78.8921,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 79.0939,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 79.2961,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 428
+      }
+    },
+    {
+      "time_seconds": 79.4979,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 79.7003,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 424
+      }
+    },
+    {
+      "time_seconds": 80.9182,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 81.1201,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 430
+      }
+    },
+    {
+      "time_seconds": 81.3243,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 428
+      }
+    },
+    {
+      "time_seconds": 81.5261,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 81.7273,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 81.9292,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 429
+      }
+    },
+    {
+      "time_seconds": 82.1323,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 82.3353,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 433
+      }
+    },
+    {
+      "time_seconds": 82.5369,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 82.7383,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 82.9423,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 428
+      }
+    },
+    {
+      "time_seconds": 83.1473,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 427
+      }
+    },
+    {
+      "time_seconds": 83.35,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 83.551,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 433
+      }
+    },
+    {
+      "time_seconds": 83.7531,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 499,
+        "6,4": 426
+      }
+    },
+    {
+      "time_seconds": 83.9551,
+      "held_controller": [
+        5,
+        4
+      ],
+      "levels": {
+        "5,4": 471,
+        "6,4": 430
+      }
+    }
+  ]
+}
